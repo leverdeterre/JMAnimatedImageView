@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JMAnimatedImageView.h"
 
 @interface JMViewController : UIViewController
 
+@property (assign, nonatomic) JMAnimatedImageViewAnimationType animationType;
+@property (assign, nonatomic) JMAnimatedImageViewMemoryOption memoryManagementOption;
+@property (assign, nonatomic) BOOL useJMImageView;
+@property (assign, nonatomic) JMAnimatedImageViewOrder order;
 @end

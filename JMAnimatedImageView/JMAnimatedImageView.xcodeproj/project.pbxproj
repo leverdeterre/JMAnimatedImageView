@@ -97,6 +97,8 @@
 		C2B753F7199E88A9004BB1C3 /* JMAnimatedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C2B753F0199E88A9004BB1C3 /* JMAnimatedImageView.m */; };
 		C2B753F8199E88A9004BB1C3 /* JMAnimationOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C2B753F2199E88A9004BB1C3 /* JMAnimationOperation.m */; };
 		C2B753F9199E88A9004BB1C3 /* UIImage+JM.m in Sources */ = {isa = PBXBuildFile; fileRef = C2B753F6199E88A9004BB1C3 /* UIImage+JM.m */; };
+		C2B753FC199E8AFE004BB1C3 /* JMTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2B753FB199E8AFE004BB1C3 /* JMTableViewController.m */; };
+		C2B753FF199E8B81004BB1C3 /* JMTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2B753FE199E8B81004BB1C3 /* JMTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -210,6 +212,10 @@
 		C2B753F4199E88A9004BB1C3 /* JMOImageViewAnimationDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JMOImageViewAnimationDelegate.h; sourceTree = "<group>"; };
 		C2B753F5199E88A9004BB1C3 /* UIImage+JM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+JM.h"; sourceTree = "<group>"; };
 		C2B753F6199E88A9004BB1C3 /* UIImage+JM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+JM.m"; sourceTree = "<group>"; };
+		C2B753FA199E8AFE004BB1C3 /* JMTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JMTableViewController.h; sourceTree = "<group>"; };
+		C2B753FB199E8AFE004BB1C3 /* JMTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JMTableViewController.m; sourceTree = "<group>"; };
+		C2B753FD199E8B81004BB1C3 /* JMTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JMTableViewCell.h; sourceTree = "<group>"; };
+		C2B753FE199E8B81004BB1C3 /* JMTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JMTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -275,6 +281,10 @@
 				C2B75338199E8802004BB1C3 /* Main.storyboard */,
 				C2B7533B199E8802004BB1C3 /* JMViewController.h */,
 				C2B7533C199E8802004BB1C3 /* JMViewController.m */,
+				C2B753FA199E8AFE004BB1C3 /* JMTableViewController.h */,
+				C2B753FB199E8AFE004BB1C3 /* JMTableViewController.m */,
+				C2B753FD199E8B81004BB1C3 /* JMTableViewCell.h */,
+				C2B753FE199E8B81004BB1C3 /* JMTableViewCell.m */,
 				C2B7533E199E8802004BB1C3 /* Images.xcassets */,
 				C2B7532D199E8802004BB1C3 /* Supporting Files */,
 			);
@@ -583,6 +593,8 @@
 				C2B7533D199E8802004BB1C3 /* JMViewController.m in Sources */,
 				C2B753F8199E88A9004BB1C3 /* JMAnimationOperation.m in Sources */,
 				C2B753F9199E88A9004BB1C3 /* UIImage+JM.m in Sources */,
+				C2B753FC199E8AFE004BB1C3 /* JMTableViewController.m in Sources */,
+				C2B753FF199E8B81004BB1C3 /* JMTableViewCell.m in Sources */,
 				C2B75337199E8802004BB1C3 /* JMAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

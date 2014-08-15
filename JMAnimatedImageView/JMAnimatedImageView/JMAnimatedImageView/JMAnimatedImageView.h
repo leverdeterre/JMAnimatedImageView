@@ -23,12 +23,19 @@ typedef NS_ENUM(NSUInteger, JMAnimatedImageViewMemoryOption) {
     JMAnimatedImageViewMemoryLoadImageLowMemoryUsage
 };
 
+typedef NS_ENUM(NSUInteger, JMAnimatedImageViewOrder) {
+    JMAnimatedImageViewOrderNone = 0,
+    JMAnimatedImageViewOrderNormal = 1,
+    JMAnimatedImageViewOrderReverse = -1
+};
+
 @interface JMAnimatedImageView : UIImageView
 
 @property (weak, nonatomic) IBOutlet id <JMOImageViewAnimationDatasource> animationDatasource;
 @property (weak, nonatomic) IBOutlet id <JMOImageViewAnimationDelegate> animationDelegate;
 @property (assign, nonatomic) JMAnimatedImageViewAnimationType animationType;
 @property (assign, nonatomic) JMAnimatedImageViewMemoryOption memoryManagementOption;
+@property (assign, nonatomic) JMAnimatedImageViewOrder imageOrder;
 
 - (void)reloadAnimationImages;
 

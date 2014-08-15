@@ -50,11 +50,13 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
 
 - (void)setup
 {
+    self.userInteractionEnabled = YES;
     _memoryManagementOption = JMAnimatedImageViewMemoryLoadImageSystemCache;
     _animationType = JMAnimatedImageViewAnimationTypeManualRealTime;
     _animationQueue = [NSOperationQueue new];
     _animationQueue.maxConcurrentOperationCount = 1;
     _animationManagementQueue = dispatch_queue_create("com.animationManagement.queue", NULL);
+    _imageOrder = JMAnimatedImageViewOrderNormal;
 }
 
 #pragma mark - overided setter
@@ -125,12 +127,12 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
     NSInteger pointUnity = self.frame.size.width / [self.animationDatasource numberOfImagesForAnimatedImageView:self];
     
     //Compute inerty using velocity
-    NSInteger shift = abs(velocity.x) / (16 * [UIScreen mainScreen].scale * pointUnity);
+    NSInteger shift = abs(velocity.x) / (8 * [UIScreen mainScreen].scale * pointUnity);
     
     if(velocity.x > 0) {
-        [self setCurrentCardImageAtindex:index+shift];
+        [self setCurrentCardImageAtindex:index+(_imageOrder) * shift];
     } else {
-        [self setCurrentCardImageAtindex:index-shift];
+        [self setCurrentCardImageAtindex:index-(_imageOrder) * shift];
     }
     
     /*
@@ -169,7 +171,7 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
         NSInteger realIndex = [self realIndexForComputedIndex:index];
         
         NSString *imageName = [self.animationDatasource imageNameAtIndex:realIndex forAnimatedImageView:self];
-        self.image = [UIImage jm_imageNamed:imageName];
+        self.image = [UIImage jm_imageNamed:imageName withOption:self.memoryManagementOption];
         self.currentIndex = realIndex;
 }
 
