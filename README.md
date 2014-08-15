@@ -15,14 +15,15 @@ typedef NS_ENUM(NSUInteger, JMAnimatedImageViewAnimationType) {
 };
 ```
 
-
-
+* MemoryOption
 ```objc
 typedef NS_ENUM(NSUInteger, JMAnimatedImageViewMemoryOption) {
     JMAnimatedImageViewMemoryLoadImageSystemCache = 0,  //images memory will be retain by system
     JMAnimatedImageViewMemoryLoadImageLowMemoryUsage
 };
 ```
+
+* ImageViewOrder
 
 ```objc
 typedef NS_ENUM(NSUInteger, JMAnimatedImageViewOrder) {
