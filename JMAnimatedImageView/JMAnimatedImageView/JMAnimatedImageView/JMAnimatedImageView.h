@@ -14,8 +14,9 @@
 typedef NS_ENUM(NSUInteger, JMAnimatedImageViewAnimationType) {
     JMAnimatedImageViewAnimationTypeManualRealTime = 0,
     JMAnimatedImageViewAnimationTypeManualSwipe,
-    JMAnimatedImageViewAnimationTypeAutomaticLinear,  //use animationDuration + animationRepeatCount
-    JMAnimatedImageViewAnimationTypeAutomaticReverse,  //use animationDuration + animationRepeatCount
+    JMAnimatedImageViewAnimationTypeAutomaticLinear,                    //use animationDuration + animationRepeatCount
+    JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutAnimation,    //use animationDuration + animationRepeatCount
+    JMAnimatedImageViewAnimationTypeAutomaticReverse,                   //use animationDuration + animationRepeatCount
 };
 
 typedef NS_ENUM(NSUInteger, JMAnimatedImageViewMemoryOption) {
@@ -39,5 +40,6 @@ typedef NS_ENUM(NSUInteger, JMAnimatedImageViewOrder) {
 @property (assign, nonatomic) JMAnimatedImageViewOrder imageOrder;
 
 - (void)reloadAnimationImages;
+- (void)setCurrentIndex:(NSInteger)index animated:(BOOL)animated;
 
 @end

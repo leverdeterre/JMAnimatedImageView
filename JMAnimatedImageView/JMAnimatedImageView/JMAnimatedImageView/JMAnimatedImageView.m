@@ -69,6 +69,15 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
     [self addGesturesForAnimationType:_animationType];
 }
 
+- (BOOL)checkLifeCycleSanity
+{
+    if (self.superview) {
+        return YES;
+    }
+    
+    return NO;
+}
+
 #pragma mark - overided setter
 
 - (void)setAnimationType:(JMAnimatedImageViewAnimationType)animationType
@@ -114,6 +123,7 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
             break;
            
         case JMAnimatedImageViewAnimationTypeAutomaticLinear:
+        case JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutAnimation:
             break;
          
         case JMAnimatedImageViewAnimationTypeAutomaticReverse:
@@ -138,7 +148,7 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
         UIImage *img = 0;
         if(velocity.x > 0) {
             NSString *imgName = [self.animationDatasource imageNameAtIndex:[self realIndexForComputedIndex:self.currentIndex+1] forAnimatedImageView:self];
-            img = [UIImage jm_imageNamed:imgName];
+            img = [UIImage jm_imageNamed:imgName withOption:JMAnimatedImageViewMemoryLoadImageLowMemoryUsage];
             CGRect frame = self.tempSwapedImageView.frame;
             frame.origin.x = -CGRectGetWidth(frame);
             self.tempSwapedImageView.frame = frame;
@@ -351,7 +361,8 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
                         [self setCurrentCardImageAtindex:index];
                     });
                 } completion:^(BOOL finished) {
-                    if (self.animationType == JMAnimatedImageViewAnimationTypeAutomaticLinear && [self operationQueueIsFinished] == YES) {
+                    if ((self.animationType == JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutAnimation) &&
+                        [self operationQueueIsFinished] == YES) {
                         [self continueAnimating];
                     }
                 }];
@@ -363,22 +374,74 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
     });
 }
 
+- (void)changeImageToIndex:(NSInteger)index withTimeInterval:(NSTimeInterval)duration repeat:(BOOL)repeat
+{
+    if ([self checkLifeCycleSanity] == NO) {
+        return;
+    }
+    
+    //animation changement
+    self.tempSwapedImageView = [[UIImageView alloc] initWithFrame:self.bounds];
+    self.tempSwapedImageView.contentMode = self.contentMode;
+    NSString *imgName = [self.animationDatasource imageNameAtIndex:[self realIndexForComputedIndex:index] forAnimatedImageView:self];
+    self.tempSwapedImageView.image = [UIImage jm_imageNamed:imgName withOption:JMAnimatedImageViewMemoryLoadImageLowMemoryUsage];
+    CGRect frame = self.tempSwapedImageView.frame;
+    frame.origin.x = CGRectGetWidth(frame);
+    self.tempSwapedImageView.frame = frame;
+    
+    //add shadow
+    self.tempSwapedImageView.layer.shadowColor = [[UIColor blackColor] CGColor];
+    self.tempSwapedImageView.layer.shadowOffset = CGSizeMake(0.0f,0.0f);
+    self.tempSwapedImageView.layer.shadowOpacity = 0.7f;
+    self.tempSwapedImageView.layer.shadowRadius = 10.0f;
+    CGRect shadowRect = CGRectInset(self.tempSwapedImageView.bounds, 0, 4);  // inset top/bottom
+    self.tempSwapedImageView.layer.shadowPath = [[UIBezierPath bezierPathWithRect:shadowRect] CGPath];
+    [self addSubview:self.tempSwapedImageView];
+    
+    [UIView animateWithDuration:duration animations:^{
+        CGRect frame = self.tempSwapedImageView.frame;
+        frame.origin.x = 0.0f;
+        self.tempSwapedImageView.frame = frame;
+    } completion:^(BOOL finished) {
+        [self.tempSwapedImageView removeFromSuperview];
+        [self setCurrentCardImageAtindex:[self realIndexForComputedIndex:index]];
+        if (repeat) {
+            [self changeImageToIndex:(self.currentIndex+1) withTimeInterval:duration repeat:repeat];
+        }
+    }];
+}
+
 #pragma mark - Manage images automatic animation
+
+- (void)setCurrentIndex:(NSInteger)index animated:(BOOL)animated
+{
+    [self changeImageToIndex:index withTimeInterval:0.25 repeat:NO];
+}
 
 - (void)startAnimating
 {
-    NSLog(@"%s",__FUNCTION__);
+    if ([self checkLifeCycleSanity] == NO) {
+        return;
+    }
+    
     [self setCurrentCardImageAtindex:0];
-    [self moveCurrentCardImageFromIndex:0
-                                  shift:[self.animationDatasource
-                                         numberOfImagesForAnimatedImageView:self]
-                           withDuration:self.animationDuration
-                        animationOption:UIImageViewAnimationOptionLinear];
+    if (self.animationType == JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutAnimation) {
+        [self moveCurrentCardImageFromIndex:0
+                                      shift:[self.animationDatasource
+                                             numberOfImagesForAnimatedImageView:self]
+                               withDuration:self.animationDuration
+                            animationOption:UIImageViewAnimationOptionLinear];
+    } else if (self.animationType == JMAnimatedImageViewAnimationTypeAutomaticLinear) {
+        [self changeImageToIndex:(self.currentIndex + 1) withTimeInterval:self.animationDuration repeat:YES];
+    }
 }
 
 - (void)continueAnimating
 {
-    NSLog(@"%s",__FUNCTION__);
+    if ([self checkLifeCycleSanity] == NO) {
+        return;
+    }
+    
     if ([self operationQueueIsFinished] == NO) {
         return;
     }

@@ -50,9 +50,13 @@
         self.carImageView.imageOrder = self.order;
         [self.carImageView reloadAnimationImages];
         
-        if (self.animationType == JMAnimatedImageViewAnimationTypeAutomaticLinear) {
+        if (self.animationType == JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutAnimation) {
             self.carImageView.animationRepeatCount = 0;
-            self.carImageView.animationDuration = 5.0;
+            self.carImageView.animationDuration = 5.0; //GLOBAL TIME
+            [self.carImageView startAnimating];
+        } else if (self.animationType == JMAnimatedImageViewAnimationTypeAutomaticLinear) {
+            self.carImageView.animationRepeatCount = 0;
+            self.carImageView.animationDuration = 2.0; //ONE TRANSITION TIME
             [self.carImageView startAnimating];
         }
     }
