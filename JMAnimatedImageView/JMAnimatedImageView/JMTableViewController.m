@@ -39,7 +39,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 5;
+    return 6;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -58,10 +58,14 @@
         cell.jmDetailsLabel.text = @"More CPU time to load / reload images but less memory used.";
         
     } else if (indexPath.row == 3) {
+        cell.jmLabel.text = @"AUTOMATIC ANIMATION : using JMAnimatedImageView with transition";
+        cell.jmDetailsLabel.text = @"More CPU time to load / reload images but less memory used.";
+        
+    } else if (indexPath.row == 4) {
         cell.jmLabel.text = @"REALTIME ANIMATION : using JMAnimatedImageView (Low memory usage)";
         cell.jmDetailsLabel.text = @"Swipe left / Right to manage the animation.";
         
-    } else if (indexPath.row == 4) {
+    } else if (indexPath.row == 5) {
         cell.jmLabel.text = @"SIMPLE CAROUSEL : using JMAnimatedImageView (Low memory usage)";
         cell.jmDetailsLabel.text = @"Swipe left / Right";
     }
@@ -85,11 +89,17 @@
         vc.memoryManagementOption = JMAnimatedImageViewMemoryLoadImageLowMemoryUsage;
         vc.useJMImageView = YES;
     } else if (indexPath.row == 3) {
+        vc.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinear;
+        vc.memoryManagementOption = JMAnimatedImageViewMemoryLoadImageLowMemoryUsage;
+        vc.useJMImageView = YES;
+        
+    } else if (indexPath.row == 4) {
         vc.animationType = JMAnimatedImageViewAnimationTypeManualRealTime;
         vc.memoryManagementOption = JMAnimatedImageViewMemoryLoadImageLowMemoryUsage;
         vc.order = JMAnimatedImageViewOrderReverse;
         vc.useJMImageView = YES;
-    } else if (indexPath.row == 4) {
+        
+    } else if (indexPath.row == 5) {
         vc.animationType = JMAnimatedImageViewAnimationTypeManualSwipe;
         vc.memoryManagementOption = JMAnimatedImageViewMemoryLoadImageSystemCache;
         vc.order = JMAnimatedImageViewOrderReverse;
