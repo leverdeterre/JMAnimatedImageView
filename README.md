@@ -8,17 +8,25 @@ Some parameters :
 * AnimationType
 ```objc
 typedef NS_ENUM(NSUInteger, JMAnimatedImageViewAnimationType) {
-    JMAnimatedImageViewAnimationTypeManualRealTime = 0, //Animation is done by a Pan gesture
-    JMAnimatedImageViewAnimationTypeManualSwipe,        //Animation, carousel effect
-    JMAnimatedImageViewAnimationTypeAutomaticLinear,    //Automatic rotation, use animationDuration + animationRepeatCount
-    JMAnimatedImageViewAnimationTypeAutomaticReverse,   //Automatic rotation, use animationDuration + animationRepeatCount
+    //Animation is done by a Pan gesture
+    JMAnimatedImageViewAnimationTypeManualRealTime = 0,
+    
+    //Animation, carousel effect
+    JMAnimatedImageViewAnimationTypeManualSwipe, 
+    
+    //Automatic rotation, use animationDuration + animationRepeatCount
+    JMAnimatedImageViewAnimationTypeAutomaticLinear,    
+    JMAnimatedImageViewAnimationTypeAutomaticReverse,
 };
 ```
 
 * MemoryOption
 ```objc
 typedef NS_ENUM(NSUInteger, JMAnimatedImageViewMemoryOption) {
-    JMAnimatedImageViewMemoryLoadImageSystemCache = 0,  //images memory will be retain by system
+    //images memory will be retain by system
+    JMAnimatedImageViewMemoryLoadImageSystemCache = 0, 
+    
+    //image load in live
     JMAnimatedImageViewMemoryLoadImageLowMemoryUsage
 };
 ```
