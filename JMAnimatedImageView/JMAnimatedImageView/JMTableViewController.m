@@ -39,7 +39,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 4;
+    return 5;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -59,6 +59,10 @@
         
     } else if (indexPath.row == 3) {
         cell.jmLabel.text = @"JMAnimatedImageView with gestured animation (Low memory usage)";
+        cell.jmDetailsLabel.text = @"Swipe left / Right";
+        
+    } else if (indexPath.row == 4) {
+        cell.jmLabel.text = @"JMAnimatedImageView with gestured carousel (Low memory usage)";
         cell.jmDetailsLabel.text = @"Swipe left / Right";
     }
     
@@ -83,6 +87,11 @@
     } else if (indexPath.row == 3) {
         vc.animationType = JMAnimatedImageViewAnimationTypeManualRealTime;
         vc.memoryManagementOption = JMAnimatedImageViewMemoryLoadImageLowMemoryUsage;
+        vc.order = JMAnimatedImageViewOrderReverse;
+        vc.useJMImageView = YES;
+    } else if (indexPath.row == 4) {
+        vc.animationType = JMAnimatedImageViewAnimationTypeManualSwipe;
+        vc.memoryManagementOption = JMAnimatedImageViewMemoryLoadImageSystemCache;
         vc.order = JMAnimatedImageViewOrderReverse;
         vc.useJMImageView = YES;
     }

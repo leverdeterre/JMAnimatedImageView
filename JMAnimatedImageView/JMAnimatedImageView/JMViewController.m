@@ -39,6 +39,10 @@
         self.imageView.hidden = YES;
         self.carImageView.hidden = NO;
         
+        if (self.animationType == JMAnimatedImageViewAnimationTypeManualSwipe) {
+            self.carImageView.contentMode = UIViewContentModeCenter; //photos a not well sized
+        }
+        
         self.carImageView.animationDelegate = self;
         self.carImageView.animationDatasource = self;
         self.carImageView.animationType = self.animationType;
@@ -58,16 +62,27 @@
 
 - (NSInteger)numberOfImagesForAnimatedImageView:(UIImageView *)imageView
 {
+    if (self.animationType == JMAnimatedImageViewAnimationTypeManualSwipe) {
+        return 11;
+    }
     return 70;
 }
 
 - (NSString *)imageNameAtIndex:(NSInteger)index forAnimatedImageView:(UIImageView *)imageView
 {
+    if (self.animationType == JMAnimatedImageViewAnimationTypeManualSwipe) {
+        return [NSString stringWithFormat:@"%d_verge_super_wide.jpg",(int)index];
+    }
+    
     return [NSString stringWithFormat:@"zoom_1920_%d.jpg",(int)index];
 }
 
 - (NSInteger)firstIndexForAnimatedImageView:(UIImageView *)imageView
 {
+    if (self.animationType == JMAnimatedImageViewAnimationTypeManualSwipe) {
+        return 0;
+    }
+    
     return 0;
 }
 

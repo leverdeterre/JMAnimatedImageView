@@ -24,6 +24,8 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
 @property (nonatomic, strong) UITapGestureRecognizer *tapGesture;
 
 @property (nonatomic, strong) dispatch_queue_t animationManagementQueue;
+@property (nonatomic, strong) UIImageView *tempSwapedImageView;
+
 @end
 
 @implementation JMAnimatedImageView
@@ -57,6 +59,14 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
     _animationQueue.maxConcurrentOperationCount = 1;
     _animationManagementQueue = dispatch_queue_create("com.animationManagement.queue", NULL);
     _imageOrder = JMAnimatedImageViewOrderNormal;
+    self.clipsToBounds = YES;
+}
+
+- (void)reloadAnimationImages
+{
+    //Load the 1st
+    [self setCurrentCardImageAtindex:0];
+    [self addGesturesForAnimationType:_animationType];
 }
 
 #pragma mark - overided setter
@@ -67,14 +77,7 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
     [self addGesturesForAnimationType:animationType];
 }
 
-#pragma mark -
-
-- (void)reloadAnimationImages
-{
-    //Load the 1st
-    [self setCurrentCardImageAtindex:0];
-    [self addGesturesForAnimationType:_animationType];
-}
+#pragma mark - Gesture management
 
 - (void)addGesturesForAnimationType:(JMAnimatedImageViewAnimationType)animationType
 {
@@ -114,10 +117,101 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
     [self cancelAnimations];
 }
 
+- (void)imageViewTouchedWithFollowingPanGesture:(UIPanGestureRecognizer *)gestureRecognizer
+{
+    CGPoint velocity = [gestureRecognizer velocityInView:self];
+    NSInteger index = [self currentIndex];
+    NSLog(@"velocity %@",NSStringFromCGPoint(velocity));
+    
+    if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
+        self.tempSwapedImageView = [[UIImageView alloc] initWithFrame:self.bounds];
+        UIImage *img = 0;
+        if(velocity.x > 0) {
+            NSString *imgName = [self.animationDatasource imageNameAtIndex:[self realIndexForComputedIndex:self.currentIndex+1] forAnimatedImageView:self];
+            img = [UIImage jm_imageNamed:imgName];
+            CGRect frame = self.tempSwapedImageView.frame;
+            frame.origin.x = -CGRectGetWidth(frame);
+            self.tempSwapedImageView.frame = frame;
+        } else {
+            NSString *imgName = [self.animationDatasource imageNameAtIndex:[self realIndexForComputedIndex:self.currentIndex-1] forAnimatedImageView:self];
+            img = [UIImage jm_imageNamed:imgName];
+            CGRect frame = self.tempSwapedImageView.frame;
+            frame.origin.x = CGRectGetWidth(frame);
+            self.tempSwapedImageView.frame = frame;
+        }
+        
+        self.tempSwapedImageView.image = img;
+        self.tempSwapedImageView.contentMode = self.contentMode;
+        
+        //add shadow
+        self.tempSwapedImageView.layer.shadowColor = [[UIColor blackColor] CGColor];
+        self.tempSwapedImageView.layer.shadowOffset = CGSizeMake(0.0f,0.0f);
+        self.tempSwapedImageView.layer.shadowOpacity = 0.7f;
+        self.tempSwapedImageView.layer.shadowRadius = 10.0f;
+        CGRect shadowRect = CGRectInset(self.tempSwapedImageView.bounds, 0, 4);  // inset top/bottom
+        self.tempSwapedImageView.layer.shadowPath = [[UIBezierPath bezierPathWithRect:shadowRect] CGPath];
+        [self addSubview:self.tempSwapedImageView];
+        
+    } else if (gestureRecognizer.state == UIGestureRecognizerStateChanged) {
+        if(velocity.x > 0) {
+            CGRect frame = self.tempSwapedImageView.frame;
+            frame.origin.x = -CGRectGetWidth(frame) + [gestureRecognizer translationInView:self].x;
+            self.tempSwapedImageView.frame = frame;
+        } else {
+            CGRect frame = self.tempSwapedImageView.frame;
+            frame.origin.x = CGRectGetWidth(frame) + [gestureRecognizer translationInView:self].x;
+            self.tempSwapedImageView.frame = frame;
+        }
+        
+    } else {
+        self.userInteractionEnabled = NO;
+
+        //Compute if we need to finish the swip
+        CGRect inter =  CGRectIntersection(self.bounds, self.tempSwapedImageView.frame);
+        BOOL finishSwipeEvent;
+        if ((inter.size.width * inter.size.height) > (0.3 * self.bounds.size.height * self.bounds.size.width)) {
+            finishSwipeEvent = YES;
+        }
+
+        [UIView animateWithDuration:0.25 animations:^{
+            if (finishSwipeEvent) {
+                CGRect frame = self.tempSwapedImageView.frame;
+                frame.origin.x = 0;
+                self.tempSwapedImageView.frame = frame;
+            } else {
+                if (self.tempSwapedImageView.frame.origin.x > 0) {
+                    CGRect frame = self.tempSwapedImageView.frame;
+                    frame.origin.x = self.bounds.size.width;
+                    self.tempSwapedImageView.frame = frame;
+                } else {
+                    CGRect frame = self.tempSwapedImageView.frame;
+                    frame.origin.x = -self.bounds.size.width;
+                    self.tempSwapedImageView.frame = frame;
+                }
+            }
+        } completion:^(BOOL finished) {
+            [self.tempSwapedImageView removeFromSuperview];
+            self.userInteractionEnabled = YES;
+            if (finishSwipeEvent) {
+                if (velocity.x > 0) {
+                    [self setCurrentCardImageAtindex:[self realIndexForComputedIndex:self.currentIndex+1]];
+                } else {
+                    [self setCurrentCardImageAtindex:[self realIndexForComputedIndex:self.currentIndex-1]];
+                }
+            }
+        }];
+    }
+}
+
 - (void)imageViewTouchedWithPanGesture:(UIPanGestureRecognizer *)gestureRecognizer
 {
     NSLog(@"%s",__FUNCTION__);
     [self cancelAnimations];
+    
+    if (self.animationType == JMAnimatedImageViewAnimationTypeManualSwipe) {
+        [self imageViewTouchedWithFollowingPanGesture:gestureRecognizer];
+        return;
+    }
     
     CGPoint velocity = [gestureRecognizer velocityInView:self];
     NSInteger index = [self currentIndex];
@@ -136,23 +230,23 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
     }
     
     /*
-    if(abs(velocity.x) > 100 && (
-                                 gestureRecognizer.state == UIGestureRecognizerStateEnded ||
-                                 gestureRecognizer.state == UIGestureRecognizerStateCancelled))
-    {
-        //compute point unity
-        NSInteger pointUnity = self.frame.size.width / [self.animationDatasource numberOfImagesForAnimatedImageView:self];
-        
-        //Compute inerty using velocity
-        NSInteger shift = abs(velocity.x) / ([UIScreen mainScreen].scale * pointUnity);
-        if(velocity.x > 0) {
-            [self moveCurrentCardImageFromIndex:index+1 shift:shift withDuration:3.0];
-            NSLog(@"gesture inerty went right");
-        } else {
-            [self moveCurrentCardImageFromIndex:index-1 shift:-shift withDuration:3.0];
-            NSLog(@"gesture inerty went left");
-        }
-    }
+     if(abs(velocity.x) > 100 && (
+     gestureRecognizer.state == UIGestureRecognizerStateEnded ||
+     gestureRecognizer.state == UIGestureRecognizerStateCancelled))
+     {
+     //compute point unity
+     NSInteger pointUnity = self.frame.size.width / [self.animationDatasource numberOfImagesForAnimatedImageView:self];
+     
+     //Compute inerty using velocity
+     NSInteger shift = abs(velocity.x) / ([UIScreen mainScreen].scale * pointUnity);
+     if(velocity.x > 0) {
+     [self moveCurrentCardImageFromIndex:index+1 shift:shift withDuration:3.0];
+     NSLog(@"gesture inerty went right");
+     } else {
+     [self moveCurrentCardImageFromIndex:index-1 shift:-shift withDuration:3.0];
+     NSLog(@"gesture inerty went left");
+     }
+     }
      */
 }
 
@@ -250,7 +344,7 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
     }
 }
 
-#pragma mark - Manage Automatic 
+#pragma mark - Manage images automatic animation
 
 - (void)startAnimating
 {
