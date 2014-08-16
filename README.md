@@ -32,3 +32,8 @@ typedef NS_ENUM(NSUInteger, JMAnimatedImageViewOrder) {
     JMAnimatedImageViewOrderReverse = -1
 };
 ```
+
+![Image](./Screens/JMimageViewCarousel.gif "Carousel Demo")
+
+![Image](./Screens/JMImageViewRotation.gif "Rotation Demo")
+
