@@ -26,8 +26,11 @@ typedef NS_ENUM(NSUInteger, JMAnimatedImageViewMemoryOption) {
     //images memory will be retain by system
     JMAnimatedImageViewMemoryLoadImageSystemCache = 0, 
     
-    //image load in live
-    JMAnimatedImageViewMemoryLoadImageLowMemoryUsage
+    //image are loaded in live
+    JMAnimatedImageViewMemoryLoadImageLowMemoryUsage,
+    
+    //you load your images
+    JMAnimatedImageViewMemoryLoadImageCustom
 };
 ```
 
