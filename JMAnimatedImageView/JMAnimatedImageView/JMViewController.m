@@ -56,6 +56,33 @@
             [self.carImageView startAnimating];
         }
     }
+    
+    [self updateTitle];
+}
+
+- (void)updateTitle
+{
+    if (self.useJMImageView == NO) {
+        self.title = @"using UIImageView class";
+    } else {
+        if (self.animationType == JMAnimatedImageViewAnimationTypeManualSwipe) {
+            self.title = @"using JMImageView class has a simple carousel";
+        } else if (self.animationType == JMAnimatedImageViewAnimationTypeManualRealTime) {
+            if (self.memoryManagementOption == JMAnimatedImageViewMemoryLoadImageSystemCache) {
+                self.title = @"using JMImageView class to animate in real time (500Mo ...)";
+            } else {
+                self.title = @"using JMImageView class to animate in real time (30Mo ^_^)";
+            }
+            
+        } else if (self.animationType == JMAnimatedImageViewAnimationTypeAutomaticLinear) {
+            if (self.memoryManagementOption == JMAnimatedImageViewMemoryLoadImageSystemCache) {
+                self.title = @"using JMImageView class for automatic animation (500Mo ...)";
+            } else {
+                self.title = @"using JMImageView class for automatic animation (30Mo ^_^)";
+            }
+            
+        }
+    }
 }
 
 #pragma mark - JMOImageViewAnimationDatasource

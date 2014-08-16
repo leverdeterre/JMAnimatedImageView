@@ -19,13 +19,13 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
 @property (nonatomic, assign) NSInteger currentIndex;
 @property (nonatomic, assign) NSInteger operationInQueue;
 @property (nonatomic, strong) NSOperationQueue *animationQueue;
-
 @property (nonatomic, strong) UIPanGestureRecognizer *panGesture;
 @property (nonatomic, strong) UITapGestureRecognizer *tapGesture;
-
 @property (nonatomic, strong) dispatch_queue_t animationManagementQueue;
-@property (nonatomic, strong) UIImageView *tempSwapedImageView;
 
+//Specific to animation type JMAnimatedImageViewAnimationTypeManualSwipe
+@property (nonatomic, strong) UIImageView *tempSwapedImageView;
+@property (nonatomic, strong) UIPageControl *pageControl;
 @end
 
 @implementation JMAnimatedImageView
@@ -87,6 +87,18 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
                 self.panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(imageViewTouched:)];
                 [self addGestureRecognizer:self.panGesture];
             }
+            if (nil == self.pageControl) {
+                //Max size 30% of the width
+                CGRect pageControlFrame = CGRectMake(
+                                                     0.5 * (CGRectGetWidth(self.frame) - (CGRectGetWidth(self.frame) * 0.3)),
+                                                     CGRectGetHeight(self.frame) - 30.0f,
+                                                     CGRectGetWidth(self.frame) * 0.3,
+                                                     30.0f);
+                self.pageControl = [[UIPageControl alloc] initWithFrame:pageControlFrame];
+                self.pageControl.numberOfPages = [self.animationDatasource numberOfImagesForAnimatedImageView:self];
+                self.pageControl.currentPage = 0;
+                [self addSubview:self.pageControl];
+            }
             break;
           
         case JMAnimatedImageViewAnimationTypeManualRealTime:
@@ -120,8 +132,6 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
 - (void)imageViewTouchedWithFollowingPanGesture:(UIPanGestureRecognizer *)gestureRecognizer
 {
     CGPoint velocity = [gestureRecognizer velocityInView:self];
-    NSInteger index = [self currentIndex];
-    NSLog(@"velocity %@",NSStringFromCGPoint(velocity));
     
     if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
         self.tempSwapedImageView = [[UIImageView alloc] initWithFrame:self.bounds];
@@ -151,6 +161,7 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
         CGRect shadowRect = CGRectInset(self.tempSwapedImageView.bounds, 0, 4);  // inset top/bottom
         self.tempSwapedImageView.layer.shadowPath = [[UIBezierPath bezierPathWithRect:shadowRect] CGPath];
         [self addSubview:self.tempSwapedImageView];
+        [self bringSubviewToFront:self.pageControl];
         
     } else if (gestureRecognizer.state == UIGestureRecognizerStateChanged) {
         if(velocity.x > 0) {
@@ -261,12 +272,13 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
 
 - (void)setCurrentCardImageAtindex:(NSInteger)index
 {
-        NSLog(@"%s index:%d",__FUNCTION__,(int)index);
-        NSInteger realIndex = [self realIndexForComputedIndex:index];
-        
-        NSString *imageName = [self.animationDatasource imageNameAtIndex:realIndex forAnimatedImageView:self];
-        self.image = [UIImage jm_imageNamed:imageName withOption:self.memoryManagementOption];
-        self.currentIndex = realIndex;
+    NSLog(@"%s index:%d",__FUNCTION__,(int)index);
+    NSInteger realIndex = [self realIndexForComputedIndex:index];
+    
+    NSString *imageName = [self.animationDatasource imageNameAtIndex:realIndex forAnimatedImageView:self];
+    self.image = [UIImage jm_imageNamed:imageName withOption:self.memoryManagementOption];
+    self.currentIndex = realIndex;
+    [self updatePageControl];
 }
 
 - (void)setCurrentImage:(UIImage *)img forIndex:(NSInteger)index
@@ -275,6 +287,7 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
     NSInteger realIndex = [self realIndexForComputedIndex:index];
     self.image = img;
     self.currentIndex = realIndex;
+    [self updatePageControl];
 }
 
 - (NSInteger)realIndexForComputedIndex:(NSInteger)index
@@ -288,6 +301,11 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
     }
     
     return index;
+}
+
+- (void)updatePageControl
+{
+    self.pageControl.currentPage = self.currentIndex;
 }
 
 - (void)moveCurrentCardImageFromIndex:(NSInteger)fromIndex shift:(NSInteger)shift withDuration:(NSTimeInterval)duration animationOption:(UIImageViewAnimationOption)option

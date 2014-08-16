@@ -26,7 +26,7 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    self.title = @"JMAnimatedImageView demo";
+    self.title = @"JMAnimatedImageView demos";
 }
 
 - (void)didReceiveMemoryWarning
@@ -46,23 +46,23 @@
 {
     JMTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"JMTableViewCell" forIndexPath:indexPath];
     if (indexPath.row == 0) {
-        cell.jmLabel.text = @"Native UIImageView with animationimages";
-        cell.jmDetailsLabel.text = @"All images are loaded in one time in memory.";
+        cell.jmLabel.text = @"AUTOMATIC ANIMATION : using UIImageView";
+        cell.jmDetailsLabel.text = @"All images are loaded in one time in memory (so ... it's take a lot of time to run the 1st time).";
         
     } else if (indexPath.row == 1) {
-        cell.jmLabel.text = @"JMAnimatedImageView with animationimages (Sytem cache)";
+        cell.jmLabel.text = @"AUTOMATIC ANIMATION : using JMAnimatedImageView (using Sytem cache)";
         cell.jmDetailsLabel.text = @"Images are loaded during the animation.";
 
     } else if (indexPath.row == 2) {
-        cell.jmLabel.text = @"JMAnimatedImageView with animationimages (Low memory usage)";
+        cell.jmLabel.text = @"AUTOMATIC ANIMATION : using JMAnimatedImageView (Low memory usage)";
         cell.jmDetailsLabel.text = @"More CPU time to load / reload images but less memory used.";
         
     } else if (indexPath.row == 3) {
-        cell.jmLabel.text = @"JMAnimatedImageView with gestured animation (Low memory usage)";
-        cell.jmDetailsLabel.text = @"Swipe left / Right";
+        cell.jmLabel.text = @"REALTIME ANIMATION : using JMAnimatedImageView (Low memory usage)";
+        cell.jmDetailsLabel.text = @"Swipe left / Right to manage the animation.";
         
     } else if (indexPath.row == 4) {
-        cell.jmLabel.text = @"JMAnimatedImageView with gestured carousel (Low memory usage)";
+        cell.jmLabel.text = @"SIMPLE CAROUSEL : using JMAnimatedImageView (Low memory usage)";
         cell.jmDetailsLabel.text = @"Swipe left / Right";
     }
     
