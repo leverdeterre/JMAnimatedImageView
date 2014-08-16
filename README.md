@@ -33,6 +33,8 @@ typedef NS_ENUM(NSUInteger, JMAnimatedImageViewOrder) {
 };
 ```
 
+![Image](./Screens/JMImageViewCarousel.png "Screenshot")
+
 ![Image](./Screens/JMimageViewCarousel.gif "Carousel Demo")
 
 ![Image](./Screens/JMImageViewRotation.gif "Rotation Demo")
