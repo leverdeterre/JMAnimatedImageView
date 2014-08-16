@@ -56,6 +56,7 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
     _memoryManagementOption = JMAnimatedImageViewMemoryLoadImageSystemCache;
     _animationType = JMAnimatedImageViewAnimationTypeManualRealTime;
     _animationQueue = [NSOperationQueue new];
+    _animationQueue.name = @"JMAnimatedImageViewAnimationQueue";
     _animationQueue.maxConcurrentOperationCount = 1;
     _animationManagementQueue = dispatch_queue_create("com.animationManagement.queue", NULL);
     _imageOrder = JMAnimatedImageViewOrderNormal;

@@ -77,11 +77,11 @@
         vc.useJMImageView = NO;
         
     } else if (indexPath.row == 1) {
-        vc.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinear;
+        vc.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutAnimation;
         vc.useJMImageView = YES;
 
     } else if (indexPath.row == 2) {
-        vc.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinear;
+        vc.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutAnimation;
         vc.memoryManagementOption = JMAnimatedImageViewMemoryLoadImageLowMemoryUsage;
         vc.useJMImageView = YES;
     } else if (indexPath.row == 3) {
