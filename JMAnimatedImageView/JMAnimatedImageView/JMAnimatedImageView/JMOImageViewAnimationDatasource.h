@@ -15,5 +15,6 @@
 
 @optional
 - (NSInteger)firstIndexForAnimatedImageView:(UIImageView *)imageView;
+- (UIImage *)imageAtIndex:(NSInteger)index forAnimatedImageView:(UIImageView *)imageView;
 
 @end

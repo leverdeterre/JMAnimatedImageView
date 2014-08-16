@@ -226,7 +226,6 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
     
     CGPoint velocity = [gestureRecognizer velocityInView:self];
     NSInteger index = [self currentIndex];
-    NSLog(@"velocity %@",NSStringFromCGPoint(velocity));
     
     //compute point unity
     NSInteger pointUnity = self.frame.size.width / [self.animationDatasource numberOfImagesForAnimatedImageView:self];
@@ -270,13 +269,25 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
     }
 }
 
+#pragma mark - Load images
+
 - (void)setCurrentCardImageAtindex:(NSInteger)index
 {
     NSLog(@"%s index:%d",__FUNCTION__,(int)index);
     NSInteger realIndex = [self realIndexForComputedIndex:index];
     
-    NSString *imageName = [self.animationDatasource imageNameAtIndex:realIndex forAnimatedImageView:self];
-    self.image = [UIImage jm_imageNamed:imageName withOption:self.memoryManagementOption];
+    if (self.memoryManagementOption == JMAnimatedImageViewMemoryLoadImageCustom) {
+        if ([self.animationDatasource respondsToSelector:@selector(imageAtIndex:forAnimatedImageView:)]) {
+            UIImage *image = [self.animationDatasource imageAtIndex:realIndex forAnimatedImageView:self];
+            self.image = image;
+        } else {
+            NSAssert(0, @"animationDatasource should implement imageAtIndex:forAnimatedImageView: if you use JMAnimatedImageViewMemoryLoadImageCustom");
+        }
+    } else {
+        NSString *imageName = [self.animationDatasource imageNameAtIndex:realIndex forAnimatedImageView:self];
+        self.image = [UIImage jm_imageNamed:imageName withOption:self.memoryManagementOption];
+    }
+    
     self.currentIndex = realIndex;
     [self updatePageControl];
 }
@@ -352,16 +363,6 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
     });
 }
 
-- (void)cancelAnimations
-{
-    NSLog(@"Cancel %d operations ", (int)[[self.animationQueue operations] count]);
-    for (NSOperation* o in [self.animationQueue operations]) {
-        if ([o isKindOfClass:[o class]]) {
-            [o cancel];
-        }
-    }
-}
-
 #pragma mark - Manage images automatic animation
 
 - (void)startAnimating
@@ -409,6 +410,14 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
     return NO;
 }
 
-
+- (void)cancelAnimations
+{
+    NSLog(@"Cancel %d operations ", (int)[[self.animationQueue operations] count]);
+    for (NSOperation* o in [self.animationQueue operations]) {
+        if ([o isKindOfClass:[o class]]) {
+            [o cancel];
+        }
+    }
+}
 
 @end

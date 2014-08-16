@@ -20,7 +20,8 @@ typedef NS_ENUM(NSUInteger, JMAnimatedImageViewAnimationType) {
 
 typedef NS_ENUM(NSUInteger, JMAnimatedImageViewMemoryOption) {
     JMAnimatedImageViewMemoryLoadImageSystemCache = 0,  //images memory will be retain by system
-    JMAnimatedImageViewMemoryLoadImageLowMemoryUsage
+    JMAnimatedImageViewMemoryLoadImageLowMemoryUsage,   //images loaded but not retained by the system
+    JMAnimatedImageViewMemoryLoadImageCustom            //images loaded by you (JMOImageViewAnimationDatasource)
 };
 
 typedef NS_ENUM(NSUInteger, JMAnimatedImageViewOrder) {
