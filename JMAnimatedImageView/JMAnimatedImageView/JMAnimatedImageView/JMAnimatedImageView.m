@@ -190,7 +190,7 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
 
         //Compute if we need to finish the swip
         CGRect inter =  CGRectIntersection(self.bounds, self.tempSwapedImageView.frame);
-        BOOL finishSwipeEvent;
+        BOOL finishSwipeEvent = NO;
         if ((inter.size.width * inter.size.height) > (0.3 * self.bounds.size.height * self.bounds.size.width)) {
             finishSwipeEvent = YES;
         }
