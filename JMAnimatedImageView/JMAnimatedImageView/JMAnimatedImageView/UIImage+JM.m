@@ -12,11 +12,18 @@
 
 + (UIImage *)jm_imageNamed:(NSString *)name
 {
+    if (nil == name) {
+        return nil;
+    }
     return [self jm_imageNamed:name withOption:JMAnimatedImageViewMemoryLoadImageSystemCache];
 }
 
 + (UIImage *)jm_imageNamed:(NSString *)name withOption:(JMAnimatedImageViewMemoryOption)option
 {
+    if (nil == name) {
+        return nil;
+    }
+    
     if (option == JMAnimatedImageViewMemoryLoadImageSystemCache) {
         return [UIImage imageNamed:name];
     } else {

@@ -11,16 +11,15 @@
 typedef void (^JMCompletionBlock)(BOOL finished);
 typedef void (^JMAnimationBlock)(void);
 
+@class JMAnimatedImageView;
 @interface JMAnimationOperation : NSOperation
 
-@property (copy, nonatomic) JMAnimationBlock animationBlock;
 @property (copy, nonatomic) JMCompletionBlock completionBlock;
 @property (assign, nonatomic) NSTimeInterval duration;
-
-@property (strong, nonatomic) NSString *imageName;
+@property (assign, nonatomic) NSInteger imageIndex;
+@property (weak, nonatomic) JMAnimatedImageView *animatedImageView;
 
 + (instancetype)animationOperationWithDuration:(NSTimeInterval)duration
-                                    animations:(void (^)(void))animations
                                     completion:(void (^)(BOOL finished))completion;
 
 @end

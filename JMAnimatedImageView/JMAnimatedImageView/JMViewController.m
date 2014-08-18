@@ -78,13 +78,14 @@
                 self.title = @"using JMImageView class to animate in real time (30Mo ^_^)";
             }
             
-        } else if (self.animationType == JMAnimatedImageViewAnimationTypeAutomaticLinear) {
+        } else if (self.animationType == JMAnimatedImageViewAnimationTypeAutomaticLinear ||
+                   self.animationType == JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutAnimation) {
+            
             if (self.memoryManagementOption == JMAnimatedImageViewMemoryLoadImageSystemCache) {
                 self.title = @"using JMImageView class for automatic animation (500Mo ...)";
             } else {
                 self.title = @"using JMImageView class for automatic animation (30Mo ^_^)";
             }
-            
         }
     }
 }
@@ -115,6 +116,11 @@
     }
     
     return 0;
+}
+
+- (void)dealloc
+{
+    [self.carImageView stopAnimating];
 }
 
 @end

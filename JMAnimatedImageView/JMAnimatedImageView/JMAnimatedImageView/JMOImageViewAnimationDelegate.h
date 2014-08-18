@@ -11,6 +11,7 @@
 @protocol JMOImageViewAnimationDelegate <NSObject>
 
 @optional
-- (void)imageViewDidEndDragging:(UIImageView *)imageView withVelocity:(CGPoint)velocity targetIndex:(inout NSInteger *)targetIndex;
+- (void)imageView:(UIImageView *)imageView didEndDraggingWithVelocity:(CGPoint)velocity targetIndex:(inout NSInteger *)targetIndex;
+- (void)imageView:(UIImageView *)imageView didChangeCurrentindex:(NSInteger)index;
 
 @end

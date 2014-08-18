@@ -7,6 +7,19 @@
 //
 
 #import "JMAnimationOperation.h"
+#import "JMAnimatedImageView.h"
+#import "UIImage+JM.h"
+
+#include <sys/time.h>
+#import<malloc/malloc.h>
+
+long getMillis()
+{
+    struct timeval time;
+    gettimeofday(&time, NULL);
+    long millis = (time.tv_sec * 1000) + (time.tv_usec / 1000);
+    return millis;
+}
 
 @interface JMAnimationOperation ()
 @property (assign, nonatomic) BOOL isCancelled;
@@ -16,10 +29,9 @@
 
 @implementation JMAnimationOperation
 
-+ (instancetype)animationOperationWithDuration:(NSTimeInterval)duration animations:(void (^)(void))animations completion:(void (^)(BOOL finished))completion
++ (instancetype)animationOperationWithDuration:(NSTimeInterval)duration completion:(void (^)(BOOL finished))completion
 {
     JMAnimationOperation *op = [JMAnimationOperation new];
-    op.animationBlock = animations;
     JMCompletionBlock completionBlock = ^(BOOL finish){
         //NSLog(@"Operation is about to finished.");
         [op finish];
@@ -49,23 +61,33 @@
     {
         _isFinished = YES;
     }
-    else
-    {
-        //NSLog(@"Operation of duration: %lf started.",self.duration);
-        if (self.animationBlock) {
-            
-            [NSThread sleepForTimeInterval:self.duration];
-            self.animationBlock();
-            self.completionBlock(YES);
-            
+    else {
+        
+        long timeStart = getMillis();
+        NSString *imageName = [self.animatedImageView.animationDatasource imageNameAtIndex:self.imageIndex forAnimatedImageView:self.animatedImageView];
+        UIImage *image = [UIImage jm_imageNamed:imageName withOption:self.animatedImageView.memoryManagementOption];
+        long timeEnd = getMillis();
+        long diff = timeEnd - timeStart;
+        double millisToLoadImage = (diff/1000.0);
+        
+        //Compute number of Millis to load an image and fix self.duration
+        if (millisToLoadImage < self.duration) {
+            [NSThread sleepForTimeInterval:(self.duration - millisToLoadImage)];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.animatedImageView setImage:image forCurrentIndex:self.imageIndex];
+                self.completionBlock(YES);
+            });
+        } else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.animatedImageView setImage:image forCurrentIndex:self.imageIndex];
+                self.completionBlock(YES);
+            });
         }
     }
 }
 
 - (void)finish
 {
-    //NSLog(@"operationfinished.");
-    
     [self willChangeValueForKey:@"isExecuting"];
     [self willChangeValueForKey:@"isFinished"];
     
@@ -83,7 +105,6 @@
 
 - (void)cancel
 {
-    //NSLog(@"** OPERATION CANCELED **");
     _isCancelled = YES;
     _isFinished = YES;
 }

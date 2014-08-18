@@ -65,8 +65,12 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
 
 - (void)reloadAnimationImages
 {
-    //Load the 1st
-    [self setCurrentCardImageAtindex:0];
+    if ([self.animationDatasource respondsToSelector:@selector(firstIndexForAnimatedImageView:)]) {
+        [self setCurrentCardImageAtindex:[self.animationDatasource firstIndexForAnimatedImageView:self]];
+    } else {
+        [self setCurrentCardImageAtindex:0];
+    }
+    
     [self addGesturesForAnimationType:_animationType];
 }
 
@@ -77,6 +81,36 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
     }
     
     return NO;
+}
+
+- (void)setCurrentIndex:(NSInteger)currentIndex
+{
+    _currentIndex = currentIndex;
+    if ([self.animationDelegate respondsToSelector:@selector(imageView:didChangeCurrentindex:)]) {
+        [self.animationDelegate imageView:self didChangeCurrentindex:_currentIndex];
+    }
+}
+
+- (void)setupTempImageViewAtOriginiX:(CGFloat)x
+{
+    [self.tempSwapedImageView removeFromSuperview];
+    self.tempSwapedImageView = [[UIImageView alloc] initWithFrame:self.bounds];
+    
+    CGRect frame = self.tempSwapedImageView.frame;
+    frame.origin.x = x;
+    self.tempSwapedImageView.frame = frame;
+    
+    self.tempSwapedImageView.contentMode = self.contentMode;
+    
+    //add shadow
+    self.tempSwapedImageView.layer.shadowColor = [[UIColor blackColor] CGColor];
+    self.tempSwapedImageView.layer.shadowOffset = CGSizeMake(0.0f,0.0f);
+    self.tempSwapedImageView.layer.shadowOpacity = 0.7f;
+    self.tempSwapedImageView.layer.shadowRadius = 10.0f;
+    CGRect shadowRect = CGRectInset(self.tempSwapedImageView.bounds, 0, 4);  // inset top/bottom
+    self.tempSwapedImageView.layer.shadowPath = [[UIBezierPath bezierPathWithRect:shadowRect] CGPath];
+    [self addSubview:self.tempSwapedImageView];
+    [self bringSubviewToFront:self.pageControl];
 }
 
 #pragma mark - overided setter
@@ -100,9 +134,9 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
             if (nil == self.pageControl) {
                 //Max size 30% of the width
                 CGRect pageControlFrame = CGRectMake(
-                                                     0.5 * (CGRectGetWidth(self.frame) - (CGRectGetWidth(self.frame) * 0.3)),
+                                                     floorf(0.5 * (CGRectGetWidth(self.frame) - (CGRectGetWidth(self.frame) * 0.3))),
                                                      CGRectGetHeight(self.frame) - 30.0f,
-                                                     CGRectGetWidth(self.frame) * 0.3,
+                                                     floorf(CGRectGetWidth(self.frame) * 0.3),
                                                      30.0f);
                 self.pageControl = [[UIPageControl alloc] initWithFrame:pageControlFrame];
                 self.pageControl.numberOfPages = [self.animationDatasource numberOfImagesForAnimatedImageView:self];
@@ -125,11 +159,7 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
            
         case JMAnimatedImageViewAnimationTypeAutomaticLinear:
         case JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutAnimation:
-            break;
-         
         case JMAnimatedImageViewAnimationTypeAutomaticReverse:
-            break;
-            
         default:
             break;
     }
@@ -145,34 +175,23 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
     CGPoint velocity = [gestureRecognizer velocityInView:self];
     
     if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
-        self.tempSwapedImageView = [[UIImageView alloc] initWithFrame:self.bounds];
         UIImage *img = 0;
         if(velocity.x > 0) {
-            NSString *imgName = [self.animationDatasource imageNameAtIndex:[self realIndexForComputedIndex:self.currentIndex+1] forAnimatedImageView:self];
-            img = [UIImage jm_imageNamed:imgName withOption:JMAnimatedImageViewMemoryLoadImageLowMemoryUsage];
-            CGRect frame = self.tempSwapedImageView.frame;
-            frame.origin.x = -CGRectGetWidth(frame);
-            self.tempSwapedImageView.frame = frame;
+            NSString *imgName = [self.animationDatasource imageNameAtIndex:[self realIndexForComputedIndex:self.currentIndex+1]
+                                                      forAnimatedImageView:self];
+            
+            img = [UIImage jm_imageNamed:imgName withOption:self.memoryManagementOption];
+            [self setupTempImageViewAtOriginiX:-CGRectGetWidth(self.bounds)];
+            
         } else {
-            NSString *imgName = [self.animationDatasource imageNameAtIndex:[self realIndexForComputedIndex:self.currentIndex-1] forAnimatedImageView:self];
-            img = [UIImage jm_imageNamed:imgName];
-            CGRect frame = self.tempSwapedImageView.frame;
-            frame.origin.x = CGRectGetWidth(frame);
-            self.tempSwapedImageView.frame = frame;
+            NSString *imgName = [self.animationDatasource imageNameAtIndex:[self realIndexForComputedIndex:self.currentIndex-1]
+                                                      forAnimatedImageView:self];
+            
+            img = [UIImage jm_imageNamed:imgName withOption:self.memoryManagementOption];
+            [self setupTempImageViewAtOriginiX:CGRectGetWidth(self.bounds)];
         }
         
         self.tempSwapedImageView.image = img;
-        self.tempSwapedImageView.contentMode = self.contentMode;
-        
-        //add shadow
-        self.tempSwapedImageView.layer.shadowColor = [[UIColor blackColor] CGColor];
-        self.tempSwapedImageView.layer.shadowOffset = CGSizeMake(0.0f,0.0f);
-        self.tempSwapedImageView.layer.shadowOpacity = 0.7f;
-        self.tempSwapedImageView.layer.shadowRadius = 10.0f;
-        CGRect shadowRect = CGRectInset(self.tempSwapedImageView.bounds, 0, 4);  // inset top/bottom
-        self.tempSwapedImageView.layer.shadowPath = [[UIBezierPath bezierPathWithRect:shadowRect] CGPath];
-        [self addSubview:self.tempSwapedImageView];
-        [self bringSubviewToFront:self.pageControl];
         
     } else if (gestureRecognizer.state == UIGestureRecognizerStateChanged) {
         if(velocity.x > 0) {
@@ -216,9 +235,9 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
             self.userInteractionEnabled = YES;
             if (finishSwipeEvent) {
                 if (velocity.x > 0) {
-                    [self setCurrentCardImageAtindex:[self realIndexForComputedIndex:self.currentIndex+1]];
+                    [self setCurrentCardImageAtindex:[self realIndexForComputedIndex:self.currentIndex + 1]];
                 } else {
-                    [self setCurrentCardImageAtindex:[self realIndexForComputedIndex:self.currentIndex-1]];
+                    [self setCurrentCardImageAtindex:[self realIndexForComputedIndex:self.currentIndex -1 ]];
                 }
             }
         }];
@@ -227,7 +246,6 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
 
 - (void)imageViewTouchedWithPanGesture:(UIPanGestureRecognizer *)gestureRecognizer
 {
-    NSLog(@"%s",__FUNCTION__);
     [self cancelAnimations];
     
     if (self.animationType == JMAnimatedImageViewAnimationTypeManualSwipe) {
@@ -284,7 +302,6 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
 
 - (void)setCurrentCardImageAtindex:(NSInteger)index
 {
-    NSLog(@"%s index:%d",__FUNCTION__,(int)index);
     NSInteger realIndex = [self realIndexForComputedIndex:index];
     
     if (self.memoryManagementOption == JMAnimatedImageViewMemoryLoadImageCustom) {
@@ -330,7 +347,10 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
     self.pageControl.currentPage = self.currentIndex;
 }
 
-- (void)moveCurrentCardImageFromIndex:(NSInteger)fromIndex shift:(NSInteger)shift withDuration:(NSTimeInterval)duration animationOption:(UIImageViewAnimationOption)option
+- (void)moveCurrentCardImageFromIndex:(NSInteger)fromIndex
+                                shift:(NSInteger)shift
+                         withDuration:(NSTimeInterval)duration
+                      animationOption:(UIImageViewAnimationOption)option
 {
     dispatch_async(self.animationManagementQueue, ^{
         NSTimeInterval unitDuration = duration;
@@ -347,6 +367,7 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
         [self.animationQueue cancelAllOperations];
         [self.animationQueue waitUntilAllOperationsAreFinished];
         
+        //Compute minimal interval to perform an image switch 30hz ..
         NSTimeInterval minimumInterval = 1.0/30.0;
         NSTimeInterval currentInterval = 0.0;
         
@@ -357,17 +378,16 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
             } else {
                 
                 NSInteger index = [self realIndexForComputedIndex:fromIndex+i];
-                JMAnimationOperation *operation = [JMAnimationOperation animationOperationWithDuration:currentInterval animations:^{
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [self setCurrentCardImageAtindex:index];
-                    });
-                } completion:^(BOOL finished) {
-                    if ((self.animationType == JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutAnimation) &&
-                        [self operationQueueIsFinished] == YES) {
-                        [self continueAnimating];
-                    }
+                JMAnimationOperation *operation = [JMAnimationOperation animationOperationWithDuration:currentInterval
+                                                                                            completion:^(BOOL finished) {
+                        if ((self.animationType == JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutAnimation) &&
+                            [self operationQueueIsFinished] == YES) {
+                            [self continueAnimating];
+                        }
                 }];
-
+                operation.animatedImageView = self;
+                operation.imageIndex = index;
+                
                 currentInterval = 0;
                 [self.animationQueue addOperation:operation];
             }
@@ -381,23 +401,15 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
         return;
     }
     
+    if (duration == -1) {
+        [self setCurrentIndex:index];
+    }
+    
     //animation changement
-    self.tempSwapedImageView = [[UIImageView alloc] initWithFrame:self.bounds];
-    self.tempSwapedImageView.contentMode = self.contentMode;
+    [self setupTempImageViewAtOriginiX:CGRectGetWidth(self.bounds)];
+    
     NSString *imgName = [self.animationDatasource imageNameAtIndex:[self realIndexForComputedIndex:index] forAnimatedImageView:self];
     self.tempSwapedImageView.image = [UIImage jm_imageNamed:imgName withOption:JMAnimatedImageViewMemoryLoadImageLowMemoryUsage];
-    CGRect frame = self.tempSwapedImageView.frame;
-    frame.origin.x = CGRectGetWidth(frame);
-    self.tempSwapedImageView.frame = frame;
-    
-    //add shadow
-    self.tempSwapedImageView.layer.shadowColor = [[UIColor blackColor] CGColor];
-    self.tempSwapedImageView.layer.shadowOffset = CGSizeMake(0.0f,0.0f);
-    self.tempSwapedImageView.layer.shadowOpacity = 0.7f;
-    self.tempSwapedImageView.layer.shadowRadius = 10.0f;
-    CGRect shadowRect = CGRectInset(self.tempSwapedImageView.bounds, 0, 4);  // inset top/bottom
-    self.tempSwapedImageView.layer.shadowPath = [[UIBezierPath bezierPathWithRect:shadowRect] CGPath];
-    [self addSubview:self.tempSwapedImageView];
     
     [UIView animateWithDuration:duration animations:^{
         CGRect frame = self.tempSwapedImageView.frame;
@@ -414,9 +426,27 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
 
 #pragma mark - Manage images automatic animation
 
+- (void)animateToIndex:(NSInteger)index withDuration:(NSTimeInterval)duration
+{
+    [self moveCurrentCardImageFromIndex:self.currentIndex shift:([self.animationDatasource numberOfImagesForAnimatedImageView:self] - self.currentIndex) withDuration:duration animationOption:UIImageViewAnimationOptionLinear];
+}
+
 - (void)setCurrentIndex:(NSInteger)index animated:(BOOL)animated
 {
-    [self changeImageToIndex:index withTimeInterval:0.25 repeat:NO];
+    if (animated) {
+        [self changeImageToIndex:index withTimeInterval:0.25 repeat:NO];
+    } else {
+        [self changeImageToIndex:index withTimeInterval:-1 repeat:NO];
+    }
+}
+
+- (void)setImage:(UIImage *)img forCurrentIndex:(NSInteger)index
+{
+    NSInteger realIndex = [self realIndexForComputedIndex:index];
+//    dispatch_async(dispatch_get_main_queue(), ^{
+        self.image = img;
+        self.currentIndex = realIndex;
+//    });
 }
 
 - (void)startAnimating
@@ -439,19 +469,21 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
 
 - (void)continueAnimating
 {
-    if ([self checkLifeCycleSanity] == NO) {
-        return;
-    }
-    
-    if ([self operationQueueIsFinished] == NO) {
-        return;
-    }
-    
-    [self moveCurrentCardImageFromIndex:0
-                                  shift:[self.animationDatasource
-                                         numberOfImagesForAnimatedImageView:self]
-                           withDuration:self.animationDuration
-                        animationOption:UIImageViewAnimationOptionLinear];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self checkLifeCycleSanity] == NO) {
+            return;
+        }
+        
+        if ([self operationQueueIsFinished] == NO) {
+            return;
+        }
+        
+        [self moveCurrentCardImageFromIndex:0
+                                      shift:[self.animationDatasource
+                                             numberOfImagesForAnimatedImageView:self]
+                               withDuration:self.animationDuration
+                            animationOption:UIImageViewAnimationOptionLinear];
+    });
 }
 
 - (void)stopAnimating
@@ -467,7 +499,6 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
 - (BOOL)operationQueueIsFinished
 {
     NSArray *opeInProgress = [self.animationQueue valueForKeyPath:@"operations"];
-    //NSArray *distinct = [isExecuting valueForKeyPath:@"@distinctUnionOfObjects.self"];
     if (opeInProgress.count == 0) {
         return YES;
     }
@@ -476,7 +507,7 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
 
 - (void)cancelAnimations
 {
-    NSLog(@"Cancel %d operations ", (int)[[self.animationQueue operations] count]);
+    //NSLog(@"Cancel %d operations ", (int)[[self.animationQueue operations] count]);
     for (NSOperation* o in [self.animationQueue operations]) {
         if ([o isKindOfClass:[o class]]) {
             [o cancel];
