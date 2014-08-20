@@ -3,10 +3,10 @@ JMAnimatedImageView
 
 JMAnimatedImageView is a performant subclass of UIImageView:
 
-- Plays huge imageView animation using a minimum memory pressure,
-- Allows manual interaction with imageView to drive animation manualy,
+- Plays huge image animation using a minimum memory pressure,
+- Allows manual interactions with imageView to drive manualy animations,
 - Can use has a Carousel, 
-- GIF support to load your animations.
+- GIF are supported to load your animations.
 
 ## Installation & Usage
 
