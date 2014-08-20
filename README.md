@@ -48,7 +48,7 @@ Some parameters :
 ```objc
 typedef NS_ENUM(NSUInteger, JMAnimatedImageViewAnimationType) {
     //Animation is done by a gesture
-    JMAnimatedImageViewAnimationTypeManualRealTime = 0,
+    JMAnimatedImageViewAnimationTypeInteractive = 0,
     
     //Animation, carousel effect
     JMAnimatedImageViewAnimationTypeManualSwipe, 
