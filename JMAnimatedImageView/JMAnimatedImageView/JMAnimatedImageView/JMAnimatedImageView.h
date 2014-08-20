@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "JMOImageViewAnimationDelegate.h"
 #import "JMOImageViewAnimationDatasource.h"
+#import "JMGif.h"
 
+#define JMDefaultGifDuration -1
 
 typedef NS_ENUM(NSUInteger, JMAnimatedImageViewAnimationType) {
     JMAnimatedImageViewAnimationTypeManualRealTime = 0,
@@ -40,8 +42,13 @@ typedef NS_ENUM(NSUInteger, JMAnimatedImageViewOrder) {
 @property (assign, nonatomic) JMAnimatedImageViewOrder imageOrder;
 
 - (void)reloadAnimationImages;
+- (void)reloadAnimationImagesFromGifData:(NSData *)data;
+
 - (void)setCurrentIndex:(NSInteger)index animated:(BOOL)animated;
 - (void)setImage:(UIImage *)img forCurrentIndex:(NSInteger)index;
 - (void)animateToIndex:(NSInteger)index withDuration:(NSTimeInterval)duration;
+
+- (BOOL)isAGifAnimation;
+- (UIImage *)gifImageAtIndex:(NSInteger)index;
 
 @end

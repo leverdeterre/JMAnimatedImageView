@@ -18,6 +18,8 @@
 		C24A92E4199F4C0800CFDBE0 /* 7_verge_super_wide.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C24A92D9199F4C0800CFDBE0 /* 7_verge_super_wide.jpg */; };
 		C24A92E5199F4C0800CFDBE0 /* 8_verge_super_wide.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C24A92DA199F4C0800CFDBE0 /* 8_verge_super_wide.jpg */; };
 		C24A92E6199F4C0800CFDBE0 /* 9_verge_super_wide.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C24A92DB199F4C0800CFDBE0 /* 9_verge_super_wide.jpg */; };
+		C2B03DF619A471670032B240 /* rock.gif in Resources */ = {isa = PBXBuildFile; fileRef = C2B03DF519A471670032B240 /* rock.gif */; };
+		C2B03DF919A474190032B240 /* JMGif.m in Sources */ = {isa = PBXBuildFile; fileRef = C2B03DF819A474190032B240 /* JMGif.m */; };
 		C2B75327199E8802004BB1C3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2B75326199E8802004BB1C3 /* Foundation.framework */; };
 		C2B75329199E8802004BB1C3 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2B75328199E8802004BB1C3 /* CoreGraphics.framework */; };
 		C2B7532B199E8802004BB1C3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2B7532A199E8802004BB1C3 /* UIKit.framework */; };
@@ -134,6 +136,9 @@
 		C24A92D9199F4C0800CFDBE0 /* 7_verge_super_wide.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 7_verge_super_wide.jpg; sourceTree = "<group>"; };
 		C24A92DA199F4C0800CFDBE0 /* 8_verge_super_wide.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 8_verge_super_wide.jpg; sourceTree = "<group>"; };
 		C24A92DB199F4C0800CFDBE0 /* 9_verge_super_wide.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 9_verge_super_wide.jpg; sourceTree = "<group>"; };
+		C2B03DF519A471670032B240 /* rock.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = rock.gif; sourceTree = "<group>"; };
+		C2B03DF719A474190032B240 /* JMGif.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JMGif.h; sourceTree = "<group>"; };
+		C2B03DF819A474190032B240 /* JMGif.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JMGif.m; sourceTree = "<group>"; };
 		C2B75323199E8802004BB1C3 /* JMAnimatedImageView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JMAnimatedImageView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2B75326199E8802004BB1C3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		C2B75328199E8802004BB1C3 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -282,6 +287,14 @@
 			path = VergePhotos;
 			sourceTree = "<group>";
 		};
+		C2B03DF419A471670032B240 /* gifs */ = {
+			isa = PBXGroup;
+			children = (
+				C2B03DF519A471670032B240 /* rock.gif */,
+			);
+			path = gifs;
+			sourceTree = "<group>";
+		};
 		C2B7531A199E8802004BB1C3 = {
 			isa = PBXGroup;
 			children = (
@@ -366,6 +379,7 @@
 			children = (
 				C24A92D0199F4C0800CFDBE0 /* VergePhotos */,
 				C2B7535C199E8878004BB1C3 /* zoom_1920_0.jpg */,
+				C2B03DF419A471670032B240 /* gifs */,
 				C2B7535D199E8878004BB1C3 /* zoom_1920_1.jpg */,
 				C2B7535E199E8878004BB1C3 /* zoom_1920_10.jpg */,
 				C2B7535F199E8878004BB1C3 /* zoom_1920_11.jpg */,
@@ -453,6 +467,8 @@
 				C2B753F4199E88A9004BB1C3 /* JMOImageViewAnimationDelegate.h */,
 				C2B753F5199E88A9004BB1C3 /* UIImage+JM.h */,
 				C2B753F6199E88A9004BB1C3 /* UIImage+JM.m */,
+				C2B03DF719A474190032B240 /* JMGif.h */,
+				C2B03DF819A474190032B240 /* JMGif.m */,
 			);
 			name = JMAnimatedImageView;
 			path = JMAnimatedImageView/JMAnimatedImageView;
@@ -610,6 +626,7 @@
 				C2B753BF199E8878004BB1C3 /* zoom_1920_32.jpg in Resources */,
 				C2B753B2199E8878004BB1C3 /* zoom_1920_20.jpg in Resources */,
 				C2B7533A199E8802004BB1C3 /* Main.storyboard in Resources */,
+				C2B03DF619A471670032B240 /* rock.gif in Resources */,
 				C24A92E0199F4C0800CFDBE0 /* 3_verge_super_wide.jpg in Resources */,
 				C2B753E6199E8878004BB1C3 /* zoom_1920_68.jpg in Resources */,
 				C2B753E1199E8878004BB1C3 /* zoom_1920_63.jpg in Resources */,
@@ -646,6 +663,7 @@
 				C2B753F8199E88A9004BB1C3 /* JMAnimationOperation.m in Sources */,
 				C2B753F9199E88A9004BB1C3 /* UIImage+JM.m in Sources */,
 				C2B753FC199E8AFE004BB1C3 /* JMTableViewController.m in Sources */,
+				C2B03DF919A474190032B240 /* JMGif.m in Sources */,
 				C2B753FF199E8B81004BB1C3 /* JMTableViewCell.m in Sources */,
 				C2B75337199E8802004BB1C3 /* JMAppDelegate.m in Sources */,
 			);

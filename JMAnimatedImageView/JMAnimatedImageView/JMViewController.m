@@ -48,11 +48,24 @@
         self.carImageView.animationType = self.animationType;
         self.carImageView.memoryManagementOption = self.memoryManagementOption;
         self.carImageView.imageOrder = self.order;
-        [self.carImageView reloadAnimationImages];
+        
+        if (self.usingGif == NO) {
+            [self.carImageView reloadAnimationImages];
+            
+        } else {
+            NSURL *url = [[NSBundle mainBundle] URLForResource:@"rock" withExtension:@"gif"];
+            NSData *data = [NSData dataWithContentsOfURL:url];
+            [self.carImageView reloadAnimationImagesFromGifData:data];
+        }
         
         if (self.animationType == JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutAnimation) {
             self.carImageView.animationRepeatCount = 0;
-            self.carImageView.animationDuration = 5.0; //GLOBAL TIME
+            if (self.usingGif) {
+                self.carImageView.animationDuration = JMDefaultGifDuration; //GIF DURATION IS A PART OF THE GIF DATA
+            } else {
+                self.carImageView.animationDuration = 5.0; //GLOBAL TIME OF ANIMATION
+            }
+            
             [self.carImageView startAnimating];
         } else if (self.animationType == JMAnimatedImageViewAnimationTypeAutomaticLinear) {
             self.carImageView.animationRepeatCount = 0;
@@ -86,6 +99,8 @@
             } else {
                 self.title = @"using JMImageView class for automatic animation (30Mo ^_^)";
             }
+        } else if ( self.usingGif) {
+            self.title = @"using GIF with JMImageView class";
         }
     }
 }

@@ -39,7 +39,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 6;
+    return 7;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -67,6 +67,9 @@
         
     } else if (indexPath.row == 5) {
         cell.jmLabel.text = @"SIMPLE CAROUSEL : using JMAnimatedImageView (Low memory usage)";
+        cell.jmDetailsLabel.text = @"Swipe left / Right";
+    } else if (indexPath.row == 6) {
+        cell.jmLabel.text = @"GIF ANIMATION : using JMAnimatedImageView (Low memory usage)";
         cell.jmDetailsLabel.text = @"Swipe left / Right";
     }
     
@@ -104,6 +107,11 @@
         vc.memoryManagementOption = JMAnimatedImageViewMemoryLoadImageSystemCache;
         vc.order = JMAnimatedImageViewOrderReverse;
         vc.useJMImageView = YES;
+    } else if (indexPath.row == 6) {
+        vc.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutAnimation;
+        vc.memoryManagementOption = JMAnimatedImageViewMemoryLoadImageLowMemoryUsage;
+        vc.useJMImageView = YES;
+        vc.usingGif = YES;
     }
     
     [self.navigationController pushViewController:vc animated:YES];

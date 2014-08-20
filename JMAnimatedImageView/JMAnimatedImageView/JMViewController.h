@@ -15,4 +15,6 @@
 @property (assign, nonatomic) JMAnimatedImageViewMemoryOption memoryManagementOption;
 @property (assign, nonatomic) BOOL useJMImageView;
 @property (assign, nonatomic) JMAnimatedImageViewOrder order;
+@property (assign, nonatomic) BOOL usingGif;
+
 @end

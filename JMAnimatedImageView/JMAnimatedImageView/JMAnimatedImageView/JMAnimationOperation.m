@@ -63,9 +63,18 @@ long getMillis()
     }
     else {
         
+        
         long timeStart = getMillis();
-        NSString *imageName = [self.animatedImageView.animationDatasource imageNameAtIndex:self.imageIndex forAnimatedImageView:self.animatedImageView];
-        UIImage *image = [UIImage jm_imageNamed:imageName withOption:self.animatedImageView.memoryManagementOption];
+       
+        UIImage *image;
+        if ([self.animatedImageView isAGifAnimation]) {
+            image = [self.animatedImageView gifImageAtIndex:self.imageIndex];
+            
+        } else {
+            NSString *imageName = [self.animatedImageView.animationDatasource imageNameAtIndex:self.imageIndex forAnimatedImageView:self.animatedImageView];
+            image = [UIImage jm_imageNamed:imageName withOption:self.animatedImageView.memoryManagementOption];
+        }
+  
         long timeEnd = getMillis();
         long diff = timeEnd - timeStart;
         double millisToLoadImage = (diff/1000.0);
