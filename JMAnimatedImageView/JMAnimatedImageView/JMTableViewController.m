@@ -107,8 +107,9 @@
         vc.memoryManagementOption = JMAnimatedImageViewMemoryLoadImageSystemCache;
         vc.order = JMAnimatedImageViewOrderReverse;
         vc.useJMImageView = YES;
+        
     } else if (indexPath.row == 6) {
-        vc.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutAnimation;
+        vc.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutAnimation /*JMAnimatedImageViewAnimationTypeManualRealTime*/;
         vc.memoryManagementOption = JMAnimatedImageViewMemoryLoadImageLowMemoryUsage;
         vc.useJMImageView = YES;
         vc.usingGif = YES;

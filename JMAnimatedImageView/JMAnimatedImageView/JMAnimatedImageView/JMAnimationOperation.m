@@ -9,6 +9,7 @@
 #import "JMAnimationOperation.h"
 #import "JMAnimatedImageView.h"
 #import "UIImage+JM.h"
+#import "JMAnimatedImageView+Image.h"
 
 #include <sys/time.h>
 #import<malloc/malloc.h>
@@ -66,14 +67,7 @@ long getMillis()
         
         long timeStart = getMillis();
        
-        UIImage *image;
-        if ([self.animatedImageView isAGifAnimation]) {
-            image = [self.animatedImageView gifImageAtIndex:self.imageIndex];
-            
-        } else {
-            NSString *imageName = [self.animatedImageView.animationDatasource imageNameAtIndex:self.imageIndex forAnimatedImageView:self.animatedImageView];
-            image = [UIImage jm_imageNamed:imageName withOption:self.animatedImageView.memoryManagementOption];
-        }
+        UIImage *image = [self.animatedImageView imageAtIndex:self.imageIndex];
   
         long timeEnd = getMillis();
         long diff = timeEnd - timeStart;

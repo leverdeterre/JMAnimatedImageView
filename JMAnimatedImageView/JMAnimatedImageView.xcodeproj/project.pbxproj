@@ -20,6 +20,7 @@
 		C24A92E6199F4C0800CFDBE0 /* 9_verge_super_wide.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C24A92DB199F4C0800CFDBE0 /* 9_verge_super_wide.jpg */; };
 		C2B03DF619A471670032B240 /* rock.gif in Resources */ = {isa = PBXBuildFile; fileRef = C2B03DF519A471670032B240 /* rock.gif */; };
 		C2B03DF919A474190032B240 /* JMGif.m in Sources */ = {isa = PBXBuildFile; fileRef = C2B03DF819A474190032B240 /* JMGif.m */; };
+		C2B03DFC19A52D000032B240 /* JMAnimatedImageView+Image.m in Sources */ = {isa = PBXBuildFile; fileRef = C2B03DFB19A52D000032B240 /* JMAnimatedImageView+Image.m */; };
 		C2B75327199E8802004BB1C3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2B75326199E8802004BB1C3 /* Foundation.framework */; };
 		C2B75329199E8802004BB1C3 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2B75328199E8802004BB1C3 /* CoreGraphics.framework */; };
 		C2B7532B199E8802004BB1C3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2B7532A199E8802004BB1C3 /* UIKit.framework */; };
@@ -139,6 +140,8 @@
 		C2B03DF519A471670032B240 /* rock.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = rock.gif; sourceTree = "<group>"; };
 		C2B03DF719A474190032B240 /* JMGif.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JMGif.h; sourceTree = "<group>"; };
 		C2B03DF819A474190032B240 /* JMGif.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JMGif.m; sourceTree = "<group>"; };
+		C2B03DFA19A52D000032B240 /* JMAnimatedImageView+Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JMAnimatedImageView+Image.h"; sourceTree = "<group>"; };
+		C2B03DFB19A52D000032B240 /* JMAnimatedImageView+Image.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JMAnimatedImageView+Image.m"; sourceTree = "<group>"; };
 		C2B75323199E8802004BB1C3 /* JMAnimatedImageView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JMAnimatedImageView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2B75326199E8802004BB1C3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		C2B75328199E8802004BB1C3 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -461,6 +464,8 @@
 			children = (
 				C2B753EF199E88A9004BB1C3 /* JMAnimatedImageView.h */,
 				C2B753F0199E88A9004BB1C3 /* JMAnimatedImageView.m */,
+				C2B03DFA19A52D000032B240 /* JMAnimatedImageView+Image.h */,
+				C2B03DFB19A52D000032B240 /* JMAnimatedImageView+Image.m */,
 				C2B753F1199E88A9004BB1C3 /* JMAnimationOperation.h */,
 				C2B753F2199E88A9004BB1C3 /* JMAnimationOperation.m */,
 				C2B753F3199E88A9004BB1C3 /* JMOImageViewAnimationDatasource.h */,
@@ -660,6 +665,7 @@
 				C2B753F7199E88A9004BB1C3 /* JMAnimatedImageView.m in Sources */,
 				C2B75333199E8802004BB1C3 /* main.m in Sources */,
 				C2B7533D199E8802004BB1C3 /* JMViewController.m in Sources */,
+				C2B03DFC19A52D000032B240 /* JMAnimatedImageView+Image.m in Sources */,
 				C2B753F8199E88A9004BB1C3 /* JMAnimationOperation.m in Sources */,
 				C2B753F9199E88A9004BB1C3 /* UIImage+JM.m in Sources */,
 				C2B753FC199E8AFE004BB1C3 /* JMTableViewController.m in Sources */,

@@ -25,19 +25,18 @@
 
 - (void)loadGifWithData:(NSData *)data
 {
-    CGImageSourceRef _imageSource = CGImageSourceCreateWithData((__bridge CFDataRef)data, NULL);
-    NSUInteger loopCount; // 0 means repeating the animation indefinitely
+    CGImageSourceRef imageSource = CGImageSourceCreateWithData((__bridge CFDataRef)data, NULL);
     
-    if (!_imageSource) {
+    if (!imageSource) {
         NSLog(@"Error: Failed to `CGImageSourceCreateWithData` for animated GIF data %@", data);
         return;
     }
     
     // Early return if not GIF!
-    CFStringRef imageSourceContainerType = CGImageSourceGetType(_imageSource);
-    BOOL isGIFData = UTTypeConformsTo(imageSourceContainerType, kUTTypeGIF);
-    if (!isGIFData) {
+    CFStringRef imageSourceContainerType = CGImageSourceGetType(imageSource);
+    if (!UTTypeConformsTo(imageSourceContainerType, kUTTypeGIF)) {
         NSLog(@"Error: Supplied data is of type %@ and doesn't seem to be GIF data %@", imageSourceContainerType, data);
+        CFRelease(imageSource);
         return;
     }
     
@@ -51,26 +50,33 @@
     //         LoopCount = 0;
     //     };
     // }
-    NSDictionary *imageProperties = (__bridge_transfer NSDictionary *)CGImageSourceCopyProperties(_imageSource, NULL);
-    loopCount = [[[imageProperties objectForKey:(id)kCGImagePropertyGIFDictionary] objectForKey:(id)kCGImagePropertyGIFLoopCount] unsignedIntegerValue];
+
     // Iterate through frame images
-    size_t imageCount = CGImageSourceGetCount(_imageSource);
+    size_t imageCount = CGImageSourceGetCount(imageSource);
     NSMutableArray *items = [NSMutableArray arrayWithCapacity:imageCount];
     for (size_t i = 0; i < imageCount; i++) {
-        CGImageRef frameImageRef = CGImageSourceCreateImageAtIndex(_imageSource, i, NULL);
+        CGImageRef frameImageRef = CGImageSourceCreateImageAtIndex(imageSource, i, NULL);
         if (frameImageRef) {
             UIImage *frameImage = [UIImage imageWithCGImage:frameImageRef];
             // Check for valid `frameImage` before parsing its properties as frames can be corrupted (and `frameImage` even `nil` when `frameImageRef` was valid).
             if (frameImage) {
-                NSDictionary *frameProperties = (__bridge_transfer NSDictionary *)CGImageSourceCopyPropertiesAtIndex(_imageSource, i, NULL);
+                NSDictionary *frameProperties = (__bridge_transfer NSDictionary *)CGImageSourceCopyPropertiesAtIndex(imageSource, i, NULL);
                 NSDictionary *framePropertiesGIF = [frameProperties objectForKey:(id)kCGImagePropertyGIFDictionary];
                 JMGifItem *item = [[JMGifItem alloc] initWithImage:frameImage frameProperties:framePropertiesGIF];
                 [items addObject:item];
             }
+            
+            CFRelease(frameImageRef);
         }
     }
 
     _items = items;
+    CFRelease(imageSource);
+}
+
+- (UIImage *)imageAtIndex:(NSInteger)index
+{
+    return [[self.items objectAtIndex:index] image];
 }
 
 @end

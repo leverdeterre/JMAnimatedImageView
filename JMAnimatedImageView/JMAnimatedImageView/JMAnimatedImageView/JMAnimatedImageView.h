@@ -41,6 +41,9 @@ typedef NS_ENUM(NSUInteger, JMAnimatedImageViewOrder) {
 @property (assign, nonatomic) JMAnimatedImageViewMemoryOption memoryManagementOption;
 @property (assign, nonatomic) JMAnimatedImageViewOrder imageOrder;
 
+//Specific to GIF
+@property (strong, readonly, nonatomic) JMGif *gifObject;
+
 - (void)reloadAnimationImages;
 - (void)reloadAnimationImagesFromGifData:(NSData *)data;
 
@@ -48,7 +51,6 @@ typedef NS_ENUM(NSUInteger, JMAnimatedImageViewOrder) {
 - (void)setImage:(UIImage *)img forCurrentIndex:(NSInteger)index;
 - (void)animateToIndex:(NSInteger)index withDuration:(NSTimeInterval)duration;
 
-- (BOOL)isAGifAnimation;
-- (UIImage *)gifImageAtIndex:(NSInteger)index;
+- (BOOL)isAGifImageView;
 
 @end

@@ -11,6 +11,7 @@
 @property (readonly, nonatomic) NSArray *items;  //images + infos
 
 - (instancetype)initWithData:(NSData *)data;
+- (UIImage *)imageAtIndex:(NSInteger)index;
 
 @end
 
