@@ -28,4 +28,17 @@
     return nil;
 }
 
+- (NSUInteger)numberOfImages
+{
+    if ([self isAGifImageView]) {
+        return self.gifObject.items.count;
+    } else {
+        if ([self.animationDatasource respondsToSelector:@selector(numberOfImagesForAnimatedImageView:)]) {
+            return [self.animationDatasource numberOfImagesForAnimatedImageView:self];
+        }
+    }
+    
+    return 0;
+}
+
 @end

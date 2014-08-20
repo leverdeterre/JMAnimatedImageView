@@ -28,7 +28,6 @@ typedef NS_ENUM(NSUInteger, JMAnimatedImageViewMemoryOption) {
 };
 
 typedef NS_ENUM(NSUInteger, JMAnimatedImageViewOrder) {
-    JMAnimatedImageViewOrderNone = 0,
     JMAnimatedImageViewOrderNormal = 1,
     JMAnimatedImageViewOrderReverse = -1
 };

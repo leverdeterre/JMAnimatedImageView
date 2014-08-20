@@ -11,5 +11,6 @@
 @interface JMAnimatedImageView (Image)
 
 - (UIImage *)imageAtIndex:(NSInteger)index;
+- (NSUInteger)numberOfImages;
 
 @end

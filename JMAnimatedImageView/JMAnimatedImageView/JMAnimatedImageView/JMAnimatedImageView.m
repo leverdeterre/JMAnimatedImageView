@@ -156,7 +156,7 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
                                                      floorf(CGRectGetWidth(self.frame) * 0.3),
                                                      30.0f);
                 self.pageControl = [[UIPageControl alloc] initWithFrame:pageControlFrame];
-                self.pageControl.numberOfPages = [self.animationDatasource numberOfImagesForAnimatedImageView:self];
+                self.pageControl.numberOfPages = [self numberOfImages];
                 self.pageControl.currentPage = 0;
                 [self addSubview:self.pageControl];
             }
@@ -268,10 +268,10 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
     NSInteger index = [self currentIndex];
     
     //compute point unity
-    NSInteger pointUnity = self.frame.size.width / [self.animationDatasource numberOfImagesForAnimatedImageView:self];
+    NSInteger pointUnity = self.frame.size.width / [self numberOfImages];
     
     //Compute inerty using velocity
-    NSInteger shift = abs(velocity.x) / (8 * [UIScreen mainScreen].scale * pointUnity);
+    NSInteger shift = abs(velocity.x) / (4 * [UIScreen mainScreen].scale * pointUnity);
     
     if(velocity.x > 0) {
         [self setCurrentCardImageAtindex:index+(_imageOrder) * shift];
@@ -330,7 +330,7 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
 
 - (NSInteger)realIndexForComputedIndex:(NSInteger)index
 {
-    NSInteger nb = [self.animationDatasource numberOfImagesForAnimatedImageView:self];
+    NSInteger nb = [self numberOfImages];
     
     if (index < 0) {
         return nb + index;
@@ -438,7 +438,7 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
 
 - (void)animateToIndex:(NSInteger)index withDuration:(NSTimeInterval)duration
 {
-    [self moveCurrentCardImageFromIndex:self.currentIndex shift:([self.animationDatasource numberOfImagesForAnimatedImageView:self] - self.currentIndex) withDuration:duration animationOption:UIImageViewAnimationOptionLinear];
+    [self moveCurrentCardImageFromIndex:self.currentIndex shift:([self numberOfImages] - self.currentIndex) withDuration:duration animationOption:UIImageViewAnimationOptionLinear];
 }
 
 - (void)setCurrentIndex:(NSInteger)index animated:(BOOL)animated
@@ -474,8 +474,7 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
                                 animationOption:UIImageViewAnimationOptionLinear];
         } else {
             [self moveCurrentCardImageFromIndex:0
-                                          shift:[self.animationDatasource
-                                                 numberOfImagesForAnimatedImageView:self]
+                                          shift:[self numberOfImages]
                                    withDuration:self.animationDuration
                                 animationOption:UIImageViewAnimationOptionLinear];
         }
@@ -503,8 +502,7 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
                                 animationOption:UIImageViewAnimationOptionLinear];
         } else {
             [self moveCurrentCardImageFromIndex:0
-                                          shift:[self.animationDatasource
-                                                 numberOfImagesForAnimatedImageView:self]
+                                          shift:[self numberOfImages]
                                    withDuration:self.animationDuration
                                 animationOption:UIImageViewAnimationOptionLinear];
         }
