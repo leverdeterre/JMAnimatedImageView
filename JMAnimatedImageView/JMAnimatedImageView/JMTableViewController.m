@@ -9,6 +9,7 @@
 #import "JMTableViewController.h"
 #import "JMViewController.h"
 #import "JMTableViewCell.h"
+#import "JMFLViewController.h"
 
 @interface JMTableViewController ()
 
@@ -39,7 +40,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 8;
+    return 9;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -76,6 +77,10 @@
     } else if (indexPath.row == 7) {
         cell.jmLabel.text = @"GIF INTERACTION : using JMAnimatedImageView (Low memory usage)";
         cell.jmDetailsLabel.text = @"Swipe left / Right";
+        
+    } else if (indexPath.row == 8) {
+        cell.jmLabel.text = @"MULTIPLE GIF ANIMATIONS : using JMAnimatedImageView (Low memory usage)";
+        cell.jmDetailsLabel.text = @"";
     }
     
     return cell;
@@ -85,6 +90,8 @@
 {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     JMViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"JMViewController"];
+    UIViewController *vcToPush = vc;
+    
     if (indexPath.row == 0) {
         vc.useJMImageView = NO;
         
@@ -102,7 +109,7 @@
         vc.useJMImageView = YES;
         
     } else if (indexPath.row == 4) {
-        vc.animationType = JMAnimatedImageViewAnimationTypeManualRealTime;
+        vc.animationType = JMAnimatedImageViewAnimationTypeInteractive;
         vc.memoryManagementOption = JMAnimatedImageViewMemoryLoadImageLowMemoryUsage;
         vc.order = JMAnimatedImageViewOrderReverse;
         vc.useJMImageView = YES;
@@ -121,14 +128,17 @@
         vc.order = JMAnimatedImageViewOrderNormal;
 
     } else if (indexPath.row == 7) {
-        vc.animationType =  JMAnimatedImageViewAnimationTypeManualRealTime;
+        vc.animationType =  JMAnimatedImageViewAnimationTypeInteractive;
         vc.memoryManagementOption = JMAnimatedImageViewMemoryLoadImageLowMemoryUsage;
         vc.useJMImageView = YES;
         vc.usingGif = YES;
         vc.order = JMAnimatedImageViewOrderNormal;
+        
+    } else if (indexPath.row == 8) {
+        vcToPush = [JMFLViewController new];
     }
     
-    [self.navigationController pushViewController:vc animated:YES];
+    [self.navigationController pushViewController:vcToPush animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

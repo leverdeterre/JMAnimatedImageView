@@ -14,7 +14,7 @@ typedef void (^JMAnimationBlock)(void);
 @class JMAnimatedImageView;
 @interface JMAnimationOperation : NSOperation
 
-@property (copy, nonatomic) JMCompletionBlock completionBlock;
+@property (copy, nonatomic) JMCompletionBlock animationCompletionBlock;
 @property (assign, nonatomic) NSTimeInterval duration;
 @property (assign, nonatomic) NSInteger imageIndex;
 @property (weak, nonatomic) JMAnimatedImageView *animatedImageView;

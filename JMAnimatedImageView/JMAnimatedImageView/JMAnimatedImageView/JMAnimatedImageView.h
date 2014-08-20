@@ -14,7 +14,7 @@
 #define JMDefaultGifDuration -1
 
 typedef NS_ENUM(NSUInteger, JMAnimatedImageViewAnimationType) {
-    JMAnimatedImageViewAnimationTypeManualRealTime = 0,
+    JMAnimatedImageViewAnimationTypeInteractive = 0,
     JMAnimatedImageViewAnimationTypeManualSwipe,
     JMAnimatedImageViewAnimationTypeAutomaticLinear,                    //use animationDuration + animationRepeatCount
     JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutAnimation,    //use animationDuration + animationRepeatCount

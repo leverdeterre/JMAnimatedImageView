@@ -56,7 +56,7 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
 {
     self.userInteractionEnabled = YES;
     _memoryManagementOption = JMAnimatedImageViewMemoryLoadImageSystemCache;
-    _animationType = JMAnimatedImageViewAnimationTypeManualRealTime;
+    _animationType = JMAnimatedImageViewAnimationTypeInteractive;
     _animationQueue = [NSOperationQueue new];
     _animationQueue.name = @"JMAnimatedImageViewAnimationQueue";
     _animationQueue.maxConcurrentOperationCount = 1;
@@ -73,14 +73,15 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
         [self setCurrentCardImageAtindex:0];
     }
     
-    [self addGesturesForAnimationType:_animationType];
+    [self updateGesturesForAnimationType:_animationType];
 }
 
 - (void)reloadAnimationImagesFromGifData:(NSData *)data
 {
     _gifObject = [[JMGif alloc] initWithData:data];
+    self.animationDuration = JMDefaultGifDuration;
     [self setCurrentCardImageAtindex:0];
-    [self addGesturesForAnimationType:_animationType];
+    [self updateGesturesForAnimationType:_animationType];
 }
 
 - (BOOL)checkLifeCycleSanity
@@ -127,7 +128,7 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
 - (void)setAnimationType:(JMAnimatedImageViewAnimationType)animationType
 {
     _animationType = animationType;
-    [self addGesturesForAnimationType:animationType];
+    [self updateGesturesForAnimationType:animationType];
 }
 
 - (BOOL)isAGifImageView
@@ -140,7 +141,7 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
 
 #pragma mark - Gesture management
 
-- (void)addGesturesForAnimationType:(JMAnimatedImageViewAnimationType)animationType
+- (void)updateGesturesForAnimationType:(JMAnimatedImageViewAnimationType)animationType
 {
     switch (animationType) {
         case JMAnimatedImageViewAnimationTypeManualSwipe:
@@ -162,7 +163,7 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
             }
             break;
           
-        case JMAnimatedImageViewAnimationTypeManualRealTime:
+        case JMAnimatedImageViewAnimationTypeInteractive:
             if (nil == self.panGesture) {
                 self.panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(imageViewTouched:)];
                 [self addGestureRecognizer:self.panGesture];
@@ -178,6 +179,15 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
         case JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutAnimation:
         case JMAnimatedImageViewAnimationTypeAutomaticReverse:
         default:
+            if (nil != self.panGesture) {
+                [self removeGestureRecognizer:self.panGesture];
+                self.panGesture = nil;
+            }
+            if (nil != self.tapGesture) {
+                [self removeGestureRecognizer:self.tapGesture];
+                self.tapGesture = nil;
+            }
+            
             break;
     }
 }
@@ -486,6 +496,7 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
 
 - (void)continueAnimating
 {
+    NSLog(@"continueAnimating");
     dispatch_async(dispatch_get_main_queue(), ^{
         if ([self checkLifeCycleSanity] == NO) {
             return;

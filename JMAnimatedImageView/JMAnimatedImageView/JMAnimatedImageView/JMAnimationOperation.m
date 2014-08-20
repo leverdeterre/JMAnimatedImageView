@@ -42,7 +42,7 @@ long getMillis()
     };
     
     op.duration = duration;
-    op.completionBlock = completionBlock;
+    op.animationCompletionBlock = completionBlock;
     return op;
 }
 
@@ -78,12 +78,13 @@ long getMillis()
             [NSThread sleepForTimeInterval:(self.duration - millisToLoadImage)];
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.animatedImageView setImage:image forCurrentIndex:self.imageIndex];
-                self.completionBlock(YES);
+                self.animationCompletionBlock(YES);
             });
+
         } else {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.animatedImageView setImage:image forCurrentIndex:self.imageIndex];
-                self.completionBlock(YES);
+                self.animationCompletionBlock(YES);
             });
         }
     }

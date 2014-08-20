@@ -21,6 +21,10 @@
 		C2B03DF619A471670032B240 /* rock.gif in Resources */ = {isa = PBXBuildFile; fileRef = C2B03DF519A471670032B240 /* rock.gif */; };
 		C2B03DF919A474190032B240 /* JMGif.m in Sources */ = {isa = PBXBuildFile; fileRef = C2B03DF819A474190032B240 /* JMGif.m */; };
 		C2B03DFC19A52D000032B240 /* JMAnimatedImageView+Image.m in Sources */ = {isa = PBXBuildFile; fileRef = C2B03DFB19A52D000032B240 /* JMAnimatedImageView+Image.m */; };
+		C2B03E0019A554E30032B240 /* JMFLViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2B03DFE19A554E30032B240 /* JMFLViewController.m */; };
+		C2B03E0119A554E30032B240 /* JMFLViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2B03DFF19A554E30032B240 /* JMFLViewController.xib */; };
+		C2B03E0419A5555C0032B240 /* Rotating_earth.gif in Resources */ = {isa = PBXBuildFile; fileRef = C2B03E0219A5555C0032B240 /* Rotating_earth.gif */; };
+		C2B03E0519A5555C0032B240 /* nyan.gif in Resources */ = {isa = PBXBuildFile; fileRef = C2B03E0319A5555C0032B240 /* nyan.gif */; };
 		C2B75327199E8802004BB1C3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2B75326199E8802004BB1C3 /* Foundation.framework */; };
 		C2B75329199E8802004BB1C3 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2B75328199E8802004BB1C3 /* CoreGraphics.framework */; };
 		C2B7532B199E8802004BB1C3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2B7532A199E8802004BB1C3 /* UIKit.framework */; };
@@ -142,6 +146,11 @@
 		C2B03DF819A474190032B240 /* JMGif.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JMGif.m; sourceTree = "<group>"; };
 		C2B03DFA19A52D000032B240 /* JMAnimatedImageView+Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JMAnimatedImageView+Image.h"; sourceTree = "<group>"; };
 		C2B03DFB19A52D000032B240 /* JMAnimatedImageView+Image.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JMAnimatedImageView+Image.m"; sourceTree = "<group>"; };
+		C2B03DFD19A554E30032B240 /* JMFLViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JMFLViewController.h; sourceTree = "<group>"; };
+		C2B03DFE19A554E30032B240 /* JMFLViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JMFLViewController.m; sourceTree = "<group>"; };
+		C2B03DFF19A554E30032B240 /* JMFLViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JMFLViewController.xib; sourceTree = "<group>"; };
+		C2B03E0219A5555C0032B240 /* Rotating_earth.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Rotating_earth.gif; sourceTree = "<group>"; };
+		C2B03E0319A5555C0032B240 /* nyan.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = nyan.gif; sourceTree = "<group>"; };
 		C2B75323199E8802004BB1C3 /* JMAnimatedImageView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JMAnimatedImageView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2B75326199E8802004BB1C3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		C2B75328199E8802004BB1C3 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -294,6 +303,8 @@
 			isa = PBXGroup;
 			children = (
 				C2B03DF519A471670032B240 /* rock.gif */,
+				C2B03E0219A5555C0032B240 /* Rotating_earth.gif */,
+				C2B03E0319A5555C0032B240 /* nyan.gif */,
 			);
 			path = gifs;
 			sourceTree = "<group>";
@@ -337,6 +348,9 @@
 				C2B75338199E8802004BB1C3 /* Main.storyboard */,
 				C2B7533B199E8802004BB1C3 /* JMViewController.h */,
 				C2B7533C199E8802004BB1C3 /* JMViewController.m */,
+				C2B03DFD19A554E30032B240 /* JMFLViewController.h */,
+				C2B03DFE19A554E30032B240 /* JMFLViewController.m */,
+				C2B03DFF19A554E30032B240 /* JMFLViewController.xib */,
 				C2B753FA199E8AFE004BB1C3 /* JMTableViewController.h */,
 				C2B753FB199E8AFE004BB1C3 /* JMTableViewController.m */,
 				C2B753FD199E8B81004BB1C3 /* JMTableViewCell.h */,
@@ -593,6 +607,7 @@
 				C2B753C2199E8878004BB1C3 /* zoom_1920_35.jpg in Resources */,
 				C24A92E4199F4C0800CFDBE0 /* 7_verge_super_wide.jpg in Resources */,
 				C2B753B3199E8878004BB1C3 /* zoom_1920_21.jpg in Resources */,
+				C2B03E0519A5555C0032B240 /* nyan.gif in Resources */,
 				C2B753D7199E8878004BB1C3 /* zoom_1920_54.jpg in Resources */,
 				C2B753C7199E8878004BB1C3 /* zoom_1920_4.jpg in Resources */,
 				C24A92E5199F4C0800CFDBE0 /* 8_verge_super_wide.jpg in Resources */,
@@ -623,9 +638,11 @@
 				C2B753E2199E8878004BB1C3 /* zoom_1920_64.jpg in Resources */,
 				C2B753BB199E8878004BB1C3 /* zoom_1920_29.jpg in Resources */,
 				C2B753AA199E8878004BB1C3 /* zoom_1920_13.jpg in Resources */,
+				C2B03E0119A554E30032B240 /* JMFLViewController.xib in Resources */,
 				C2B75331199E8802004BB1C3 /* InfoPlist.strings in Resources */,
 				C24A92E6199F4C0800CFDBE0 /* 9_verge_super_wide.jpg in Resources */,
 				C2B753C6199E8878004BB1C3 /* zoom_1920_39.jpg in Resources */,
+				C2B03E0419A5555C0032B240 /* Rotating_earth.gif in Resources */,
 				C2B753E8199E8878004BB1C3 /* zoom_1920_7.jpg in Resources */,
 				C2B753E5199E8878004BB1C3 /* zoom_1920_67.jpg in Resources */,
 				C2B753BF199E8878004BB1C3 /* zoom_1920_32.jpg in Resources */,
@@ -665,6 +682,7 @@
 				C2B753F7199E88A9004BB1C3 /* JMAnimatedImageView.m in Sources */,
 				C2B75333199E8802004BB1C3 /* main.m in Sources */,
 				C2B7533D199E8802004BB1C3 /* JMViewController.m in Sources */,
+				C2B03E0019A554E30032B240 /* JMFLViewController.m in Sources */,
 				C2B03DFC19A52D000032B240 /* JMAnimatedImageView+Image.m in Sources */,
 				C2B753F8199E88A9004BB1C3 /* JMAnimationOperation.m in Sources */,
 				C2B753F9199E88A9004BB1C3 /* UIImage+JM.m in Sources */,

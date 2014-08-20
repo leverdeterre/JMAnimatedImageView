@@ -84,7 +84,7 @@
     } else {
         if (self.animationType == JMAnimatedImageViewAnimationTypeManualSwipe) {
             self.title = @"using JMImageView class has a simple carousel";
-        } else if (self.animationType == JMAnimatedImageViewAnimationTypeManualRealTime) {
+        } else if (self.animationType == JMAnimatedImageViewAnimationTypeInteractive) {
             if (self.memoryManagementOption == JMAnimatedImageViewMemoryLoadImageSystemCache) {
                 self.title = @"using JMImageView class to animate in real time (500Mo ...)";
             } else {
