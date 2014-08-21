@@ -88,11 +88,11 @@ typedef NS_ENUM(NSUInteger, JMAnimatedImageViewOrder) {
 
 ![Image](./Screens/gif_experiments.gif "Multi Gif")
 
-##  JMimageView can be use to generate Carousels
+##  JMimageView can generate Carousels
 
 ![Image](./Screens/JMimageViewCarousel.gif "Carousel Demo")
 
-##  JMimageView allowa interactive animations
+##  JMimageView allows interactive animations
 
 ![Image](./Screens/JMImageViewRotation.gif "Rotation Demo")
 
