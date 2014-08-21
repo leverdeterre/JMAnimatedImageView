@@ -84,7 +84,15 @@ typedef NS_ENUM(NSUInteger, JMAnimatedImageViewOrder) {
 };
 ```
 
+## Multi Gif and animation type (top interactive, leff automatic swipe effect, right automatic without animation)
+
+![Image](./Screens/gif_experiments.gif "Multi Gif")
+
+##  JMimageView can be use to generate Carousels
+
 ![Image](./Screens/JMimageViewCarousel.gif "Carousel Demo")
+
+##  JMimageView allowa interactive animations
 
 ![Image](./Screens/JMImageViewRotation.gif "Rotation Demo")
 
