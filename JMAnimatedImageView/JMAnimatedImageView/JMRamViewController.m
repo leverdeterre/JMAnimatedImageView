@@ -8,6 +8,7 @@
 
 #import "JMRamViewController.h"
 #import "AppInformationsManager.h"
+#import "mach/mach.h"
 
 @interface JMRamViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *memoryLabel;
@@ -22,7 +23,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        _initailFreeMemorySpaceMo = [self getFreeMemorySpaceMo];
+        //_initailFreeMemorySpaceMo = [self getUsedMemory];
     }
     return self;
 }
@@ -43,16 +44,27 @@
 
 - (void)refreshMemoryUsage
 {
-    self.memoryLabel.text = [NSString stringWithFormat:@"%2.f MO",(self.initailFreeMemorySpaceMo - [self getFreeMemorySpaceMo])];
+    self.memoryLabel.text = [NSString stringWithFormat:@"%2.f MO",[self getUsedMemory]];
 }
 
-- (CGFloat)getFreeMemorySpaceMo
+- (CGFloat)getUsedMemory
 {
+    struct task_basic_info info;
+    mach_msg_type_number_t size = sizeof(info);
+    kern_return_t kerr = task_info(mach_task_self(), TASK_BASIC_INFO, (task_info_t) &info, &size);
+    if (kerr == KERN_SUCCESS) {
+        CGFloat freeMemorySpaceMo = info.resident_size / (1024 * 1024);
+        return freeMemorySpaceMo;
+    }
+    
+    /*
     NSInteger pourcentFreeMemorySpace = [[AppInformationsManager sharedManager] freeMemorySpace];
     unsigned long long totalMemory = [[NSProcessInfo processInfo] physicalMemory];
     NSProcessInfo *info = [NSProcessInfo processInfo];
     CGFloat freeMemorySpaceMo = ((CGFloat)pourcentFreeMemorySpace/100.0f) * (totalMemory/(1024*1024));
-    return freeMemorySpaceMo;
+    return freeMemorySpaceMo; */
+    return -1.0f;
+
 }
 
 - (void)startRefreshingMemoryUsage
