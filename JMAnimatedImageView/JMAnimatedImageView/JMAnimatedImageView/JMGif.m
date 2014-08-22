@@ -76,16 +76,23 @@
     for (size_t i = 0; i < imageCount; i++) {
         CGImageRef frameImageRef = CGImageSourceCreateImageAtIndex(imageSource, i, NULL);
         if (frameImageRef) {
-            UIImage *frameImage = [UIImage imageWithCGImage:frameImageRef];
+            //UIImage *frameImage = [UIImage imageWithCGImage:frameImageRef];
             // Check for valid `frameImage` before parsing its properties as frames can be corrupted (and `frameImage` even `nil` when `frameImageRef` was valid).
-            if (frameImage) {
+            if (YES) {
                 NSDictionary *frameProperties = (__bridge_transfer NSDictionary *)CGImageSourceCopyPropertiesAtIndex(imageSource, i, NULL);
                 NSDictionary *framePropertiesGIF = [frameProperties objectForKey:(id)kCGImagePropertyGIFDictionary];
-                //JMGifItem *item = [[JMGifItem alloc] initWithImage:frameImage frameProperties:framePropertiesGIF];
-                JMGifItem *item = [[JMGifItem alloc] initWithImagePath:[self.class imagePathForeGifName:gifName index:i]
-                                                       frameProperties:framePropertiesGIF];
+                JMGifItem *item;
+                if (gifName) {
+                    item = [[JMGifItem alloc] initWithImagePath:[self.class imagePathForeGifName:gifName index:i]
+                                                frameProperties:framePropertiesGIF];
+                    if ([self.class gifNamedAlreadyCached:gifName index:i] == NO) {
+                        [self.class cacheGifName:gifName image:[UIImage imageWithCGImage:frameImageRef] representingIndex:i];
+                    }
+                } else {
+                    item = [[JMGifItem alloc] initWithImage:[UIImage imageWithCGImage:frameImageRef] frameProperties:framePropertiesGIF];
+                }
+      
                 [items addObject:item];
-                [self.class cacheGifName:gifName image:frameImage representingIndex:i];
             }
             
             CFRelease(frameImageRef);
@@ -110,6 +117,26 @@
 }
 
 #pragma mark - Gif cache management
+
++ (BOOL)gifNamedAlreadyCached:(NSString *)gifName
+{
+    NSString *directoryPath = [NSString stringWithFormat:@"%@/%@",[self cacheDirectoryPath],gifName];
+
+    if ([[NSFileManager defaultManager] fileExistsAtPath:directoryPath]) {
+        return YES;
+    }
+    
+    return NO;
+}
+
++ (BOOL)gifNamedAlreadyCached:(NSString *)gifName index:(NSInteger)index
+{
+    if ([[NSFileManager defaultManager] fileExistsAtPath:[self imagePathForeGifName:gifName index:index]]) {
+        return YES;
+    }
+    
+    return NO;
+}
 
 + (NSString *)cacheDirectoryPath
 {

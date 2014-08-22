@@ -12,6 +12,7 @@
 @interface JMRamViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *memoryLabel;
 @property (strong, nonatomic) NSTimer *timer;
+@property (assign, nonatomic) CGFloat initailFreeMemorySpaceMo;
 @end
 
 @implementation JMRamViewController
@@ -21,6 +22,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        _initailFreeMemorySpaceMo = [self getFreeMemorySpaceMo];
     }
     return self;
 }
@@ -41,10 +43,16 @@
 
 - (void)refreshMemoryUsage
 {
+    self.memoryLabel.text = [NSString stringWithFormat:@"%2.f MO",(self.initailFreeMemorySpaceMo - [self getFreeMemorySpaceMo])];
+}
+
+- (CGFloat)getFreeMemorySpaceMo
+{
     NSInteger pourcentFreeMemorySpace = [[AppInformationsManager sharedManager] freeMemorySpace];
     unsigned long long totalMemory = [[NSProcessInfo processInfo] physicalMemory];
+    NSProcessInfo *info = [NSProcessInfo processInfo];
     CGFloat freeMemorySpaceMo = ((CGFloat)pourcentFreeMemorySpace/100.0f) * (totalMemory/(1024*1024));
-    self.memoryLabel.text = [NSString stringWithFormat:@"%2.f MO",freeMemorySpaceMo];
+    return freeMemorySpaceMo;
 }
 
 - (void)startRefreshingMemoryUsage

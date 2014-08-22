@@ -43,7 +43,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 9;
+    return 10;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -82,6 +82,11 @@
         cell.jmDetailsLabel.text = @"Swipe left / Right";
         
     } else if (indexPath.row == 8) {
+        cell.jmLabel.text = @"MULTIPLE GIF ANIMATIONS : using JMAnimatedImageView";
+        cell.jmDetailsLabel.text = @"";
+    }
+    
+    else if (indexPath.row == 9) {
         cell.jmLabel.text = @"MULTIPLE GIF ANIMATIONS : using JMAnimatedImageView (Low memory usage)";
         cell.jmDetailsLabel.text = @"";
     }
@@ -138,7 +143,14 @@
         vc.order = JMAnimatedImageViewOrderNormal;
         
     } else if (indexPath.row == 8) {
-        vcToPush = [JMFLViewController new];
+        JMFLViewController *vc = [JMFLViewController new];
+        vc.memoryManagementOption = JMAnimatedImageViewMemoryLoadImageSystemCache;
+        vcToPush = vc;
+        
+    } else if (indexPath.row == 9) {
+        JMFLViewController *vc = [JMFLViewController new];
+        vc.memoryManagementOption = JMAnimatedImageViewMemoryLoadImageLowMemoryUsage;
+        vcToPush = vc;
     }
     
     [self.navigationController pushViewController:vcToPush animated:YES];

@@ -33,23 +33,39 @@
     
     self.title = @"3 GIF, 3 animations ...";
     
-    NSURL *url = [[NSBundle mainBundle] URLForResource:@"rock" withExtension:@"gif"];
-    NSData *data = [NSData dataWithContentsOfURL:url];
-    [self.carImageView1 reloadAnimationImagesFromGifData:data];
-    self.carImageView1.animationType = JMAnimatedImageViewAnimationTypeInteractive;
+    if (self.memoryManagementOption == JMAnimatedImageViewMemoryLoadImageSystemCache) {
+        NSURL *url = [[NSBundle mainBundle] URLForResource:@"rock" withExtension:@"gif"];
+        NSData *data = [NSData dataWithContentsOfURL:url];
+        [self.carImageView1 reloadAnimationImagesFromGifData:data];
+        self.carImageView1.animationType = JMAnimatedImageViewAnimationTypeInteractive;
+        
+        url = [[NSBundle mainBundle] URLForResource:@"Rotating_earth" withExtension:@"gif"];
+        data = [NSData dataWithContentsOfURL:url];
+        [self.carImageView2 reloadAnimationImagesFromGifData:data];
+        self.carImageView2.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinear;
+        self.carImageView2.animationDuration = 3;
+        [self.carImageView2 startAnimating];
+        
+        url = [[NSBundle mainBundle] URLForResource:@"nyan" withExtension:@"gif"];
+        data = [NSData dataWithContentsOfURL:url];
+        [self.carImageView3 reloadAnimationImagesFromGifData:data];
+        self.carImageView3.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutAnimation;
+        [self.carImageView3 startAnimating];
+    } else {
     
-    url = [[NSBundle mainBundle] URLForResource:@"Rotating_earth" withExtension:@"gif"];
-    data = [NSData dataWithContentsOfURL:url];
-    [self.carImageView2 reloadAnimationImagesFromGifData:data];
-    self.carImageView2.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinear;
-    self.carImageView2.animationDuration = 3;
-    [self.carImageView2 startAnimating];
-    
-    url = [[NSBundle mainBundle] URLForResource:@"nyan" withExtension:@"gif"];
-    data = [NSData dataWithContentsOfURL:url];
-    [self.carImageView3 reloadAnimationImagesFromGifData:data];
-    self.carImageView3.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutAnimation;
-    [self.carImageView3 startAnimating];
+        [self.carImageView1 reloadAnimationImagesFromGifNamed:@"rock"];
+        self.carImageView1.animationType = JMAnimatedImageViewAnimationTypeInteractive;
+
+        [self.carImageView2 reloadAnimationImagesFromGifNamed:@"Rotating_earth"];
+        self.carImageView2.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinear;
+        self.carImageView2.animationDuration = 3;
+        [self.carImageView2 startAnimating];
+        
+        [self.carImageView3 reloadAnimationImagesFromGifNamed:@"nyan"];
+        self.carImageView3.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutAnimation;
+        [self.carImageView3 startAnimating];
+        
+    }
 }
 
 - (void)didReceiveMemoryWarning

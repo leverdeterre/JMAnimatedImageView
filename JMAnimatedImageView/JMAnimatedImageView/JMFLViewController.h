@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JMAnimatedImageView.h"
 
 @interface JMFLViewController : UIViewController
+
+@property (assign, nonatomic) JMAnimatedImageViewMemoryOption memoryManagementOption;
 
 @end
