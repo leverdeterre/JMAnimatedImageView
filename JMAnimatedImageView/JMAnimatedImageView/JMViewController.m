@@ -12,6 +12,7 @@
 @interface JMViewController () <JMOImageViewAnimationDelegate, JMOImageViewAnimationDatasource>
 @property (weak, nonatomic) IBOutlet JMAnimatedImageView *carImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
+
 @end
 
 @implementation JMViewController

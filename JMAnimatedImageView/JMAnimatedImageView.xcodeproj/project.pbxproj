@@ -24,6 +24,8 @@
 		C2954D1A19A72C7600494F41 /* NSDictionary+iAppInfos.m in Sources */ = {isa = PBXBuildFile; fileRef = C2954D1219A72C7600494F41 /* NSDictionary+iAppInfos.m */; };
 		C2954D1B19A72C7600494F41 /* UIApplication+iAppInfos.m in Sources */ = {isa = PBXBuildFile; fileRef = C2954D1419A72C7600494F41 /* UIApplication+iAppInfos.m */; };
 		C2954D1C19A72C7600494F41 /* UIDevice+iAppInfos.m in Sources */ = {isa = PBXBuildFile; fileRef = C2954D1619A72C7600494F41 /* UIDevice+iAppInfos.m */; };
+		C2954D2019A72EF800494F41 /* JMRamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2954D1E19A72EF800494F41 /* JMRamViewController.m */; };
+		C2954D2119A72EF800494F41 /* JMRamViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2954D1F19A72EF800494F41 /* JMRamViewController.xib */; };
 		C2B03DF619A471670032B240 /* rock.gif in Resources */ = {isa = PBXBuildFile; fileRef = C2B03DF519A471670032B240 /* rock.gif */; };
 		C2B03DF919A474190032B240 /* JMGif.m in Sources */ = {isa = PBXBuildFile; fileRef = C2B03DF819A474190032B240 /* JMGif.m */; };
 		C2B03DFC19A52D000032B240 /* JMAnimatedImageView+Image.m in Sources */ = {isa = PBXBuildFile; fileRef = C2B03DFB19A52D000032B240 /* JMAnimatedImageView+Image.m */; };
@@ -160,6 +162,9 @@
 		C2954D1419A72C7600494F41 /* UIApplication+iAppInfos.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+iAppInfos.m"; sourceTree = "<group>"; };
 		C2954D1519A72C7600494F41 /* UIDevice+iAppInfos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+iAppInfos.h"; sourceTree = "<group>"; };
 		C2954D1619A72C7600494F41 /* UIDevice+iAppInfos.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+iAppInfos.m"; sourceTree = "<group>"; };
+		C2954D1D19A72EF800494F41 /* JMRamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JMRamViewController.h; sourceTree = "<group>"; };
+		C2954D1E19A72EF800494F41 /* JMRamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JMRamViewController.m; sourceTree = "<group>"; };
+		C2954D1F19A72EF800494F41 /* JMRamViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JMRamViewController.xib; sourceTree = "<group>"; };
 		C2B03DF519A471670032B240 /* rock.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = rock.gif; sourceTree = "<group>"; };
 		C2B03DF719A474190032B240 /* JMGif.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JMGif.h; sourceTree = "<group>"; };
 		C2B03DF819A474190032B240 /* JMGif.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JMGif.m; sourceTree = "<group>"; };
@@ -386,6 +391,9 @@
 			children = (
 				C2B75335199E8802004BB1C3 /* JMAppDelegate.h */,
 				C2B75336199E8802004BB1C3 /* JMAppDelegate.m */,
+				C2954D1D19A72EF800494F41 /* JMRamViewController.h */,
+				C2954D1E19A72EF800494F41 /* JMRamViewController.m */,
+				C2954D1F19A72EF800494F41 /* JMRamViewController.xib */,
 				C2B75338199E8802004BB1C3 /* Main.storyboard */,
 				C2B7533B199E8802004BB1C3 /* JMViewController.h */,
 				C2B7533C199E8802004BB1C3 /* JMViewController.m */,
@@ -629,6 +637,7 @@
 				C2B753DC199E8878004BB1C3 /* zoom_1920_59.jpg in Resources */,
 				C2B753C5199E8878004BB1C3 /* zoom_1920_38.jpg in Resources */,
 				C2B753DB199E8878004BB1C3 /* zoom_1920_58.jpg in Resources */,
+				C2954D2119A72EF800494F41 /* JMRamViewController.xib in Resources */,
 				C2B753E7199E8878004BB1C3 /* zoom_1920_69.jpg in Resources */,
 				C2B753C0199E8878004BB1C3 /* zoom_1920_33.jpg in Resources */,
 				C2B753B6199E8878004BB1C3 /* zoom_1920_24.jpg in Resources */,
@@ -722,6 +731,7 @@
 			files = (
 				C2B753F7199E88A9004BB1C3 /* JMAnimatedImageView.m in Sources */,
 				C2954D1A19A72C7600494F41 /* NSDictionary+iAppInfos.m in Sources */,
+				C2954D2019A72EF800494F41 /* JMRamViewController.m in Sources */,
 				C2B75333199E8802004BB1C3 /* main.m in Sources */,
 				C2B7533D199E8802004BB1C3 /* JMViewController.m in Sources */,
 				C2B03E0019A554E30032B240 /* JMFLViewController.m in Sources */,

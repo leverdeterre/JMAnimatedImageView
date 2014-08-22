@@ -7,6 +7,11 @@
 //
 
 #import "JMAppDelegate.h"
+#import "JMRamViewController.h"
+
+@interface JMAppDelegate ()
+@property (strong, nonatomic) JMRamViewController* ramVc;
+@end
 
 @implementation JMAppDelegate
 
@@ -41,6 +46,15 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (void)loadMemoryFollower
+{
+    if (self.ramVc == nil) {
+        self.ramVc = [JMRamViewController new];
+        [self.window addSubview:self.ramVc.view];
+        [self.ramVc startRefreshingMemoryUsage];
+    }
 }
 
 @end
