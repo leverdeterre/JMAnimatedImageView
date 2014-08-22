@@ -39,6 +39,16 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    JMAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    [appDelegate.ramVc.view removeFromSuperview];
+    
+    [self.view addSubview:appDelegate.ramVc.view];
+    [appDelegate.ramVc startRefreshingMemoryUsage];
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

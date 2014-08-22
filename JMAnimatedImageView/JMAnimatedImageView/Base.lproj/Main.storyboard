@@ -43,7 +43,7 @@
             <objects>
                 <navigationController definesPresentationContext="YES" id="V9t-9F-cjM" sceneMemberID="viewController">
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Xwh-BK-aHl">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="Xwh-BK-aHl">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -59,13 +59,13 @@
             <objects>
                 <tableViewController id="JY2-s1-vkn" customClass="JMTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="LFh-3c-tEP">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <rect key="frame" x="0.0" y="64" width="1024" height="704"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="JMTableViewCell" rowHeight="70" id="eJn-lO-amv" customClass="JMTableViewCell">
-                                <rect key="frame" x="0.0" y="86" width="1024" height="70"/>
+                                <rect key="frame" x="0.0" y="22" width="1024" height="70"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="eJn-lO-amv" id="H5c-vL-FjG">
                                     <rect key="frame" x="0.0" y="0.0" width="991" height="69"/>

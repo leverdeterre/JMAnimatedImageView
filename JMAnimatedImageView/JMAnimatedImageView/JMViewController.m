@@ -137,4 +137,14 @@
     [self.carImageView stopAnimating];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    JMAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    [appDelegate.ramVc.view removeFromSuperview];
+    
+    [self.view addSubview:appDelegate.ramVc.view];
+    [appDelegate.ramVc startRefreshingMemoryUsage];
+}
+
 @end

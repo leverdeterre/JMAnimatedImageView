@@ -64,7 +64,6 @@
         [self.carImageView3 reloadAnimationImagesFromGifNamed:@"nyan"];
         self.carImageView3.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutAnimation;
         [self.carImageView3 startAnimating];
-        
     }
 }
 
@@ -72,6 +71,16 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    JMAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    [appDelegate.ramVc.view removeFromSuperview];
+    
+    [self.view addSubview:appDelegate.ramVc.view];
+    [appDelegate.ramVc startRefreshingMemoryUsage];
 }
 
 @end

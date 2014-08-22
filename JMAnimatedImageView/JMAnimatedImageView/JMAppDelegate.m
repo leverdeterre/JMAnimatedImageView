@@ -7,10 +7,8 @@
 //
 
 #import "JMAppDelegate.h"
-#import "JMRamViewController.h"
 
 @interface JMAppDelegate ()
-@property (strong, nonatomic) JMRamViewController* ramVc;
 @end
 
 @implementation JMAppDelegate

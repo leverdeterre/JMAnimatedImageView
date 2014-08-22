@@ -57,12 +57,6 @@
         return freeMemorySpaceMo;
     }
     
-    /*
-    NSInteger pourcentFreeMemorySpace = [[AppInformationsManager sharedManager] freeMemorySpace];
-    unsigned long long totalMemory = [[NSProcessInfo processInfo] physicalMemory];
-    NSProcessInfo *info = [NSProcessInfo processInfo];
-    CGFloat freeMemorySpaceMo = ((CGFloat)pourcentFreeMemorySpace/100.0f) * (totalMemory/(1024*1024));
-    return freeMemorySpaceMo; */
     return -1.0f;
 
 }

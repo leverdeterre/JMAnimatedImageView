@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JMRamViewController.h"
 
 @interface JMAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+@property (strong, nonatomic) JMRamViewController* ramVc;
 
 - (void)loadMemoryFollower;
 
