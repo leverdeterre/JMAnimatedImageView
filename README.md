@@ -24,7 +24,7 @@ In your code, `#import "JMAnimatedImageView.h"` and `#import "JMAnimatedImageVie
 //GIF example
 @property (weak, nonatomic) IBOutlet JMAnimatedImageView *jmImageView;
 
-[self.jmImageView reloadAnimationImagesFromGifNamed:@"gif"];
+[self.jmImageView reloadAnimationImagesFromGifNamed:@"rock"];
 self.jmImageView.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutAnimation;
 [self.jmImageView startAnimating];
 ```
