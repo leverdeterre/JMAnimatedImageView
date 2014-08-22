@@ -24,9 +24,8 @@ In your code, `#import "JMAnimatedImageView.h"` and `#import "JMAnimatedImageVie
 //GIF example
 @property (weak, nonatomic) IBOutlet JMAnimatedImageView *jmImageView;
 
-NSURL *url = [[NSBundle mainBundle] URLForResource:@"rock" withExtension:@"gif"];
-NSData *data = [NSData dataWithContentsOfURL:url];
-[self.jmImageView reloadAnimationImagesFromGifData:data];
+[self.jmImageView reloadAnimationImagesFromGifNamed:@"gif"];
+self.jmImageView.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutAnimation;
 [self.jmImageView startAnimating];
 ```
 
