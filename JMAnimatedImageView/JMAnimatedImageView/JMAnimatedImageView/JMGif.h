@@ -11,7 +11,14 @@
 @property (readonly, nonatomic) NSArray *items;  //images + infos
 
 - (instancetype)initWithData:(NSData *)data;
++ (instancetype)gifNamed:(NSString *)gifName;
+
 - (UIImage *)imageAtIndex:(NSInteger)index;
+
++ (void)cleanGifCache;
++ (void)cleanGifCacheError:(NSError **)error;
++ (void)cleanGifCacheForGifNamed:(NSString *)gifName;
++ (void)cleanGifCacheForGifNamed:(NSString *)gifName error:(NSError **)error;
 
 @end
 
@@ -23,8 +30,11 @@
 @interface JMGifItem : NSObject
 
 @property (readonly, nonatomic) UIImage *image;
+@property (readonly, nonatomic) NSString *imagePath;
 @property (readonly, nonatomic) NSDictionary *delay;
 
 - (instancetype)initWithImage:(UIImage *)image frameProperties:(NSDictionary *)frameProperties;
+- (instancetype)initWithImagePath:(NSString *)imagePath frameProperties:(NSDictionary *)frameProperties;
+- (instancetype)initWithImage:(UIImage *)image imagePath:(NSString *)imagePath frameProperties:(NSDictionary *)frameProperties;
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "JMGif.h"
+#import "UIImage+JM.h"
 
 #import <ImageIO/ImageIO.h>
 #import <MobileCoreServices/MobileCoreServices.h>
@@ -14,16 +15,34 @@
 
 @implementation JMGif
 
-- (instancetype)initWithData:(NSData *)data
+- (instancetype)initWithData:(NSData *)data gifName:(NSString *)gifName
 {
     self = [super init];
     if (self) {
-        [self loadGifWithData:data];
+        [self loadGifWithData:data gifName:gifName];
     }
     return self;
 }
 
-- (void)loadGifWithData:(NSData *)data
+- (instancetype)initWithData:(NSData *)data
+{
+    return [self initWithData:data gifName:nil];
+}
+
++ (instancetype)gifNamed:(NSString *)gifName
+{
+    NSError *error;
+    NSURL *url = [[NSBundle mainBundle] URLForResource:gifName withExtension:@"gif"];
+    NSData *data = [NSData dataWithContentsOfURL:url options:0 error:&error];
+    if (nil == error) {
+        JMGif *gif = [[JMGif alloc] initWithData:data gifName:gifName];
+        return gif;
+    }
+    
+    return nil;
+}
+
+- (void)loadGifWithData:(NSData *)data gifName:(NSString *)gifName
 {
     CGImageSourceRef imageSource = CGImageSourceCreateWithData((__bridge CFDataRef)data, NULL);
     
@@ -62,8 +81,11 @@
             if (frameImage) {
                 NSDictionary *frameProperties = (__bridge_transfer NSDictionary *)CGImageSourceCopyPropertiesAtIndex(imageSource, i, NULL);
                 NSDictionary *framePropertiesGIF = [frameProperties objectForKey:(id)kCGImagePropertyGIFDictionary];
-                JMGifItem *item = [[JMGifItem alloc] initWithImage:frameImage frameProperties:framePropertiesGIF];
+                //JMGifItem *item = [[JMGifItem alloc] initWithImage:frameImage frameProperties:framePropertiesGIF];
+                JMGifItem *item = [[JMGifItem alloc] initWithImagePath:[self.class imagePathForeGifName:gifName index:i]
+                                                       frameProperties:framePropertiesGIF];
                 [items addObject:item];
+                [self.class cacheGifName:gifName image:frameImage representingIndex:i];
             }
             
             CFRelease(frameImageRef);
@@ -76,7 +98,77 @@
 
 - (UIImage *)imageAtIndex:(NSInteger)index
 {
-    return [[self.items objectAtIndex:index] image];
+    JMGifItem *item = [self.items objectAtIndex:index];
+    if (item.image) {
+        return item.image;
+        
+    } else if (item.imagePath) {
+        return [UIImage jm_imagePath:item.imagePath withOption:JMAnimatedImageViewMemoryLoadImageLowMemoryUsage];
+    }
+    
+    return nil;
+}
+
+#pragma mark - Gif cache management
+
++ (NSString *)cacheDirectoryPath
+{
+    NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+    NSString *directoryPath = [NSString stringWithFormat:@"%@/%@",cachePath,@"JMAnimatedImageView"];
+    return directoryPath;
+}
+
++ (void)cleanGifCache
+{
+    NSError *cleanError;
+    [[NSFileManager defaultManager] removeItemAtPath:[self cacheDirectoryPath] error:&cleanError];
+}
+
++ (void)cleanGifCacheError:(NSError **)error
+{
+    [[NSFileManager defaultManager] removeItemAtPath:[self cacheDirectoryPath] error:error];
+}
+
++ (void)cleanGifCacheForGifNamed:(NSString *)gifName
+{
+    NSError *cleanError;
+    [self cleanGifCacheForGifNamed:gifName error:&cleanError];
+}
+
++ (void)cleanGifCacheForGifNamed:(NSString *)gifName error:(NSError **)error
+{
+    NSString *directoryPath = [NSString stringWithFormat:@"%@/%@",[self cacheDirectoryPath],gifName];
+    [[NSFileManager defaultManager] removeItemAtPath:directoryPath error:error];
+}
+
++ (NSString *)imagePathForeGifName:(NSString *)gifName index:(NSInteger)index
+{
+    NSString *directoryPath = [NSString stringWithFormat:@"%@/%@",[self cacheDirectoryPath],gifName];
+    NSString *filePath = [NSString stringWithFormat:@"%@/%d.png",directoryPath,index];
+    return filePath;
+}
+
++ (void)cacheGifName:(NSString *)gifName image:(UIImage *)img representingIndex:(NSInteger)index
+{
+    NSString *directoryPath = [NSString stringWithFormat:@"%@/%@",[self cacheDirectoryPath],gifName];
+    
+    BOOL isDirectory = NO;
+    if (! [[NSFileManager defaultManager] fileExistsAtPath:directoryPath isDirectory:&isDirectory]) {
+        
+        NSError *error;
+        BOOL success = NO;
+        success = [[NSFileManager defaultManager] createDirectoryAtURL:[NSURL fileURLWithPath:directoryPath]
+                                           withIntermediateDirectories:YES
+                                                            attributes:nil
+                                                                 error:&error];
+    }
+    
+    NSData *data = UIImagePNGRepresentation(img);
+    if (data) {
+        NSString *imgPath = [self imagePathForeGifName:gifName index:index];
+        NSError *writeError;
+        [data writeToFile:imgPath options:0 error:&writeError];
+    }
 }
 
 @end
@@ -85,6 +177,16 @@
 @implementation JMGifItem
 
 - (instancetype)initWithImage:(UIImage *)image frameProperties:(NSDictionary *)frameProperties
+{
+    return [self initWithImage:image imagePath:nil frameProperties:frameProperties];
+}
+
+- (instancetype)initWithImagePath:(NSString *)imagePath frameProperties:(NSDictionary *)frameProperties
+{
+    return [self initWithImage:nil imagePath:imagePath frameProperties:frameProperties];
+}
+
+- (instancetype)initWithImage:(UIImage *)image imagePath:(NSString *)imagePath frameProperties:(NSDictionary *)frameProperties
 {
     self = [super init];
     if (self) {
@@ -103,6 +205,7 @@
         //     };
         // }
         _delay = frameProperties;
+        _imagePath = imagePath;
     }
     return self;
 }

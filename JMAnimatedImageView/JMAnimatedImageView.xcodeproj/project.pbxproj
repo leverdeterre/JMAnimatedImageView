@@ -18,6 +18,12 @@
 		C24A92E4199F4C0800CFDBE0 /* 7_verge_super_wide.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C24A92D9199F4C0800CFDBE0 /* 7_verge_super_wide.jpg */; };
 		C24A92E5199F4C0800CFDBE0 /* 8_verge_super_wide.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C24A92DA199F4C0800CFDBE0 /* 8_verge_super_wide.jpg */; };
 		C24A92E6199F4C0800CFDBE0 /* 9_verge_super_wide.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C24A92DB199F4C0800CFDBE0 /* 9_verge_super_wide.jpg */; };
+		C2954D1719A72C7600494F41 /* AppInformationsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C2954D0B19A72C7600494F41 /* AppInformationsManager.m */; };
+		C2954D1819A72C7600494F41 /* JMODevicePowerInfos.m in Sources */ = {isa = PBXBuildFile; fileRef = C2954D0D19A72C7600494F41 /* JMODevicePowerInfos.m */; };
+		C2954D1919A72C7600494F41 /* JMOMobileProvisionning.m in Sources */ = {isa = PBXBuildFile; fileRef = C2954D1019A72C7600494F41 /* JMOMobileProvisionning.m */; };
+		C2954D1A19A72C7600494F41 /* NSDictionary+iAppInfos.m in Sources */ = {isa = PBXBuildFile; fileRef = C2954D1219A72C7600494F41 /* NSDictionary+iAppInfos.m */; };
+		C2954D1B19A72C7600494F41 /* UIApplication+iAppInfos.m in Sources */ = {isa = PBXBuildFile; fileRef = C2954D1419A72C7600494F41 /* UIApplication+iAppInfos.m */; };
+		C2954D1C19A72C7600494F41 /* UIDevice+iAppInfos.m in Sources */ = {isa = PBXBuildFile; fileRef = C2954D1619A72C7600494F41 /* UIDevice+iAppInfos.m */; };
 		C2B03DF619A471670032B240 /* rock.gif in Resources */ = {isa = PBXBuildFile; fileRef = C2B03DF519A471670032B240 /* rock.gif */; };
 		C2B03DF919A474190032B240 /* JMGif.m in Sources */ = {isa = PBXBuildFile; fileRef = C2B03DF819A474190032B240 /* JMGif.m */; };
 		C2B03DFC19A52D000032B240 /* JMAnimatedImageView+Image.m in Sources */ = {isa = PBXBuildFile; fileRef = C2B03DFB19A52D000032B240 /* JMAnimatedImageView+Image.m */; };
@@ -141,6 +147,19 @@
 		C24A92D9199F4C0800CFDBE0 /* 7_verge_super_wide.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 7_verge_super_wide.jpg; sourceTree = "<group>"; };
 		C24A92DA199F4C0800CFDBE0 /* 8_verge_super_wide.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 8_verge_super_wide.jpg; sourceTree = "<group>"; };
 		C24A92DB199F4C0800CFDBE0 /* 9_verge_super_wide.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 9_verge_super_wide.jpg; sourceTree = "<group>"; };
+		C2954D0A19A72C7600494F41 /* AppInformationsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppInformationsManager.h; sourceTree = "<group>"; };
+		C2954D0B19A72C7600494F41 /* AppInformationsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppInformationsManager.m; sourceTree = "<group>"; };
+		C2954D0C19A72C7600494F41 /* JMODevicePowerInfos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JMODevicePowerInfos.h; sourceTree = "<group>"; };
+		C2954D0D19A72C7600494F41 /* JMODevicePowerInfos.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JMODevicePowerInfos.m; sourceTree = "<group>"; };
+		C2954D0E19A72C7600494F41 /* JMOLogMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JMOLogMacro.h; sourceTree = "<group>"; };
+		C2954D0F19A72C7600494F41 /* JMOMobileProvisionning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JMOMobileProvisionning.h; sourceTree = "<group>"; };
+		C2954D1019A72C7600494F41 /* JMOMobileProvisionning.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JMOMobileProvisionning.m; sourceTree = "<group>"; };
+		C2954D1119A72C7600494F41 /* NSDictionary+iAppInfos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+iAppInfos.h"; sourceTree = "<group>"; };
+		C2954D1219A72C7600494F41 /* NSDictionary+iAppInfos.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+iAppInfos.m"; sourceTree = "<group>"; };
+		C2954D1319A72C7600494F41 /* UIApplication+iAppInfos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIApplication+iAppInfos.h"; sourceTree = "<group>"; };
+		C2954D1419A72C7600494F41 /* UIApplication+iAppInfos.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+iAppInfos.m"; sourceTree = "<group>"; };
+		C2954D1519A72C7600494F41 /* UIDevice+iAppInfos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+iAppInfos.h"; sourceTree = "<group>"; };
+		C2954D1619A72C7600494F41 /* UIDevice+iAppInfos.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+iAppInfos.m"; sourceTree = "<group>"; };
 		C2B03DF519A471670032B240 /* rock.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = rock.gif; sourceTree = "<group>"; };
 		C2B03DF719A474190032B240 /* JMGif.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JMGif.h; sourceTree = "<group>"; };
 		C2B03DF819A474190032B240 /* JMGif.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JMGif.m; sourceTree = "<group>"; };
@@ -299,6 +318,27 @@
 			path = VergePhotos;
 			sourceTree = "<group>";
 		};
+		C2954D0919A72C7600494F41 /* iAppInfos */ = {
+			isa = PBXGroup;
+			children = (
+				C2954D0A19A72C7600494F41 /* AppInformationsManager.h */,
+				C2954D0B19A72C7600494F41 /* AppInformationsManager.m */,
+				C2954D0C19A72C7600494F41 /* JMODevicePowerInfos.h */,
+				C2954D0D19A72C7600494F41 /* JMODevicePowerInfos.m */,
+				C2954D0E19A72C7600494F41 /* JMOLogMacro.h */,
+				C2954D0F19A72C7600494F41 /* JMOMobileProvisionning.h */,
+				C2954D1019A72C7600494F41 /* JMOMobileProvisionning.m */,
+				C2954D1119A72C7600494F41 /* NSDictionary+iAppInfos.h */,
+				C2954D1219A72C7600494F41 /* NSDictionary+iAppInfos.m */,
+				C2954D1319A72C7600494F41 /* UIApplication+iAppInfos.h */,
+				C2954D1419A72C7600494F41 /* UIApplication+iAppInfos.m */,
+				C2954D1519A72C7600494F41 /* UIDevice+iAppInfos.h */,
+				C2954D1619A72C7600494F41 /* UIDevice+iAppInfos.m */,
+			);
+			name = iAppInfos;
+			path = JMAnimatedImageView/iAppInfos;
+			sourceTree = "<group>";
+		};
 		C2B03DF419A471670032B240 /* gifs */ = {
 			isa = PBXGroup;
 			children = (
@@ -331,6 +371,7 @@
 		C2B75325199E8802004BB1C3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C2954D0919A72C7600494F41 /* iAppInfos */,
 				C2B753EE199E88A9004BB1C3 /* JMAnimatedImageView */,
 				C2B75326199E8802004BB1C3 /* Foundation.framework */,
 				C2B75328199E8802004BB1C3 /* CoreGraphics.framework */,
@@ -680,16 +721,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				C2B753F7199E88A9004BB1C3 /* JMAnimatedImageView.m in Sources */,
+				C2954D1A19A72C7600494F41 /* NSDictionary+iAppInfos.m in Sources */,
 				C2B75333199E8802004BB1C3 /* main.m in Sources */,
 				C2B7533D199E8802004BB1C3 /* JMViewController.m in Sources */,
 				C2B03E0019A554E30032B240 /* JMFLViewController.m in Sources */,
+				C2954D1719A72C7600494F41 /* AppInformationsManager.m in Sources */,
 				C2B03DFC19A52D000032B240 /* JMAnimatedImageView+Image.m in Sources */,
 				C2B753F8199E88A9004BB1C3 /* JMAnimationOperation.m in Sources */,
 				C2B753F9199E88A9004BB1C3 /* UIImage+JM.m in Sources */,
 				C2B753FC199E8AFE004BB1C3 /* JMTableViewController.m in Sources */,
+				C2954D1C19A72C7600494F41 /* UIDevice+iAppInfos.m in Sources */,
+				C2954D1B19A72C7600494F41 /* UIApplication+iAppInfos.m in Sources */,
 				C2B03DF919A474190032B240 /* JMGif.m in Sources */,
+				C2954D1919A72C7600494F41 /* JMOMobileProvisionning.m in Sources */,
 				C2B753FF199E8B81004BB1C3 /* JMTableViewCell.m in Sources */,
 				C2B75337199E8802004BB1C3 /* JMAppDelegate.m in Sources */,
+				C2954D1819A72C7600494F41 /* JMODevicePowerInfos.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

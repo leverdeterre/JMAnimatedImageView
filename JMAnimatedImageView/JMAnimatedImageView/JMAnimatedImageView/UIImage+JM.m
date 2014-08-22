@@ -26,6 +26,7 @@
     
     if (option == JMAnimatedImageViewMemoryLoadImageSystemCache) {
         return [UIImage imageNamed:name];
+        
     } else {
         NSString *extension = [name pathExtension];
         NSString *nameWithoutExtension = [name stringByDeletingPathExtension];
@@ -33,6 +34,11 @@
         NSString *filePath = [[NSBundle mainBundle] pathForResource:nameWithoutExtension ofType:extension];
         return [UIImage imageWithContentsOfFile:filePath];
     }
+}
+
++ (UIImage *)jm_imagePath:(NSString *)imagePath withOption:(JMAnimatedImageViewMemoryOption)option
+{
+    return [UIImage imageWithContentsOfFile:imagePath];
 }
 
 @end

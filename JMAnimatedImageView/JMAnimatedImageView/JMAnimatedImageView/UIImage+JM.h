@@ -13,5 +13,6 @@
 
 + (UIImage *)jm_imageNamed:(NSString *)name;
 + (UIImage *)jm_imageNamed:(NSString *)name withOption:(JMAnimatedImageViewMemoryOption)option;
++ (UIImage *)jm_imagePath:(NSString *)imagePath withOption:(JMAnimatedImageViewMemoryOption)option;
 
 @end

@@ -53,9 +53,7 @@
             [self.carImageView reloadAnimationImages];
             
         } else {
-            NSURL *url = [[NSBundle mainBundle] URLForResource:@"rock" withExtension:@"gif"];
-            NSData *data = [NSData dataWithContentsOfURL:url];
-            [self.carImageView reloadAnimationImagesFromGifData:data];
+            [self.carImageView reloadAnimationImagesFromGifNamed:@"rock"];
         }
         
         if (self.animationType == JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutAnimation) {

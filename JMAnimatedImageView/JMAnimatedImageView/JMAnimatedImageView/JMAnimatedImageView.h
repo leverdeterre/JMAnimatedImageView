@@ -45,6 +45,7 @@ typedef NS_ENUM(NSUInteger, JMAnimatedImageViewOrder) {
 
 - (void)reloadAnimationImages;
 - (void)reloadAnimationImagesFromGifData:(NSData *)data;
+- (void)reloadAnimationImagesFromGifNamed:(NSString *)gitName;
 
 - (void)setCurrentIndex:(NSInteger)index animated:(BOOL)animated;
 - (void)setImage:(UIImage *)img forCurrentIndex:(NSInteger)index;

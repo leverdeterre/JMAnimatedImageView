@@ -84,6 +84,14 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
     [self updateGesturesForAnimationType:_animationType];
 }
 
+- (void)reloadAnimationImagesFromGifNamed:(NSString *)gitName
+{
+    _gifObject = [JMGif gifNamed:gitName];
+    self.animationDuration = JMDefaultGifDuration;
+    [self setCurrentCardImageAtindex:0];
+    [self updateGesturesForAnimationType:_animationType];
+}
+
 - (BOOL)checkLifeCycleSanity
 {
     if (self.superview) {
