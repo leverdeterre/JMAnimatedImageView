@@ -58,7 +58,7 @@
         }
         
         if (self.animationType == JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutAnimation) {
-            self.carImageView.animationRepeatCount = 0;
+            self.carImageView.animationRepeatCount = 1;
             if (self.usingGif) {
                 self.carImageView.animationDuration = JMDefaultGifDuration; //GIF DURATION IS A PART OF THE GIF DATA
             } else {
@@ -67,7 +67,7 @@
             
             [self.carImageView startAnimating];
         } else if (self.animationType == JMAnimatedImageViewAnimationTypeAutomaticLinear) {
-            self.carImageView.animationRepeatCount = 0;
+            self.carImageView.animationRepeatCount = 1;
             self.carImageView.animationDuration = 2.0; //ONE TRANSITION TIME
             [self.carImageView startAnimating];
         }

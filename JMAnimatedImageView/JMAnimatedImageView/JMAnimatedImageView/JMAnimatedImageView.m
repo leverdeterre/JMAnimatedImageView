@@ -371,7 +371,8 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
 {
     dispatch_async(self.animationManagementQueue, ^{
         NSTimeInterval unitDuration;
-        
+        NSInteger shiftUnit = shift / abs(shift); // 1 ou -1
+
         if (duration == JMDefaultGifDuration) {
             unitDuration = duration;
 
@@ -399,7 +400,7 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
             if(((currentInterval < minimumInterval) && [self isAGifImageView] == NO)) {
                 continue;
             } else {
-                NSInteger index = [self realIndexForComputedIndex:fromIndex+i];
+                NSInteger index = [self realIndexForComputedIndex:fromIndex+i*shiftUnit];
 
                 if ([self isAGifImageView]) {
                     JMGifItem *item = [[self.gifObject items] objectAtIndex:index];
@@ -457,7 +458,32 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
 
 - (void)animateToIndex:(NSInteger)index withDuration:(NSTimeInterval)duration
 {
-    [self moveCurrentCardImageFromIndex:self.currentIndex shift:([self numberOfImages] - self.currentIndex) withDuration:duration animationOption:UIImageViewAnimationOptionLinear];
+    //find minimum shift
+    [self moveCurrentCardImageFromIndex:self.currentIndex shift:[self minimalShiftFromIndex:self.currentIndex toIndex:index] withDuration:duration animationOption:UIImageViewAnimationOptionLinear];
+}
+
+- (NSInteger)minimalShiftFromIndex:(NSInteger)index toIndex:(NSInteger)toIndex
+{
+    //compute decrement
+    NSInteger nbDecrement = 0;
+    if (toIndex < index) {
+        nbDecrement = index - toIndex;
+    } else {
+        nbDecrement = index + toIndex;
+    }
+    
+    //compute increment
+    NSInteger nbIncrement = 0;
+    if (index < toIndex) {
+        nbIncrement = toIndex - index;
+    } else {
+        nbIncrement = ([self.animationDatasource numberOfImagesForAnimatedImageView:self] - index) + toIndex;
+    }
+    
+    if (nbIncrement < nbDecrement) {
+        return nbIncrement;
+    }
+    return -nbDecrement;
 }
 
 - (void)setCurrentIndex:(NSInteger)index animated:(BOOL)animated
