@@ -410,7 +410,8 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
                 JMAnimationOperation *operation = [JMAnimationOperation animationOperationWithDuration:currentInterval
                                                                                             completion:^(BOOL finished) {
                         if ((self.animationType == JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutAnimation) &&
-                            [self operationQueueIsFinished] == YES) {
+                            [self operationQueueIsFinished] == YES &&
+                            self.animationRepeatCount == 0) {
                             [self continueAnimating];
                         }
                 }];
