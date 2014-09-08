@@ -12,6 +12,7 @@
 #import <ImageIO/ImageIO.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <CoreGraphics/CoreGraphics.h>
+#import "JMAmimatedImageViewMacro.h"
 
 @implementation JMGif
 
@@ -47,14 +48,14 @@
     CGImageSourceRef imageSource = CGImageSourceCreateWithData((__bridge CFDataRef)data, NULL);
     
     if (!imageSource) {
-        NSLog(@"Error: Failed to `CGImageSourceCreateWithData` for animated GIF data %@", data);
+        JMOLog(@"Error: Failed to `CGImageSourceCreateWithData` for animated GIF data %@", data);
         return;
     }
     
     // Early return if not GIF!
     CFStringRef imageSourceContainerType = CGImageSourceGetType(imageSource);
     if (!UTTypeConformsTo(imageSourceContainerType, kUTTypeGIF)) {
-        NSLog(@"Error: Supplied data is of type %@ and doesn't seem to be GIF data %@", imageSourceContainerType, data);
+        JMOLog(@"Error: Supplied data is of type %@ and doesn't seem to be GIF data %@", imageSourceContainerType, data);
         CFRelease(imageSource);
         return;
     }

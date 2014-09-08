@@ -10,6 +10,7 @@
 #import "JMAnimationOperation.h"
 #import "UIImage+JM.h"
 #import "JMAnimatedImageView+Image.h"
+#import "JMAmimatedImageViewMacro.h"
 
 typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
     UIImageViewAnimationOptionLinear = 0,
@@ -298,6 +299,7 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
     }
     
     /*
+     //WORK AROUD TO SIMULATE INERTIA
      if(abs(velocity.x) > 100 && (
      gestureRecognizer.state == UIGestureRecognizerStateEnded ||
      gestureRecognizer.state == UIGestureRecognizerStateCancelled))
@@ -329,6 +331,15 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
 
 #pragma mark - Load images
 
+- (void)setCurrentIndex:(NSInteger)index animated:(BOOL)animated
+{
+    if (animated) {
+        [self changeImageToIndex:index withTimeInterval:0.25 repeat:NO];
+    } else {
+        [self changeImageToIndex:index withTimeInterval:-1 repeat:NO];
+    }
+}
+
 - (void)setCurrentCardImageAtindex:(NSInteger)index
 {
     NSInteger realIndex = [self realIndexForComputedIndex:index];
@@ -339,7 +350,7 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
 
 - (void)setCurrentImage:(UIImage *)img forIndex:(NSInteger)index
 {
-    NSLog(@"%s index:%d",__FUNCTION__,(int)index);
+    JMOLog(@"%s index:%d",__FUNCTION__,(int)index);
     NSInteger realIndex = [self realIndexForComputedIndex:index];
     self.image = img;
     self.currentIndex = realIndex;
@@ -384,7 +395,7 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
             }
         }
         
-        NSLog(@"%s fromIndex:%d shift:%d duration:%lf",__FUNCTION__,(int)fromIndex,(int)shift,duration);
+        JMOLog(@"%s fromIndex:%d shift:%d duration:%lf",__FUNCTION__,(int)fromIndex,(int)shift,duration);
         
         //[self cancelAnimations];
         [self.animationQueue cancelAllOperations];
@@ -459,7 +470,10 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
 - (void)animateToIndex:(NSInteger)index withDuration:(NSTimeInterval)duration
 {
     //find minimum shift
-    [self moveCurrentCardImageFromIndex:self.currentIndex shift:[self minimalShiftFromIndex:self.currentIndex toIndex:index] withDuration:duration animationOption:UIImageViewAnimationOptionLinear];
+    [self moveCurrentCardImageFromIndex:self.currentIndex
+                                  shift:[self minimalShiftFromIndex:self.currentIndex toIndex:index]
+                           withDuration:duration
+                        animationOption:UIImageViewAnimationOptionLinear];
 }
 
 - (NSInteger)minimalShiftFromIndex:(NSInteger)index toIndex:(NSInteger)toIndex
@@ -486,15 +500,6 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
     return -nbDecrement;
 }
 
-- (void)setCurrentIndex:(NSInteger)index animated:(BOOL)animated
-{
-    if (animated) {
-        [self changeImageToIndex:index withTimeInterval:0.25 repeat:NO];
-    } else {
-        [self changeImageToIndex:index withTimeInterval:-1 repeat:NO];
-    }
-}
-
 - (void)setImage:(UIImage *)img forCurrentIndex:(NSInteger)index
 {
     NSInteger realIndex = [self realIndexForComputedIndex:index];
@@ -510,15 +515,14 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
         return;
     }
     
-    [self setCurrentCardImageAtindex:0];
     if (self.animationType == JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutAnimation) {
         if ([self isAGifImageView]) {
-            [self moveCurrentCardImageFromIndex:0
+            [self moveCurrentCardImageFromIndex:self.currentIndex
                                           shift:_gifObject.items.count
                                    withDuration:self.animationDuration
                                 animationOption:UIImageViewAnimationOptionLinear];
         } else {
-            [self moveCurrentCardImageFromIndex:0
+            [self moveCurrentCardImageFromIndex:self.currentIndex
                                           shift:[self numberOfImages]
                                    withDuration:self.animationDuration
                                 animationOption:UIImageViewAnimationOptionLinear];
@@ -531,7 +535,7 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
 
 - (void)continueAnimating
 {
-    NSLog(@"continueAnimating");
+    JMOLog(@"continueAnimating");
     dispatch_async(dispatch_get_main_queue(), ^{
         if ([self checkLifeCycleSanity] == NO) {
             return;
@@ -542,12 +546,12 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
         }
         
         if ([self isAGifImageView]) {
-            [self moveCurrentCardImageFromIndex:0
+            [self moveCurrentCardImageFromIndex:self.currentIndex
                                           shift:self.gifObject.items.count
                                    withDuration:self.animationDuration
                                 animationOption:UIImageViewAnimationOptionLinear];
         } else {
-            [self moveCurrentCardImageFromIndex:0
+            [self moveCurrentCardImageFromIndex:self.currentIndex
                                           shift:[self numberOfImages]
                                    withDuration:self.animationDuration
                                 animationOption:UIImageViewAnimationOptionLinear];
@@ -576,7 +580,7 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
 
 - (void)cancelAnimations
 {
-    //NSLog(@"Cancel %d operations ", (int)[[self.animationQueue operations] count]);
+    JMOLog(@"Cancel %d operations ", (int)[[self.animationQueue operations] count]);
     for (NSOperation* o in [self.animationQueue operations]) {
         if ([o isKindOfClass:[o class]]) {
             [o cancel];
