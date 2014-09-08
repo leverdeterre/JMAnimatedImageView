@@ -146,27 +146,27 @@
     return directoryPath;
 }
 
-+ (void)cleanGifCache
++ (BOOL)cleanGifCache
 {
     NSError *cleanError;
-    [[NSFileManager defaultManager] removeItemAtPath:[self cacheDirectoryPath] error:&cleanError];
+    return [[NSFileManager defaultManager] removeItemAtPath:[self cacheDirectoryPath] error:&cleanError];
 }
 
-+ (void)cleanGifCacheError:(NSError **)error
++ (BOOL)cleanGifCacheError:(NSError **)error
 {
-    [[NSFileManager defaultManager] removeItemAtPath:[self cacheDirectoryPath] error:error];
+    return [[NSFileManager defaultManager] removeItemAtPath:[self cacheDirectoryPath] error:error];
 }
 
-+ (void)cleanGifCacheForGifNamed:(NSString *)gifName
++ (BOOL)cleanGifCacheForGifNamed:(NSString *)gifName
 {
     NSError *cleanError;
-    [self cleanGifCacheForGifNamed:gifName error:&cleanError];
+    return [self cleanGifCacheForGifNamed:gifName error:&cleanError];
 }
 
-+ (void)cleanGifCacheForGifNamed:(NSString *)gifName error:(NSError **)error
++ (BOOL)cleanGifCacheForGifNamed:(NSString *)gifName error:(NSError **)error
 {
     NSString *directoryPath = [NSString stringWithFormat:@"%@/%@",[self cacheDirectoryPath],gifName];
-    [[NSFileManager defaultManager] removeItemAtPath:directoryPath error:error];
+    return [[NSFileManager defaultManager] removeItemAtPath:directoryPath error:error];
 }
 
 + (NSString *)imagePathForeGifName:(NSString *)gifName index:(NSInteger)index
@@ -184,8 +184,7 @@
     if (! [[NSFileManager defaultManager] fileExistsAtPath:directoryPath isDirectory:&isDirectory]) {
         
         NSError *error;
-        BOOL success = NO;
-        success = [[NSFileManager defaultManager] createDirectoryAtURL:[NSURL fileURLWithPath:directoryPath]
+        [[NSFileManager defaultManager] createDirectoryAtURL:[NSURL fileURLWithPath:directoryPath]
                                            withIntermediateDirectories:YES
                                                             attributes:nil
                                                                  error:&error];

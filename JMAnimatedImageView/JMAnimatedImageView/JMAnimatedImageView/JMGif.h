@@ -15,10 +15,10 @@
 
 - (UIImage *)imageAtIndex:(NSInteger)index;
 
-+ (void)cleanGifCache;
-+ (void)cleanGifCacheError:(NSError **)error;
-+ (void)cleanGifCacheForGifNamed:(NSString *)gifName;
-+ (void)cleanGifCacheForGifNamed:(NSString *)gifName error:(NSError **)error;
++ (BOOL)cleanGifCache;
++ (BOOL)cleanGifCacheError:(NSError **)error;
++ (BOOL)cleanGifCacheForGifNamed:(NSString *)gifName;
++ (BOOL)cleanGifCacheForGifNamed:(NSString *)gifName error:(NSError **)error;
 
 @end
 
