@@ -410,6 +410,7 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationState) {
             currentInterval = currentInterval + unitDuration;
             if(((currentInterval < minimumInterval) && [self isAGifImageView] == NO)) {
                 continue;
+                
             } else {
                 NSInteger index = [self realIndexForComputedIndex:fromIndex+i*shiftUnit];
 

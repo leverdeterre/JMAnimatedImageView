@@ -62,7 +62,7 @@
         }
         
         if (self.animationType == JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutTransition) {
-            self.carImageView.animationRepeatCount = 1;
+            self.carImageView.animationRepeatCount = 0;
             if (self.usingGif) {
                 self.carImageView.animationDuration = JMDefaultGifDuration; //GIF DURATION IS A PART OF THE GIF DATA
             } else {
