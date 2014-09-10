@@ -14,11 +14,11 @@
 #define JMDefaultGifDuration -1
 
 typedef NS_ENUM(NSUInteger, JMAnimatedImageViewAnimationType) {
-    JMAnimatedImageViewAnimationTypeInteractive = 0,
+    JMAnimatedImageViewAnimationTypeNone                = 0,
     JMAnimatedImageViewAnimationTypeManualSwipe,
     JMAnimatedImageViewAnimationTypeAutomaticLinear,                    //use animationDuration + animationRepeatCount
-    JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutAnimation,    //use animationDuration + animationRepeatCount
-    JMAnimatedImageViewAnimationTypeAutomaticReverse,                   //use animationDuration + animationRepeatCount
+    JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutTransition,   //use animationDuration + animationRepeatCount
+    JMAnimatedImageViewAnimationTypeAutomaticReverse                    //use animationDuration + animationRepeatCount
 };
 
 typedef NS_ENUM(NSUInteger, JMAnimatedImageViewMemoryOption) {
@@ -32,6 +32,8 @@ typedef NS_ENUM(NSUInteger, JMAnimatedImageViewOrder) {
     JMAnimatedImageViewOrderReverse = -1
 };
 
+typedef void (^JMCompletionFinishBlock)(BOOL resul);
+
 @interface JMAnimatedImageView : UIImageView
 
 @property (weak, nonatomic) IBOutlet id <JMOImageViewAnimationDatasource> animationDatasource;
@@ -39,18 +41,21 @@ typedef NS_ENUM(NSUInteger, JMAnimatedImageViewOrder) {
 @property (assign, nonatomic) JMAnimatedImageViewAnimationType animationType;
 @property (assign, nonatomic) JMAnimatedImageViewMemoryOption memoryManagementOption;
 @property (assign, nonatomic) JMAnimatedImageViewOrder imageOrder;
+@property (assign, nonatomic) BOOL interactiveAnimation;
+
+- (void)reloadAnimationImages;
+
+- (void)setCurrentIndex:(NSInteger)index animated:(BOOL)animated;
+- (void)setImage:(UIImage *)img forCurrentIndex:(NSInteger)index;
+
+- (void)animateToIndex:(NSInteger)index withDuration:(NSTimeInterval)duration;
+- (void)animateToIndex:(NSInteger)index withDuration:(NSTimeInterval)duration withCompletionBlock:(JMCompletionFinishBlock)finishBlock;
 
 //Specific to GIF
 @property (strong, readonly, nonatomic) JMGif *gifObject;
 
-- (void)reloadAnimationImages;
+- (BOOL)isAGifImageView;
 - (void)reloadAnimationImagesFromGifData:(NSData *)data;
 - (void)reloadAnimationImagesFromGifNamed:(NSString *)gitName;
-
-- (void)setCurrentIndex:(NSInteger)index animated:(BOOL)animated;
-- (void)setImage:(UIImage *)img forCurrentIndex:(NSInteger)index;
-- (void)animateToIndex:(NSInteger)index withDuration:(NSTimeInterval)duration;
-
-- (BOOL)isAGifImageView;
 
 @end

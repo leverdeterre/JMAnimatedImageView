@@ -114,11 +114,11 @@
         vc.useJMImageView = NO;
         
     } else if (indexPath.row == 1) {
-        vc.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutAnimation;
+        vc.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutTransition;
         vc.useJMImageView = YES;
 
     } else if (indexPath.row == 2) {
-        vc.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutAnimation;
+        vc.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutTransition;
         vc.memoryManagementOption = JMAnimatedImageViewMemoryLoadImageLowMemoryUsage;
         vc.useJMImageView = YES;
     } else if (indexPath.row == 3) {
@@ -127,7 +127,7 @@
         vc.useJMImageView = YES;
         
     } else if (indexPath.row == 4) {
-        vc.animationType = JMAnimatedImageViewAnimationTypeInteractive;
+        vc.animationType = JMAnimatedImageViewAnimationTypeNone;
         vc.memoryManagementOption = JMAnimatedImageViewMemoryLoadImageLowMemoryUsage;
         vc.order = JMAnimatedImageViewOrderReverse;
         vc.useJMImageView = YES;
@@ -139,14 +139,14 @@
         vc.useJMImageView = YES;
         
     } else if (indexPath.row == 6) {
-        vc.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutAnimation /*JMAnimatedImageViewAnimationTypeManualRealTime*/;
+        vc.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutTransition /*JMAnimatedImageViewAnimationTypeManualRealTime*/;
         vc.memoryManagementOption = JMAnimatedImageViewMemoryLoadImageLowMemoryUsage;
         vc.useJMImageView = YES;
         vc.usingGif = YES;
         vc.order = JMAnimatedImageViewOrderNormal;
 
     } else if (indexPath.row == 7) {
-        vc.animationType =  JMAnimatedImageViewAnimationTypeInteractive;
+        vc.animationType =  JMAnimatedImageViewAnimationTypeNone;
         vc.memoryManagementOption = JMAnimatedImageViewMemoryLoadImageLowMemoryUsage;
         vc.useJMImageView = YES;
         vc.usingGif = YES;

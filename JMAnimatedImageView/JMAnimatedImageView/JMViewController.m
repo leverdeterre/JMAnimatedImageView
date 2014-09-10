@@ -44,20 +44,24 @@
             self.carImageView.contentMode = UIViewContentModeCenter; //photos a not well sized
         }
         
-        self.carImageView.animationDelegate = self;
-        self.carImageView.animationDatasource = self;
-        self.carImageView.animationType = self.animationType;
-        self.carImageView.memoryManagementOption = self.memoryManagementOption;
-        self.carImageView.imageOrder = self.order;
-        
         if (self.usingGif == NO) {
+            self.carImageView.animationDelegate = self;
+            self.carImageView.animationDatasource = self;
+            self.carImageView.animationType = self.animationType;
+            self.carImageView.memoryManagementOption = self.memoryManagementOption;
+            self.carImageView.imageOrder = self.order;
             [self.carImageView reloadAnimationImages];
             
         } else {
+            self.carImageView.animationDelegate = self;
+            self.carImageView.animationDatasource = self;
+            self.carImageView.animationType = self.animationType;
+            self.carImageView.memoryManagementOption = self.memoryManagementOption;
+            self.carImageView.imageOrder = self.order;
             [self.carImageView reloadAnimationImagesFromGifNamed:@"rock"];
         }
         
-        if (self.animationType == JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutAnimation) {
+        if (self.animationType == JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutTransition) {
             self.carImageView.animationRepeatCount = 1;
             if (self.usingGif) {
                 self.carImageView.animationDuration = JMDefaultGifDuration; //GIF DURATION IS A PART OF THE GIF DATA
@@ -66,6 +70,7 @@
             }
             
             [self.carImageView startAnimating];
+            
         } else if (self.animationType == JMAnimatedImageViewAnimationTypeAutomaticLinear) {
             self.carImageView.animationRepeatCount = 1;
             self.carImageView.animationDuration = 2.0; //ONE TRANSITION TIME
@@ -83,16 +88,14 @@
     } else {
         if (self.animationType == JMAnimatedImageViewAnimationTypeManualSwipe) {
             self.title = @"using JMImageView class has a simple carousel";
-        } else if (self.animationType == JMAnimatedImageViewAnimationTypeInteractive) {
+        } else if (self.animationType == JMAnimatedImageViewAnimationTypeNone) {
             if (self.memoryManagementOption == JMAnimatedImageViewMemoryLoadImageSystemCache) {
                 self.title = @"using JMImageView class to animate in real time (500Mo ...)";
             } else {
                 self.title = @"using JMImageView class to animate in real time (30Mo ^_^)";
             }
             
-        } else if (self.animationType == JMAnimatedImageViewAnimationTypeAutomaticLinear ||
-                   self.animationType == JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutAnimation) {
-            
+        } else if (self.animationType == JMAnimatedImageViewAnimationTypeAutomaticLinear) {
             if (self.memoryManagementOption == JMAnimatedImageViewMemoryLoadImageSystemCache) {
                 self.title = @"using JMImageView class for automatic animation (500Mo ...)";
             } else {

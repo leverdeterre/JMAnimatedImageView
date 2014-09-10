@@ -17,15 +17,6 @@
 
 @implementation JMFLViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -37,7 +28,7 @@
         NSURL *url = [[NSBundle mainBundle] URLForResource:@"rock" withExtension:@"gif"];
         NSData *data = [NSData dataWithContentsOfURL:url];
         [self.carImageView1 reloadAnimationImagesFromGifData:data];
-        self.carImageView1.animationType = JMAnimatedImageViewAnimationTypeInteractive;
+        self.carImageView1.animationType = JMAnimatedImageViewAnimationTypeNone;
         
         url = [[NSBundle mainBundle] URLForResource:@"Rotating_earth" withExtension:@"gif"];
         data = [NSData dataWithContentsOfURL:url];
@@ -49,12 +40,13 @@
         url = [[NSBundle mainBundle] URLForResource:@"nyan" withExtension:@"gif"];
         data = [NSData dataWithContentsOfURL:url];
         [self.carImageView3 reloadAnimationImagesFromGifData:data];
-        self.carImageView3.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutAnimation;
+        self.carImageView3.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutTransition;
         [self.carImageView3 startAnimating];
+        
     } else {
     
         [self.carImageView1 reloadAnimationImagesFromGifNamed:@"rock"];
-        self.carImageView1.animationType = JMAnimatedImageViewAnimationTypeInteractive;
+        self.carImageView1.animationType = JMAnimatedImageViewAnimationTypeNone;
 
         [self.carImageView2 reloadAnimationImagesFromGifNamed:@"Rotating_earth"];
         self.carImageView2.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinear;
@@ -62,15 +54,9 @@
         [self.carImageView2 startAnimating];
         
         [self.carImageView3 reloadAnimationImagesFromGifNamed:@"nyan"];
-        self.carImageView3.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutAnimation;
+        self.carImageView3.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutTransition;
         [self.carImageView3 startAnimating];
     }
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)viewDidAppear:(BOOL)animated

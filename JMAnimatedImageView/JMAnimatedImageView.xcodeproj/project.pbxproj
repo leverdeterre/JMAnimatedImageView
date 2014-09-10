@@ -279,6 +279,7 @@
 		C2B753FB199E8AFE004BB1C3 /* JMTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JMTableViewController.m; sourceTree = "<group>"; };
 		C2B753FD199E8B81004BB1C3 /* JMTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JMTableViewCell.h; sourceTree = "<group>"; };
 		C2B753FE199E8B81004BB1C3 /* JMTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JMTableViewCell.m; sourceTree = "<group>"; };
+		C2EAE6E519C0241700B46A27 /* JMAnimatedLog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JMAnimatedLog.h; sourceTree = "<group>"; };
 		C2F4DB6B19BE5C4700F04261 /* JMAmimatedImageViewMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JMAmimatedImageViewMacro.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -526,6 +527,7 @@
 		C2B753EE199E88A9004BB1C3 /* JMAnimatedImageView */ = {
 			isa = PBXGroup;
 			children = (
+				C2EAE6E519C0241700B46A27 /* JMAnimatedLog.h */,
 				C2B753EF199E88A9004BB1C3 /* JMAnimatedImageView.h */,
 				C2B753F0199E88A9004BB1C3 /* JMAnimatedImageView.m */,
 				C2F4DB6B19BE5C4700F04261 /* JMAmimatedImageViewMacro.h */,
