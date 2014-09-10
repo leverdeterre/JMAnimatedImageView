@@ -25,7 +25,7 @@ In your code, `#import "JMAnimatedImageView.h"` and `#import "JMAnimatedImageVie
 @property (weak, nonatomic) IBOutlet JMAnimatedImageView *jmImageView;
 
 [self.jmImageView reloadAnimationImagesFromGifNamed:@"rock"];
-self.jmImageView.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutAnimation;
+self.jmImageView.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutTransition;
 [self.jmImageView startAnimating];
 ```
 
@@ -36,7 +36,7 @@ self.jmImageView.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinear
 self.jmImageView.animationDelegate = self;
 self.jmImageView.animationDatasource = self;
 [self.jmImageView reloadAnimationImages]; //<JMOImageViewAnimationDatasource>
-self.jmImageView.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutAnimation;
+self.jmImageView.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutTransition;
 self.jmImageView.memoryManagementOption = JMAnimatedImageViewMemoryLoadImageLowMemoryUsage;
 ```
 
@@ -46,15 +46,14 @@ Some parameters :
 * AnimationType
 ```objc
 typedef NS_ENUM(NSUInteger, JMAnimatedImageViewAnimationType) {
-    //Animation is done by a gesture
-    JMAnimatedImageViewAnimationTypeInteractive = 0,
+    JMAnimatedImageViewAnimationTypeNone = 0,
     
     //Animation, carousel effect
     JMAnimatedImageViewAnimationTypeManualSwipe, 
     
     //Automatic rotation, use animationDuration + animationRepeatCount
     JMAnimatedImageViewAnimationTypeAutomaticLinear,    
-    JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutAnimation,
+    JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutTransition,
     JMAnimatedImageViewAnimationTypeAutomaticReverse,
 };
 ```
@@ -77,7 +76,6 @@ typedef NS_ENUM(NSUInteger, JMAnimatedImageViewMemoryOption) {
 
 ```objc
 typedef NS_ENUM(NSUInteger, JMAnimatedImageViewOrder) {
-    JMAnimatedImageViewOrderNone = 0,
     JMAnimatedImageViewOrderNormal = 1,
     JMAnimatedImageViewOrderReverse = -1
 };
