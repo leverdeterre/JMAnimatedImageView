@@ -172,7 +172,7 @@
 + (NSString *)imagePathForeGifName:(NSString *)gifName index:(NSInteger)index
 {
     NSString *directoryPath = [NSString stringWithFormat:@"%@/%@",[self cacheDirectoryPath],gifName];
-    NSString *filePath = [NSString stringWithFormat:@"%@/%d.png",directoryPath,index];
+    NSString *filePath = [NSString stringWithFormat:@"%@/%ld.png",directoryPath,(long)index];
     return filePath;
 }
 

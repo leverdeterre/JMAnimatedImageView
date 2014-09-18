@@ -528,9 +528,9 @@
 			isa = PBXGroup;
 			children = (
 				C2EAE6E519C0241700B46A27 /* JMAnimatedLog.h */,
+				C2F4DB6B19BE5C4700F04261 /* JMAmimatedImageViewMacro.h */,
 				C2B753EF199E88A9004BB1C3 /* JMAnimatedImageView.h */,
 				C2B753F0199E88A9004BB1C3 /* JMAnimatedImageView.m */,
-				C2F4DB6B19BE5C4700F04261 /* JMAmimatedImageViewMacro.h */,
 				C2B03DFA19A52D000032B240 /* JMAnimatedImageView+Image.h */,
 				C2B03DFB19A52D000032B240 /* JMAnimatedImageView+Image.m */,
 				C2B753F1199E88A9004BB1C3 /* JMAnimationOperation.h */,

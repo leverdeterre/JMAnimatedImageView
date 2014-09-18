@@ -382,16 +382,16 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationState) {
 {
     dispatch_async(self.animationManagementQueue, ^{
         NSTimeInterval unitDuration;
-        NSInteger shiftUnit = shift / abs(shift); // 1 ou -1
+        NSInteger shiftUnit = shift / abs((int)shift); // 1 ou -1
         
         if (duration == JMDefaultGifDuration) {
             unitDuration = duration;
 
         } else {
             if (option == UIImageViewAnimationOptionLinear) {
-                unitDuration = duration / abs(shift);
+                unitDuration = duration / abs((int)shift);
             } else {
-                unitDuration = duration / abs(shift * shift);
+                unitDuration = duration / abs((int)(shift * shift));
             }
         }
         
