@@ -93,7 +93,7 @@
             self.carImageView.hidden = NO;
             self.carImageView.animationDelegate = self;
             self.carImageView.animationDatasource = self;
-            self.carImageView.animationType = JMAnimatedImageViewAnimationTypeNone;
+            self.carImageView.animationType = JMAnimatedImageViewAnimationTypeInteractive;
             self.carImageView.memoryManagementOption = JMAnimatedImageViewMemoryLoadImageLowMemoryUsage;
             self.carImageView.imageOrder = JMAnimatedImageViewOrderReverse;
 

@@ -53,15 +53,15 @@
     } else if (self.demoExemple == JMDemoGIFInteractiveAnimationUsingImageViewImageAndSystemCache) {
     
         [self.carImageView1 reloadAnimationImagesFromGifNamed:@"rock"];
-        self.carImageView1.animationType = JMAnimatedImageViewAnimationTypeNone;
+        self.carImageView1.animationType = JMAnimatedImageViewAnimationTypeInteractive;
         [self.carImageView1 setInteractiveAnimation:YES];
 
         [self.carImageView2 reloadAnimationImagesFromGifNamed:@"Rotating_earth"];
-        self.carImageView2.animationType = JMAnimatedImageViewAnimationTypeNone;
+        self.carImageView2.animationType = JMAnimatedImageViewAnimationTypeInteractive;
         [self.carImageView2 setInteractiveAnimation:YES];
 
         [self.carImageView3 reloadAnimationImagesFromGifNamed:@"nyan"];
-        self.carImageView3.animationType = JMAnimatedImageViewAnimationTypeNone;
+        self.carImageView3.animationType = JMAnimatedImageViewAnimationTypeInteractive;
         [self.carImageView3 setInteractiveAnimation:YES];
     }
 }
