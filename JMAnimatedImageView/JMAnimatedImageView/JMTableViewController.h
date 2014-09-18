@@ -8,6 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSUInteger, JMDemoType) {
+    JMDemoAutomaticAnimationUsingImageViewImageAndSystemCache = 0,
+    JMDemoAutomaticAnimationUsingJMAnimatedImageViewImageAndSystemCache,
+    JMDemoAutomaticAnimationUsingJMAnimatedImageViewImageAndWithoutCache,
+    JMDemoAutoSwipeAnimationUsingJMAnimatedImageViewImageAndWithoutCache,
+    JMDemoInteractiveAnimationUsingJMAnimatedImageViewImageAndWithoutCache,
+    JMDemoCarouselUsingJMAnimatedImageViewImageAndWithoutCache,
+    JMDemoGIFAutomaticAnimationUsingImageViewImageAndSystemCache,
+    JMDemoGIFInteractiveAnimationUsingImageViewImageAndSystemCache
+};
+
 @interface JMTableViewController : UITableViewController
 
 @end

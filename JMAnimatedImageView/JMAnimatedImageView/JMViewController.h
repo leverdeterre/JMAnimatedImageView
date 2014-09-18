@@ -8,13 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "JMAnimatedImageView.h"
+#import "JMTableViewController.h"
 
 @interface JMViewController : UIViewController
 
-@property (assign, nonatomic) JMAnimatedImageViewAnimationType animationType;
-@property (assign, nonatomic) JMAnimatedImageViewMemoryOption memoryManagementOption;
-@property (assign, nonatomic) BOOL useJMImageView;
-@property (assign, nonatomic) JMAnimatedImageViewOrder order;
-@property (assign, nonatomic) BOOL usingGif;
+@property (assign, nonatomic) JMDemoType demoExemple;
 
 @end

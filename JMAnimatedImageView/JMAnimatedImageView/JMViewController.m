@@ -12,99 +12,130 @@
 @interface JMViewController () <JMOImageViewAnimationDelegate, JMOImageViewAnimationDatasource>
 @property (weak, nonatomic) IBOutlet JMAnimatedImageView *carImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (assign, nonatomic) JMAnimatedImageViewAnimationType animationType;
 
 @end
 
 @implementation JMViewController
+
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    if (self.useJMImageView == NO) {
-        self.imageView.hidden = NO;
-        self.carImageView.hidden = YES;
-
-        NSMutableArray *images = [NSMutableArray new];
-        for (int i = 0; i < [self numberOfImagesForAnimatedImageView:self.carImageView]; i++) {
-            [images addObject:[UIImage imageNamed:[self imageNameAtIndex:i forAnimatedImageView:self.carImageView]]];
-        }
-        
-        self.imageView.animationImages = images;
-        self.imageView.animationRepeatCount = 0;
-        self.imageView.animationDuration = 4.0;
-        [self.imageView startAnimating];
-        
-    } else {
-        self.imageView.hidden = YES;
-        self.carImageView.hidden = NO;
-        
-        if (self.animationType == JMAnimatedImageViewAnimationTypeManualSwipe) {
-            self.carImageView.contentMode = UIViewContentModeCenter; //photos a not well sized
-        }
-        
-        if (self.usingGif == NO) {
-            self.carImageView.animationDelegate = self;
-            self.carImageView.animationDatasource = self;
-            self.carImageView.animationType = self.animationType;
-            self.carImageView.memoryManagementOption = self.memoryManagementOption;
-            self.carImageView.imageOrder = self.order;
-            [self.carImageView reloadAnimationImages];
+    switch (self.demoExemple) {
+        case JMDemoAutomaticAnimationUsingImageViewImageAndSystemCache:
+        {
+            self.imageView.hidden = NO;
+            self.carImageView.hidden = YES;
             
-        } else {
+            NSMutableArray *images = [NSMutableArray new];
+            for (int i = 0; i < [self numberOfImagesForAnimatedImageView:self.carImageView]; i++) {
+                [images addObject:[UIImage imageNamed:[self imageNameAtIndex:i forAnimatedImageView:self.carImageView]]];
+            }
+            
+            self.imageView.animationImages = images;
+            self.imageView.animationRepeatCount = 0;
+            self.imageView.animationDuration = 4.0;
+            [self.imageView startAnimating];
+        }
+            break;
+            
+        case JMDemoAutomaticAnimationUsingJMAnimatedImageViewImageAndSystemCache:
+            self.imageView.hidden = YES;
+            self.carImageView.hidden = NO;
             self.carImageView.animationDelegate = self;
             self.carImageView.animationDatasource = self;
-            self.carImageView.animationType = self.animationType;
-            self.carImageView.memoryManagementOption = self.memoryManagementOption;
-            self.carImageView.imageOrder = self.order;
-            [self.carImageView reloadAnimationImagesFromGifNamed:@"rock"];
-        }
-        
-        if (self.animationType == JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutTransition) {
             self.carImageView.animationRepeatCount = 0;
-            if (self.usingGif) {
-                self.carImageView.animationDuration = JMDefaultGifDuration; //GIF DURATION IS A PART OF THE GIF DATA
-            } else {
-                self.carImageView.animationDuration = 5.0; //GLOBAL TIME OF ANIMATION
-            }
+            self.carImageView.animationDuration = 4.0;
+            self.carImageView.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutTransition;
+            self.carImageView.memoryManagementOption = JMAnimatedImageViewMemoryLoadImageSystemCache;
+            self.carImageView.imageOrder = JMAnimatedImageViewOrderNormal;
+            
+            self.animationType = self.carImageView.animationType;
             
             [self.carImageView startAnimating];
+            break;
             
-        } else if (self.animationType == JMAnimatedImageViewAnimationTypeAutomaticLinear) {
-            self.carImageView.animationRepeatCount = 1;
-            self.carImageView.animationDuration = 2.0; //ONE TRANSITION TIME
+        case JMDemoAutomaticAnimationUsingJMAnimatedImageViewImageAndWithoutCache:
+            self.imageView.hidden = YES;
+            self.carImageView.hidden = NO;
+            self.carImageView.animationDelegate = self;
+            self.carImageView.animationDatasource = self;
+            self.carImageView.animationRepeatCount = 0;
+            self.carImageView.animationDuration = 4.0;
+            self.carImageView.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinear;
+            self.carImageView.memoryManagementOption = JMAnimatedImageViewMemoryLoadImageLowMemoryUsage;
+            self.carImageView.imageOrder = JMAnimatedImageViewOrderNormal;
+            
+            self.animationType = self.carImageView.animationType;
+            
             [self.carImageView startAnimating];
-        }
-    }
-    
-    [self updateTitle];
-}
+            break;
+            
+        case JMDemoAutoSwipeAnimationUsingJMAnimatedImageViewImageAndWithoutCache:
+            self.imageView.hidden = YES;
+            self.carImageView.hidden = NO;
+            self.carImageView.animationDelegate = self;
+            self.carImageView.animationDatasource = self;
+            self.carImageView.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinear;
+            self.carImageView.memoryManagementOption = JMAnimatedImageViewMemoryLoadImageLowMemoryUsage;
+            self.carImageView.imageOrder = JMAnimatedImageViewOrderNormal;
+            self.carImageView.animationDuration = 1.0;
+            self.animationType = self.carImageView.animationType;
+            
+            [self.carImageView startAnimating];
+            break;
+            
+        case JMDemoInteractiveAnimationUsingJMAnimatedImageViewImageAndWithoutCache:
+            self.imageView.hidden = YES;
+            self.carImageView.hidden = NO;
+            self.carImageView.animationDelegate = self;
+            self.carImageView.animationDatasource = self;
+            self.carImageView.animationType = JMAnimatedImageViewAnimationTypeInteractive;
+            self.carImageView.memoryManagementOption = JMAnimatedImageViewMemoryLoadImageLowMemoryUsage;
+            self.carImageView.imageOrder = JMAnimatedImageViewOrderReverse;
 
-- (void)updateTitle
-{
-    if (self.useJMImageView == NO) {
-        self.title = @"using UIImageView class";
-    } else {
-        if (self.animationType == JMAnimatedImageViewAnimationTypeManualSwipe) {
-            self.title = @"using JMImageView class has a simple carousel";
-        } else if (self.animationType == JMAnimatedImageViewAnimationTypeNone) {
-            if (self.memoryManagementOption == JMAnimatedImageViewMemoryLoadImageSystemCache) {
-                self.title = @"using JMImageView class to animate in real time (500Mo ...)";
-            } else {
-                self.title = @"using JMImageView class to animate in real time (30Mo ^_^)";
-            }
+            self.animationType = self.carImageView.animationType;
             
-        } else if (self.animationType == JMAnimatedImageViewAnimationTypeAutomaticLinear) {
-            if (self.memoryManagementOption == JMAnimatedImageViewMemoryLoadImageSystemCache) {
-                self.title = @"using JMImageView class for automatic animation (500Mo ...)";
-            } else {
-                self.title = @"using JMImageView class for automatic animation (30Mo ^_^)";
-            }
-        } else if ( self.usingGif) {
-            self.title = @"using GIF with JMImageView class";
-        }
-    }
+            [self.carImageView reloadAnimationImages];
+            [self.carImageView setInteractiveAnimation:YES];
+            break;
+            
+        case JMDemoCarouselUsingJMAnimatedImageViewImageAndWithoutCache:
+            self.imageView.hidden = YES;
+            self.carImageView.hidden = NO;
+            self.carImageView.animationDelegate = self;
+            self.carImageView.animationDatasource = self;
+            self.carImageView.animationType = JMAnimatedImageViewAnimationTypeManualSwipe;
+            self.carImageView.memoryManagementOption = JMAnimatedImageViewMemoryLoadImageLowMemoryUsage;
+            self.carImageView.imageOrder = JMAnimatedImageViewOrderNormal;
+            
+            self.animationType = self.carImageView.animationType;
+
+            [self.carImageView reloadAnimationImages];
+            [self.carImageView setInteractiveAnimation:YES];
+            break;
+            
+        case JMDemoGIFAutomaticAnimationUsingImageViewImageAndSystemCache:
+            self.imageView.hidden = YES;
+            self.carImageView.hidden = NO;
+            self.carImageView.animationDelegate = self;
+            self.carImageView.animationDatasource = self;
+            self.carImageView.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutTransition;
+            [self.carImageView reloadAnimationImagesFromGifNamed:@"rock"];
+            [self.carImageView startAnimating];
+            break;
+            
+        case JMDemoGIFInteractiveAnimationUsingImageViewImageAndSystemCache:
+            self.imageView.hidden = YES;
+            self.carImageView.hidden = NO;
+            break;
+            
+        default:
+            break;
+    }    
 }
 
 #pragma mark - JMOImageViewAnimationDatasource
