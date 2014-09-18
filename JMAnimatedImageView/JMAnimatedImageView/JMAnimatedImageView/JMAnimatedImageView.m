@@ -62,13 +62,13 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationState) {
 {
     self.userInteractionEnabled = YES;
     _memoryManagementOption = JMAnimatedImageViewMemoryLoadImageSystemCache;
-    _animationType = JMAnimatedImageViewAnimationTypeNone;
+    _animationType = JMAnimatedImageViewAnimationTypeInteractive;
     _animationQueue = [NSOperationQueue new];
     _animationQueue.name = @"JMAnimatedImageViewAnimationQueue";
     _animationQueue.maxConcurrentOperationCount = 1;
     _animationManagementQueue = dispatch_queue_create("com.animationManagement.queue", NULL);
     _imageOrder = JMAnimatedImageViewOrderNormal;
-    [self setInteractiveAnimation:YES];
+    [self setInteractiveAnimation:NO];
     self.clipsToBounds = YES;
 }
 
@@ -152,6 +152,14 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationState) {
 {
     _interactiveAnimation = interactiveAnimation;
     [self updateGestures];
+}
+
+- (void)setAnimationType:(JMAnimatedImageViewAnimationType)animationType
+{
+    _animationType = animationType;
+    if (animationType == JMAnimatedImageViewAnimationTypeInteractive) {
+        [self setInteractiveAnimation:YES];
+    }
 }
 
 - (UIPageControl *)pageControl
