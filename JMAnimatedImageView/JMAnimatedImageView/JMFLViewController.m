@@ -29,6 +29,7 @@
         NSData *data = [NSData dataWithContentsOfURL:url];
         [self.carImageView1 reloadAnimationImagesFromGifData:data];
         self.carImageView1.animationType = JMAnimatedImageViewAnimationTypeNone;
+        [self.carImageView1 setInteractiveAnimation:YES];
         
         url = [[NSBundle mainBundle] URLForResource:@"Rotating_earth" withExtension:@"gif"];
         data = [NSData dataWithContentsOfURL:url];
@@ -47,6 +48,7 @@
     
         [self.carImageView1 reloadAnimationImagesFromGifNamed:@"rock"];
         self.carImageView1.animationType = JMAnimatedImageViewAnimationTypeNone;
+        [self.carImageView1 setInteractiveAnimation:YES];
 
         [self.carImageView2 reloadAnimationImagesFromGifNamed:@"Rotating_earth"];
         self.carImageView2.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinear;

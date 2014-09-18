@@ -33,20 +33,17 @@
     [appDelegate loadMemoryFollower];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     JMAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     [appDelegate.ramVc.view removeFromSuperview];
-    
     [self.view addSubview:appDelegate.ramVc.view];
     [appDelegate.ramVc startRefreshingMemoryUsage];
+    
+    CGRect rect = appDelegate.ramVc.view.frame;
+    rect.origin.x = 800;
+    appDelegate.ramVc.view.frame = rect;
 }
 
 #pragma mark - Table view data source
@@ -111,58 +108,34 @@
     UIViewController *vcToPush = vc;
     
     if (indexPath.row == 0) {
-        vc.useJMImageView = NO;
+        vc.demoExemple = JMDemoAutomaticAnimationUsingImageViewImageAndSystemCache;
         
     } else if (indexPath.row == 1) {
-        vc.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutTransition;
-        vc.useJMImageView = YES;
+        vc.demoExemple = JMDemoAutomaticAnimationUsingJMAnimatedImageViewImageAndSystemCache;
 
     } else if (indexPath.row == 2) {
-        vc.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutTransition;
-        vc.memoryManagementOption = JMAnimatedImageViewMemoryLoadImageLowMemoryUsage;
-        vc.useJMImageView = YES;
+        vc.demoExemple = JMDemoAutomaticAnimationUsingJMAnimatedImageViewImageAndWithoutCache;
+        
     } else if (indexPath.row == 3) {
-        vc.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinear;
-        vc.memoryManagementOption = JMAnimatedImageViewMemoryLoadImageLowMemoryUsage;
-        vc.useJMImageView = YES;
+        vc.demoExemple = JMDemoAutoSwipeAnimationUsingJMAnimatedImageViewImageAndWithoutCache;
         
     } else if (indexPath.row == 4) {
-        vc.animationType = JMAnimatedImageViewAnimationTypeNone;
-        vc.memoryManagementOption = JMAnimatedImageViewMemoryLoadImageLowMemoryUsage;
-        vc.order = JMAnimatedImageViewOrderReverse;
-        vc.useJMImageView = YES;
-        
+        vc.demoExemple = JMDemoInteractiveAnimationUsingJMAnimatedImageViewImageAndWithoutCache;
+
     } else if (indexPath.row == 5) {
-        vc.animationType = JMAnimatedImageViewAnimationTypeManualSwipe;
-        vc.memoryManagementOption = JMAnimatedImageViewMemoryLoadImageSystemCache;
-        vc.order = JMAnimatedImageViewOrderReverse;
-        vc.useJMImageView = YES;
-        
+        vc.demoExemple = JMDemoCarouselUsingJMAnimatedImageViewImageAndWithoutCache;
+
     } else if (indexPath.row == 6) {
-        vc.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutTransition /*JMAnimatedImageViewAnimationTypeManualRealTime*/;
-        vc.memoryManagementOption = JMAnimatedImageViewMemoryLoadImageLowMemoryUsage;
-        vc.useJMImageView = YES;
-        vc.usingGif = YES;
-        vc.order = JMAnimatedImageViewOrderNormal;
+        vc.demoExemple = JMDemoGIFAutomaticAnimationUsingImageViewImageAndSystemCache;
 
     } else if (indexPath.row == 7) {
-        vc.animationType =  JMAnimatedImageViewAnimationTypeNone;
-        vc.memoryManagementOption = JMAnimatedImageViewMemoryLoadImageLowMemoryUsage;
-        vc.useJMImageView = YES;
-        vc.usingGif = YES;
-        vc.order = JMAnimatedImageViewOrderNormal;
-        
+        vc.demoExemple = JMDemoGIFInteractiveAnimationUsingImageViewImageAndSystemCache;
+
     } else if (indexPath.row == 8) {
-        JMFLViewController *vc = [JMFLViewController new];
-        vc.memoryManagementOption = JMAnimatedImageViewMemoryLoadImageSystemCache;
-        vcToPush = vc;
+        vc.demoExemple = JMDemoGIFMultipleAnimationUsingImageViewImageAndSystemCache;
         
-    } else if (indexPath.row == 9) {
-        JMFLViewController *vc = [JMFLViewController new];
-        vc.memoryManagementOption = JMAnimatedImageViewMemoryLoadImageLowMemoryUsage;
-        vcToPush = vc;
     }
-    
+
     [self.navigationController pushViewController:vcToPush animated:YES];
 }
 

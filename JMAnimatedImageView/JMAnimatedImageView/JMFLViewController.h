@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "JMAnimatedImageView.h"
+#import "JMTableViewController.h"
 
 @interface JMFLViewController : UIViewController
 
 @property (assign, nonatomic) JMAnimatedImageViewMemoryOption memoryManagementOption;
+@property (assign, nonatomic) JMDemoType demoExemple;
 
 @end

@@ -68,7 +68,7 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationState) {
     _animationQueue.maxConcurrentOperationCount = 1;
     _animationManagementQueue = dispatch_queue_create("com.animationManagement.queue", NULL);
     _imageOrder = JMAnimatedImageViewOrderNormal;
-    [self setInteractiveAnimation:YES];
+    [self setInteractiveAnimation:NO];
     self.clipsToBounds = YES;
 }
 
