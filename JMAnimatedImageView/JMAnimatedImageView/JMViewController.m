@@ -135,9 +135,7 @@
             
         default:
             break;
-    }
-    
-    [self updateTitle];
+    }    
 }
 
 #pragma mark - JMOImageViewAnimationDatasource
