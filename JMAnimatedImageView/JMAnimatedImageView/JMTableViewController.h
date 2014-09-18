@@ -9,15 +9,14 @@
 #import <UIKit/UIKit.h>
 
 typedef NS_ENUM(NSUInteger, JMDemoType) {
-    JMDemoAutomaticAnimationUsingImageViewImageAndSystemCache,
+    JMDemoAutomaticAnimationUsingImageViewImageAndSystemCache = 0,
     JMDemoAutomaticAnimationUsingJMAnimatedImageViewImageAndSystemCache,
     JMDemoAutomaticAnimationUsingJMAnimatedImageViewImageAndWithoutCache,
     JMDemoAutoSwipeAnimationUsingJMAnimatedImageViewImageAndWithoutCache,
     JMDemoInteractiveAnimationUsingJMAnimatedImageViewImageAndWithoutCache,
     JMDemoCarouselUsingJMAnimatedImageViewImageAndWithoutCache,
     JMDemoGIFAutomaticAnimationUsingImageViewImageAndSystemCache,
-    JMDemoGIFInteractiveAnimationUsingImageViewImageAndSystemCache,
-    JMDemoGIFMultipleAnimationUsingImageViewImageAndSystemCache
+    JMDemoGIFInteractiveAnimationUsingImageViewImageAndSystemCache
 };
 
 @interface JMTableViewController : UITableViewController

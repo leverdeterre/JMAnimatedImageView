@@ -12,7 +12,6 @@
 
 @interface JMFLViewController : UIViewController
 
-@property (assign, nonatomic) JMAnimatedImageViewMemoryOption memoryManagementOption;
 @property (assign, nonatomic) JMDemoType demoExemple;
 
 @end
