@@ -46,10 +46,10 @@ Some parameters :
 * AnimationType
 ```objc
 typedef NS_ENUM(NSUInteger, JMAnimatedImageViewAnimationType) {
-    JMAnimatedImageViewAnimationTypeNone = 0,
+    JMAnimatedImageViewAnimationTypeInteractive = 0,
     
     //Animation, carousel effect
-    JMAnimatedImageViewAnimationTypeManualSwipe, 
+    JMAnimatedImageViewAnimationTypeManualSwipe,
     
     //Automatic rotation, use animationDuration + animationRepeatCount
     JMAnimatedImageViewAnimationTypeAutomaticLinear,    
