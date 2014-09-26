@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
         s.name         = 'JMAnimatedImageView'
-        s.version = '0.2.2'
+        s.version = '0.2.3'
         s.requires_arc = true
         s.author = {
                 'Morissard Jérome' => 'morissardj@gmail.com'
@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
         s.homepage = 'https://github.com/leverdeterre/JMAnimatedImageView'
         s.source = {
         :git => 'https://github.com/leverdeterre/JMAnimatedImageView.git',
-        :tag => "0.2.2"
+        :tag => "0.2.3"
         }
         s.source_files = 'JMAnimatedImageView/JMAnimatedImageView/JMAnimatedImageView/*'
 end
