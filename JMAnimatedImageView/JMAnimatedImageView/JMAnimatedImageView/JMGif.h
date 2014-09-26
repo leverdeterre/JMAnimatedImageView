@@ -31,7 +31,7 @@
 
 @property (readonly, nonatomic) UIImage *image;
 @property (readonly, nonatomic) NSString *imagePath;
-@property (readonly, nonatomic) NSDictionary *delay;
+@property (readonly, nonatomic) NSTimeInterval delayDuration;
 
 - (instancetype)initWithImage:(UIImage *)image frameProperties:(NSDictionary *)frameProperties;
 - (instancetype)initWithImagePath:(NSString *)imagePath frameProperties:(NSDictionary *)frameProperties;

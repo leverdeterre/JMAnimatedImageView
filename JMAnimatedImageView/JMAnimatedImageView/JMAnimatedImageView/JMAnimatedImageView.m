@@ -424,8 +424,7 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationState) {
 
                 if ([self isAGifImageView]) {
                     JMGifItem *item = [[self.gifObject items] objectAtIndex:index];
-                    NSNumber *delay = [item.delay objectForKey:JMGifItemDelayTimeKey];
-                    currentInterval = [delay doubleValue];
+                    currentInterval = [item delayDuration];
                 }
                 
                 JMAnimationOperation *operation = [JMAnimationOperation animationOperationWithDuration:currentInterval

@@ -14,6 +14,9 @@
 #import <CoreGraphics/CoreGraphics.h>
 #import "JMAmimatedImageViewMacro.h"
 
+@interface JMGif ()
+@end
+
 @implementation JMGif
 
 - (instancetype)initWithData:(NSData *)data gifName:(NSString *)gifName
@@ -201,7 +204,28 @@
 @end
 
 
+@interface JMGifItem ()
+@property (readonly, nonatomic) NSDictionary *delay;
+@end
+
 @implementation JMGifItem
+
+- (NSTimeInterval)delayDuration
+{
+    NSNumber *delay = [_delay objectForKey:JMGifItemUnclampedDelayTimeKey];
+    if (nil == delay) {
+        delay = [_delay objectForKey:JMGifItemDelayTimeKey];
+    }
+    
+    NSTimeInterval valueToReturn = [delay doubleValue];
+    if (valueToReturn < 0.011f) {
+        // a duration of <= 10 ms. See <rdar://problem/7689300> and <http://webkit.org/b/36082>
+        // for more information.
+        valueToReturn = 0.100f;
+    }
+    
+    return valueToReturn;
+}
 
 - (instancetype)initWithImage:(UIImage *)image frameProperties:(NSDictionary *)frameProperties
 {
