@@ -96,5 +96,7 @@ typedef NS_ENUM(NSUInteger, JMAnimatedImageViewOrder) {
 ## TODO
 * Add support for APNG 
 * Add support for WebP animated (work in progress but this feature is not actually supported : https://chromium.googlesource.com/webm/libwebp/) 
+* * Add support for video format ?  
+
 
 
