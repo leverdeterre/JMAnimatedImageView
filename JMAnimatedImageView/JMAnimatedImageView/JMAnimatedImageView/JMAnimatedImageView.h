@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "JMOImageViewAnimationDelegate.h"
 #import "JMOImageViewAnimationDatasource.h"
-#import "JMGif.h"
 
 #define JMDefaultGifDuration -1
 
@@ -42,6 +41,7 @@ typedef void (^JMCompletionFinishBlock)(BOOL resul);
 @property (assign, nonatomic) JMAnimatedImageViewMemoryOption memoryManagementOption;
 @property (assign, nonatomic) JMAnimatedImageViewOrder imageOrder;
 @property (assign, nonatomic) BOOL interactiveAnimation;
+@property (nonatomic, assign) NSInteger currentIndex;
 
 /**
  * reloadAnimationImages, This method will call animationDatasource
@@ -81,28 +81,6 @@ typedef void (^JMCompletionFinishBlock)(BOOL resul);
  */
 - (void)animateToIndex:(NSInteger)index withDuration:(NSTimeInterval)duration withCompletionBlock:(JMCompletionFinishBlock)finishBlock;
 
-//Specific to GIF
-@property (strong, readonly, nonatomic) JMGif *gifObject;
-
-/**
- *  isAGifImageView
- *
- *  @return BOOL
- */
-- (BOOL)isAGifImageView;
-
-/**
- *  reloadAnimationImagesFromGifData:, This method reload a GIF image from a GIF NSData
- *
- *  @param data NSData data
- */
-- (void)reloadAnimationImagesFromGifData:(NSData *)data;
-
-/**
- *  reloadAnimationImagesFromGifNamed:, This method reload a GIF image from a GIF named
- *
- *  @param gitName NSString gitName
- */
-- (void)reloadAnimationImagesFromGifNamed:(NSString *)gitName;
+- (void)updateGestures;
 
 @end

@@ -8,6 +8,7 @@
 
 #import "JMFLViewController.h"
 #import "JMAnimatedImageView.h"
+#import "JMAnimatedImageView+JMGif.h"
 
 @interface JMFLViewController ()
 @property (weak, nonatomic) IBOutlet JMAnimatedImageView *carImageView1;

@@ -8,6 +8,7 @@
 
 #import "JMAnimatedImageView+Image.h"
 #import "UIImage+JM.h"
+#import "JMAnimatedImageView+JMGif.h"
 
 @implementation JMAnimatedImageView (Image)
 

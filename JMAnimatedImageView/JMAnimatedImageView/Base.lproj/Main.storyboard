@@ -16,7 +16,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="zoom_1920_0.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="2BC-tM-Ukq" customClass="JMAnimatedImageView">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="zoom_1920_0.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="2BC-tM-Ukq" customClass="JMAnimatedImageView">
                                 <rect key="frame" x="10" y="149" width="1004" height="496"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>

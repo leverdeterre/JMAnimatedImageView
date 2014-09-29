@@ -8,12 +8,12 @@
 
 #import "JMViewController.h"
 #import "JMAnimatedImageView.h"
+#import "JMAnimatedImageView+JMGif.h"
 
 @interface JMViewController () <JMOImageViewAnimationDelegate, JMOImageViewAnimationDatasource>
 @property (weak, nonatomic) IBOutlet JMAnimatedImageView *carImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (assign, nonatomic) JMAnimatedImageViewAnimationType animationType;
-
 @end
 
 @implementation JMViewController
@@ -79,10 +79,10 @@
             self.carImageView.hidden = NO;
             self.carImageView.animationDelegate = self;
             self.carImageView.animationDatasource = self;
-            self.carImageView.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinear;
+            self.carImageView.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutTransition;
             self.carImageView.memoryManagementOption = JMAnimatedImageViewMemoryLoadImageLowMemoryUsage;
             self.carImageView.imageOrder = JMAnimatedImageViewOrderNormal;
-            self.carImageView.animationDuration = 1.0;
+            self.carImageView.animationDuration = 5.0;
             self.animationType = self.carImageView.animationType;
             
             [self.carImageView startAnimating];
@@ -96,7 +96,6 @@
             self.carImageView.animationType = JMAnimatedImageViewAnimationTypeInteractive;
             self.carImageView.memoryManagementOption = JMAnimatedImageViewMemoryLoadImageLowMemoryUsage;
             self.carImageView.imageOrder = JMAnimatedImageViewOrderReverse;
-
             self.animationType = self.carImageView.animationType;
             
             [self.carImageView reloadAnimationImages];
