@@ -369,19 +369,23 @@
                 continue;
                 
             } else {
+                
                 NSInteger index = [self realIndexForComputedIndex:fromIndex+i*shiftUnit];
+                __weak JMAnimatedImageView *weaSelf = self;
+
                 JMAnimationOperation *operation = [JMAnimationOperation animationOperationWithDuration:currentInterval
                                                                                             completion:^(BOOL finished)
                 {
 
-                    if (self.animationType == JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutTransition) {
-                        if ([self operationQueueIsFinished] == YES) {
+                    if (weaSelf.animationType == JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutTransition) {
+                        if ([weaSelf operationQueueIsFinished] == YES) {
                             if (finishBlock) {
                                 finishBlock(YES);
                             }
                             
-                            if (self.animationRepeatCount == 0 && self.animationState == UIImageViewAnimationStateInPgrogress) {
-                               [self continueAnimating];
+                            if (weaSelf.animationRepeatCount == 0 &&
+                                weaSelf.animationState == UIImageViewAnimationStateInPgrogress) {
+                               [weaSelf continueAnimating];
                             }
                         }
                     }

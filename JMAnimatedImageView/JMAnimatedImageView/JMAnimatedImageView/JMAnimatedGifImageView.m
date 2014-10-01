@@ -65,29 +65,31 @@
         
         for (int i = 0; i < (int)abs((int)shift) ; i++) {
             
-                NSInteger index = [self realIndexForComputedIndex:fromIndex+i*shiftUnit];
-                JMGifItem *item = [[self.gifObject items] objectAtIndex:index];
+            NSInteger index = [self realIndexForComputedIndex:fromIndex+i*shiftUnit];
+            JMGifItem *item = [[self.gifObject items] objectAtIndex:index];
             
-                JMAnimationOperation *operation = [JMAnimationOperation animationOperationWithDuration:item.delayDuration
-                                                                                            completion:^(BOOL finished)
-                                                   {
-                                                       
-                                                       if (self.animationType == JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutTransition) {
-                                                           if ([self operationQueueIsFinished] == YES) {
-                                                               if (finishBlock) {
-                                                                   finishBlock(YES);
-                                                               }
-                                                               
-                                                               if (self.animationRepeatCount == 0 && self.animationState == UIImageViewAnimationStateInPgrogress) {
-                                                                   [self continueAnimating];
-                                                               }
+            __weak JMAnimatedGifImageView *weaSelf = self;
+            JMAnimationOperation *operation = [JMAnimationOperation animationOperationWithDuration:item.delayDuration
+                                                                                        completion:^(BOOL finished)
+                                               {
+                                                   
+                                                   if (weaSelf.animationType == JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutTransition) {
+                                                       if ([weaSelf operationQueueIsFinished] == YES) {
+                                                           if (finishBlock) {
+                                                               finishBlock(YES);
+                                                           }
+                                                           
+                                                           if (weaSelf.animationRepeatCount == 0 &&
+                                                               weaSelf.animationState == UIImageViewAnimationStateInPgrogress) {
+                                                               [weaSelf continueAnimating];
                                                            }
                                                        }
-                                                   }];
-                
-                operation.animatedImageView = self;
-                operation.imageIndex = index;                
-                [self.animationQueue addOperation:operation];
+                                                   }
+                                               }];
+            
+            operation.animatedImageView = self;
+            operation.imageIndex = index;
+            [self.animationQueue addOperation:operation];
         }
     });
 }
