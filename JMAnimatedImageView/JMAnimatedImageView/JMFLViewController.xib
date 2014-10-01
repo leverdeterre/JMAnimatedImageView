@@ -17,15 +17,15 @@
             <rect key="frame" x="0.0" y="64" width="1024" height="704"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="rock.gif" translatesAutoresizingMaskIntoConstraints="NO" id="Sxt-29-PIV" customClass="JMAnimatedImageView">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="rock.gif" translatesAutoresizingMaskIntoConstraints="NO" id="Sxt-29-PIV" customClass="JMAnimatedGifImageView">
                     <rect key="frame" x="82" y="25" width="860" height="331"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Rotating_earth.gif" translatesAutoresizingMaskIntoConstraints="NO" id="Qzs-nW-hYG" customClass="JMAnimatedImageView">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Rotating_earth.gif" translatesAutoresizingMaskIntoConstraints="NO" id="Qzs-nW-hYG" customClass="JMAnimatedGifImageView">
                     <rect key="frame" x="82" y="394" width="291" height="268"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="nyan.gif" translatesAutoresizingMaskIntoConstraints="NO" id="Ddv-w9-xs0" customClass="JMAnimatedImageView">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="nyan.gif" translatesAutoresizingMaskIntoConstraints="NO" id="Ddv-w9-xs0" customClass="JMAnimatedGifImageView">
                     <rect key="frame" x="651" y="394" width="291" height="268"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>

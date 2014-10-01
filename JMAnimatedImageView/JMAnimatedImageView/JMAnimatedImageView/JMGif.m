@@ -257,6 +257,11 @@
         // }
         _delay = frameProperties;
         _imagePath = imagePath;
+        
+        //dont keep UIImage because we can get it from the _imagePath
+        if (_imagePath) {
+            _image = nil;
+        }
     }
     return self;
 }

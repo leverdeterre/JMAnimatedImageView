@@ -8,7 +8,7 @@
 
 #import "JMViewController.h"
 #import "JMAnimatedImageView.h"
-#import "JMAnimatedImageView+JMGif.h"
+#import "JMAnimatedGifImageView.h"
 
 @interface JMViewController () <JMOImageViewAnimationDelegate, JMOImageViewAnimationDatasource>
 @property (weak, nonatomic) IBOutlet JMAnimatedImageView *carImageView;
@@ -116,22 +116,7 @@
             [self.carImageView reloadAnimationImages];
             [self.carImageView setInteractiveAnimation:YES];
             break;
-            
-        case JMDemoGIFAutomaticAnimationUsingImageViewImageAndSystemCache:
-            self.imageView.hidden = YES;
-            self.carImageView.hidden = NO;
-            self.carImageView.animationDelegate = self;
-            self.carImageView.animationDatasource = self;
-            self.carImageView.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutTransition;
-            [self.carImageView reloadAnimationImagesFromGifNamed:@"rock"];
-            [self.carImageView startAnimating];
-            break;
-            
-        case JMDemoGIFInteractiveAnimationUsingImageViewImageAndSystemCache:
-            self.imageView.hidden = YES;
-            self.carImageView.hidden = NO;
-            break;
-            
+                        
         default:
             break;
     }    

@@ -1,15 +1,15 @@
 //
-//  JMAnimatedImageView+JMGif.h
+//  JMAnimatedGifImageView.h
 //  JMAnimatedImageView
 //
-//  Created by jerome morissard on 26/09/14.
+//  Created by jerome morissard on 01/10/14.
 //  Copyright (c) 2014 jerome morissard. All rights reserved.
 //
 
 #import "JMAnimatedImageView.h"
 #import "JMGif.h"
 
-@interface JMAnimatedImageView (JMGif)
+@interface JMAnimatedGifImageView : JMAnimatedImageView
 
 //Specific to GIF
 @property (strong, readonly, nonatomic) JMGif *gifObject;
@@ -34,6 +34,5 @@
  *  @param gitName NSString gitName
  */
 - (void)reloadAnimationImagesFromGifNamed:(NSString *)gitName;
-
 
 @end

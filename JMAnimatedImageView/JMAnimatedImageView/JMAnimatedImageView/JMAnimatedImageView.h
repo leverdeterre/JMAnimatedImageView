@@ -31,6 +31,16 @@ typedef NS_ENUM(NSUInteger, JMAnimatedImageViewOrder) {
     JMAnimatedImageViewOrderReverse = -1
 };
 
+typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
+    UIImageViewAnimationOptionLinear = 0,
+    UIImageViewAnimationOptionCurveEaseInOut
+};
+
+typedef NS_ENUM(NSUInteger, UIImageViewAnimationState) {
+    UIImageViewAnimationStateStopped = 0,
+    UIImageViewAnimationStateInPgrogress
+};
+
 typedef void (^JMCompletionFinishBlock)(BOOL resul);
 
 @interface JMAnimatedImageView : UIImageView
@@ -41,7 +51,10 @@ typedef void (^JMCompletionFinishBlock)(BOOL resul);
 @property (assign, nonatomic) JMAnimatedImageViewMemoryOption memoryManagementOption;
 @property (assign, nonatomic) JMAnimatedImageViewOrder imageOrder;
 @property (assign, nonatomic) BOOL interactiveAnimation;
-@property (nonatomic, assign) NSInteger currentIndex;
+@property (assign, nonatomic) NSInteger currentIndex;
+@property (assign, nonatomic) UIImageViewAnimationState animationState;
+@property (strong, nonatomic, readonly) dispatch_queue_t animationManagementQueue;
+@property (strong, nonatomic, readonly) NSOperationQueue *animationQueue;
 
 /**
  * reloadAnimationImages, This method will call animationDatasource
@@ -82,5 +95,9 @@ typedef void (^JMCompletionFinishBlock)(BOOL resul);
 - (void)animateToIndex:(NSInteger)index withDuration:(NSTimeInterval)duration withCompletionBlock:(JMCompletionFinishBlock)finishBlock;
 
 - (void)updateGestures;
+- (void)changeImageToIndex:(NSInteger)index withTimeInterval:(NSTimeInterval)duration repeat:(BOOL)repeat;
+- (BOOL)operationQueueIsFinished;
+- (BOOL)checkLifeCycleSanity;
+- (NSInteger)realIndexForComputedIndex:(NSInteger)index;
 
 @end

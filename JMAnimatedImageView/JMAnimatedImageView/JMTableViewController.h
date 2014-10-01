@@ -15,8 +15,8 @@ typedef NS_ENUM(NSUInteger, JMDemoType) {
     JMDemoAutoSwipeAnimationUsingJMAnimatedImageViewImageAndWithoutCache,
     JMDemoInteractiveAnimationUsingJMAnimatedImageViewImageAndWithoutCache,
     JMDemoCarouselUsingJMAnimatedImageViewImageAndWithoutCache,
-    JMDemoGIFAutomaticAnimationUsingImageViewImageAndSystemCache,
-    JMDemoGIFInteractiveAnimationUsingImageViewImageAndSystemCache
+    JMDemoGIFAutomaticAnimationUsingImageViewImageLowMemoryPressure,
+    JMDemoGIFInteractiveAnimationUsingImageViewImageLowMemoryPressure
 };
 
 @interface JMTableViewController : UITableViewController

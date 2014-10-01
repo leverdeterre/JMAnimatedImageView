@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C2323BDD19DC94B000C62D22 /* JMAnimatedGifImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C2323BDC19DC94B000C62D22 /* JMAnimatedGifImageView.m */; };
+		C2323BDE19DC94B000C62D22 /* JMAnimatedGifImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C2323BDC19DC94B000C62D22 /* JMAnimatedGifImageView.m */; };
 		C24A92DC199F4C0800CFDBE0 /* 0_verge_super_wide.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C24A92D1199F4C0800CFDBE0 /* 0_verge_super_wide.jpg */; };
 		C24A92DD199F4C0800CFDBE0 /* 10_verge_super_wide.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C24A92D2199F4C0800CFDBE0 /* 10_verge_super_wide.jpg */; };
 		C24A92DE199F4C0800CFDBE0 /* 1_verge_super_wide.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C24A92D3199F4C0800CFDBE0 /* 1_verge_super_wide.jpg */; };
@@ -125,8 +127,6 @@
 		C2B753F9199E88A9004BB1C3 /* UIImage+JM.m in Sources */ = {isa = PBXBuildFile; fileRef = C2B753F6199E88A9004BB1C3 /* UIImage+JM.m */; };
 		C2B753FC199E8AFE004BB1C3 /* JMTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2B753FB199E8AFE004BB1C3 /* JMTableViewController.m */; };
 		C2B753FF199E8B81004BB1C3 /* JMTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2B753FE199E8B81004BB1C3 /* JMTableViewCell.m */; };
-		C2D0974319D6001000AA1980 /* JMAnimatedImageView+JMGif.m in Sources */ = {isa = PBXBuildFile; fileRef = C2D0974219D6001000AA1980 /* JMAnimatedImageView+JMGif.m */; };
-		C2D0974419D6001000AA1980 /* JMAnimatedImageView+JMGif.m in Sources */ = {isa = PBXBuildFile; fileRef = C2D0974219D6001000AA1980 /* JMAnimatedImageView+JMGif.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -140,6 +140,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C2323BDB19DC94B000C62D22 /* JMAnimatedGifImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JMAnimatedGifImageView.h; sourceTree = "<group>"; };
+		C2323BDC19DC94B000C62D22 /* JMAnimatedGifImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JMAnimatedGifImageView.m; sourceTree = "<group>"; };
 		C24A92D1199F4C0800CFDBE0 /* 0_verge_super_wide.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 0_verge_super_wide.jpg; sourceTree = "<group>"; };
 		C24A92D2199F4C0800CFDBE0 /* 10_verge_super_wide.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 10_verge_super_wide.jpg; sourceTree = "<group>"; };
 		C24A92D3199F4C0800CFDBE0 /* 1_verge_super_wide.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1_verge_super_wide.jpg; sourceTree = "<group>"; };
@@ -281,8 +283,6 @@
 		C2B753FB199E8AFE004BB1C3 /* JMTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JMTableViewController.m; sourceTree = "<group>"; };
 		C2B753FD199E8B81004BB1C3 /* JMTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JMTableViewCell.h; sourceTree = "<group>"; };
 		C2B753FE199E8B81004BB1C3 /* JMTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JMTableViewCell.m; sourceTree = "<group>"; };
-		C2D0974119D6001000AA1980 /* JMAnimatedImageView+JMGif.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JMAnimatedImageView+JMGif.h"; sourceTree = "<group>"; };
-		C2D0974219D6001000AA1980 /* JMAnimatedImageView+JMGif.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JMAnimatedImageView+JMGif.m"; sourceTree = "<group>"; };
 		C2EAE6E519C0241700B46A27 /* JMAnimatedLog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JMAnimatedLog.h; sourceTree = "<group>"; };
 		C2F4DB6B19BE5C4700F04261 /* JMAmimatedImageViewMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JMAmimatedImageViewMacro.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -535,8 +535,8 @@
 				C2F4DB6B19BE5C4700F04261 /* JMAmimatedImageViewMacro.h */,
 				C2B753EF199E88A9004BB1C3 /* JMAnimatedImageView.h */,
 				C2B753F0199E88A9004BB1C3 /* JMAnimatedImageView.m */,
-				C2D0974119D6001000AA1980 /* JMAnimatedImageView+JMGif.h */,
-				C2D0974219D6001000AA1980 /* JMAnimatedImageView+JMGif.m */,
+				C2323BDB19DC94B000C62D22 /* JMAnimatedGifImageView.h */,
+				C2323BDC19DC94B000C62D22 /* JMAnimatedGifImageView.m */,
 				C2B03DFA19A52D000032B240 /* JMAnimatedImageView+Image.h */,
 				C2B03DFB19A52D000032B240 /* JMAnimatedImageView+Image.m */,
 				C2B753F1199E88A9004BB1C3 /* JMAnimationOperation.h */,
@@ -745,13 +745,13 @@
 				C2B75333199E8802004BB1C3 /* main.m in Sources */,
 				C2B7533D199E8802004BB1C3 /* JMViewController.m in Sources */,
 				C2B03E0019A554E30032B240 /* JMFLViewController.m in Sources */,
-				C2D0974319D6001000AA1980 /* JMAnimatedImageView+JMGif.m in Sources */,
 				C2954D1719A72C7600494F41 /* AppInformationsManager.m in Sources */,
 				C2B03DFC19A52D000032B240 /* JMAnimatedImageView+Image.m in Sources */,
 				C2B753F8199E88A9004BB1C3 /* JMAnimationOperation.m in Sources */,
 				C2B753F9199E88A9004BB1C3 /* UIImage+JM.m in Sources */,
 				C2B753FC199E8AFE004BB1C3 /* JMTableViewController.m in Sources */,
 				C2954D1C19A72C7600494F41 /* UIDevice+iAppInfos.m in Sources */,
+				C2323BDD19DC94B000C62D22 /* JMAnimatedGifImageView.m in Sources */,
 				C2954D1B19A72C7600494F41 /* UIApplication+iAppInfos.m in Sources */,
 				C2B03DF919A474190032B240 /* JMGif.m in Sources */,
 				C2954D1919A72C7600494F41 /* JMOMobileProvisionning.m in Sources */,
@@ -765,8 +765,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C2D0974419D6001000AA1980 /* JMAnimatedImageView+JMGif.m in Sources */,
 				C2B75352199E8802004BB1C3 /* JMAnimatedImageViewTests.m in Sources */,
+				C2323BDE19DC94B000C62D22 /* JMAnimatedGifImageView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

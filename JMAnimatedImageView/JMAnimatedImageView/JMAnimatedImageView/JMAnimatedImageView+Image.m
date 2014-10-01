@@ -8,14 +8,15 @@
 
 #import "JMAnimatedImageView+Image.h"
 #import "UIImage+JM.h"
-#import "JMAnimatedImageView+JMGif.h"
+#import "JMAnimatedGifImageView.h"
 
 @implementation JMAnimatedImageView (Image)
 
 - (UIImage *)imageAtIndex:(NSInteger)index
 {
-    if ([self isAGifImageView]) {
-        return [self.gifObject imageAtIndex:index];
+    if ([self isKindOfClass:[JMAnimatedGifImageView class]]) {
+        JMAnimatedGifImageView *gifView = (JMAnimatedGifImageView *)self;
+        return [gifView.gifObject imageAtIndex:index];
         
     } else if ([self.animationDatasource respondsToSelector:@selector(imageAtIndex:forAnimatedImageView:)]) {
         return [self.animationDatasource imageAtIndex:index forAnimatedImageView:self];
@@ -31,8 +32,10 @@
 
 - (NSUInteger)numberOfImages
 {
-    if ([self isAGifImageView]) {
-        return self.gifObject.items.count;
+    if ([self isKindOfClass:[JMAnimatedGifImageView class]]) {
+        JMAnimatedGifImageView *gifView = (JMAnimatedGifImageView *)self;
+        return gifView.gifObject.items.count;
+        
     } else {
         if ([self.animationDatasource respondsToSelector:@selector(numberOfImagesForAnimatedImageView:)]) {
             return [self.animationDatasource numberOfImagesForAnimatedImageView:self];

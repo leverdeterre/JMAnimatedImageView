@@ -88,12 +88,12 @@
             cell.jmDetailsLabel.text = @"Swipe left / Right";
             break;
             
-        case JMDemoGIFAutomaticAnimationUsingImageViewImageAndSystemCache:
+        case JMDemoGIFAutomaticAnimationUsingImageViewImageLowMemoryPressure:
             cell.jmLabel.text = @"GIF ANIMATION : using JMAnimatedImageView (Low memory usage)";
             cell.jmDetailsLabel.text = @"Swipe left / Right";
             break;
             
-        case JMDemoGIFInteractiveAnimationUsingImageViewImageAndSystemCache:
+        case JMDemoGIFInteractiveAnimationUsingImageViewImageLowMemoryPressure:
             cell.jmLabel.text = @"GIF INTERACTION : using JMAnimatedImageView (Low memory usage)";
             cell.jmDetailsLabel.text = @"Swipe left / Right";
             break;
@@ -114,8 +114,8 @@
 {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     
-    if (indexPath.row == JMDemoGIFAutomaticAnimationUsingImageViewImageAndSystemCache ||
-        indexPath.row == JMDemoGIFInteractiveAnimationUsingImageViewImageAndSystemCache)
+    if (indexPath.row == JMDemoGIFAutomaticAnimationUsingImageViewImageLowMemoryPressure ||
+        indexPath.row == JMDemoGIFInteractiveAnimationUsingImageViewImageLowMemoryPressure)
     {
         JMFLViewController *vc = [JMFLViewController new];
         UIViewController *vcToPush = vc;

@@ -11,25 +11,11 @@
 #import "UIImage+JM.h"
 #import "JMAnimatedImageView+Image.h"
 #import "JMAnimatedLog.h"
-#import "JMAnimatedImageView+JMGif.h"
-
-typedef NS_ENUM(NSUInteger, UIImageViewAnimationOption) {
-    UIImageViewAnimationOptionLinear = 0,
-    UIImageViewAnimationOptionCurveEaseInOut
-};
-
-typedef NS_ENUM(NSUInteger, UIImageViewAnimationState) {
-    UIImageViewAnimationStateStopped = 0,
-    UIImageViewAnimationStateInPgrogress
-};
 
 @interface JMAnimatedImageView()
 @property (nonatomic, assign) NSInteger operationInQueue;
-@property (nonatomic, strong) NSOperationQueue *animationQueue;
 @property (nonatomic, strong) UIPanGestureRecognizer *panGesture;
 @property (nonatomic, strong) UITapGestureRecognizer *tapGesture;
-@property (nonatomic, strong) dispatch_queue_t animationManagementQueue;
-@property (assign, nonatomic) UIImageViewAnimationState animationState;
 
 //Specific to animation type JMAnimatedImageViewAnimationTypeManualSwipe
 @property (nonatomic, strong) UIImageView *tempSwapedImageView;
@@ -379,17 +365,11 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationState) {
         for (int i = 0; i < (int)abs((int)shift) ; i++) {
                 
             currentInterval = currentInterval + unitDuration;
-            if(((currentInterval < minimumInterval) && [self isAGifImageView] == NO)) {
+            if(currentInterval < minimumInterval) {
                 continue;
                 
             } else {
                 NSInteger index = [self realIndexForComputedIndex:fromIndex+i*shiftUnit];
-
-                if ([self isAGifImageView]) {
-                    JMGifItem *item = [[self.gifObject items] objectAtIndex:index];
-                    currentInterval = [item delayDuration];
-                }
-                
                 JMAnimationOperation *operation = [JMAnimationOperation animationOperationWithDuration:currentInterval
                                                                                             completion:^(BOOL finished)
                 {
@@ -511,26 +491,18 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationState) {
 
 - (void)startAnimating
 {
-    self.animationState = UIImageViewAnimationStateInPgrogress;
+    _animationState = UIImageViewAnimationStateInPgrogress;
 
     if ([self checkLifeCycleSanity] == NO) {
         return;
     }
     
     if (self.animationType == JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutTransition) {
-        if ([self isAGifImageView]) {
-            [self moveCurrentCardImageFromIndex:self.currentIndex
-                                          shift:self.gifObject.items.count
-                                   withDuration:self.animationDuration
-                                animationOption:UIImageViewAnimationOptionLinear
-                            withCompletionBlock:NULL];
-        } else {
-            [self moveCurrentCardImageFromIndex:self.currentIndex
-                                          shift:[self numberOfImages]
-                                   withDuration:self.animationDuration
-                                animationOption:UIImageViewAnimationOptionLinear
-                            withCompletionBlock:NULL];
-        }
+        [self moveCurrentCardImageFromIndex:self.currentIndex
+                                      shift:[self numberOfImages]
+                               withDuration:self.animationDuration
+                            animationOption:UIImageViewAnimationOptionLinear
+                        withCompletionBlock:NULL];
 
     } else if (self.animationType == JMAnimatedImageViewAnimationTypeAutomaticLinear) {
         [self changeImageToIndex:(self.currentIndex + 1) withTimeInterval:self.animationDuration repeat:YES];
@@ -539,7 +511,7 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationState) {
 
 - (void)continueAnimating
 {
-    self.animationState = UIImageViewAnimationStateInPgrogress;
+    _animationState = UIImageViewAnimationStateInPgrogress;
 
     dispatch_async(dispatch_get_main_queue(), ^{
         if ([self checkLifeCycleSanity] == NO) {
@@ -550,25 +522,17 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationState) {
             return;
         }
         
-        if ([self isAGifImageView]) {
-            [self moveCurrentCardImageFromIndex:self.currentIndex
-                                          shift:self.gifObject.items.count
-                                   withDuration:self.animationDuration
-                                animationOption:UIImageViewAnimationOptionLinear
-                            withCompletionBlock:NULL];
-        } else {
-            [self moveCurrentCardImageFromIndex:self.currentIndex
-                                          shift:[self numberOfImages]
-                                   withDuration:self.animationDuration
-                                animationOption:UIImageViewAnimationOptionLinear
-                            withCompletionBlock:NULL];
-        }
+        [self moveCurrentCardImageFromIndex:self.currentIndex
+                                      shift:[self numberOfImages]
+                               withDuration:self.animationDuration
+                            animationOption:UIImageViewAnimationOptionLinear
+                        withCompletionBlock:NULL];
     });
 }
 
 - (void)stopAnimating
 {
-    self.animationState = UIImageViewAnimationStateStopped;
+    _animationState = UIImageViewAnimationStateStopped;
     [self cancelAnimations];
 }
 
