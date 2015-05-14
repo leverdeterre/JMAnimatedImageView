@@ -32,7 +32,7 @@ $ pod try JMAnimatedImageView
 
 In your code, `#import "JMAnimatedImageView.h"` and `#import "JMAnimatedImageView.h"` 
 
-```
+```objective-c
 //GIF example
 @property (weak, nonatomic) IBOutlet JMAnimatedImageView *jmImageView;
 
@@ -41,7 +41,7 @@ self.jmImageView.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinear
 [self.jmImageView startAnimating];
 ```
 
-```
+```objective-c
 //PNG example with manual animation
 @property (weak, nonatomic) IBOutlet JMAnimatedImageView *jmImageView;
 
