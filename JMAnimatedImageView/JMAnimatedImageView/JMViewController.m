@@ -24,6 +24,50 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
+    if (self.demoExemple & JMDemoAutomatic) {
+        if (self.demoExemple & JMDemoChangeImageSwipeTransition) {
+            self.carImageView.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinear;
+
+        } else {
+            self.carImageView.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutTransition;
+        }
+        
+    }
+    
+    if (self.demoExemple & JMDemoInteractive) {
+        self.carImageView.animationType = JMAnimatedImageViewAnimationTypeInteractive;
+        
+        if (self.demoExemple & JMDemoChangeImageSwipeTransition) {
+            self.carImageView.animationType = JMAnimatedImageViewAnimationTypeManualSwipe;
+        }
+    }
+    
+    if (self.demoExemple & JMDemoMemoryBySystem) {
+        self.carImageView.memoryManagementOption = JMAnimatedImageViewMemoryLoadImageSystemCache;
+    
+    } else {
+        self.carImageView.memoryManagementOption = JMAnimatedImageViewMemoryLoadImageLowMemoryUsage;
+
+    }
+    
+    if (self.demoExemple & JMDemoReverseImage) {
+        self.carImageView.imageOrder = JMAnimatedImageViewOrderReverse;
+    }
+    
+    self.imageView.hidden = YES;
+    self.carImageView.hidden = NO;
+    self.carImageView.animationDelegate = self;
+    self.carImageView.animationDatasource = self;
+    self.carImageView.animationRepeatCount = 0;
+    self.carImageView.animationDuration = 4.0;
+    
+    if (self.demoExemple & JMDemoAutomatic) {
+        [self.carImageView startAnimating];
+    } else {
+        [self.carImageView setCurrentIndex:0 animated:NO];
+    }
+
+    /*
     switch (self.demoExemple) {
         case JMDemoAutomaticAnimationUsingImageViewImageAndSystemCache:
         {
@@ -65,7 +109,7 @@
             self.carImageView.animationDatasource = self;
             self.carImageView.animationRepeatCount = 0;
             self.carImageView.animationDuration = 4.0;
-            self.carImageView.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinear;
+            self.carImageView.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutTransition;
             self.carImageView.memoryManagementOption = JMAnimatedImageViewMemoryLoadImageLowMemoryUsage;
             self.carImageView.imageOrder = JMAnimatedImageViewOrderNormal;
             
@@ -118,12 +162,13 @@
             [self.carImageView setInteractiveAnimation:YES];
             break;
             
-        case JMDemoGIFAutomaticAnimationUsingImageViewImageAndSystemCache:
+        case JMDemoGIFAutomaticAnimationUsingImageViewImageAndLightMemory:
             self.imageView.hidden = YES;
             self.carImageView.hidden = NO;
             self.carImageView.animationDelegate = self;
             self.carImageView.animationDatasource = self;
             self.carImageView.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutTransition;
+            self.carImageView.memoryManagementOption = JMAnimatedImageViewMemoryLoadImageLowMemoryUsage;
             [self.carImageView reloadAnimationImagesFromGifNamed:@"rock"];
             [self.carImageView startAnimating];
             break;
@@ -136,13 +181,14 @@
         default:
             break;
     }    
+     */
 }
 
 #pragma mark - JMOImageViewAnimationDatasource
 
 - (NSInteger)numberOfImagesForAnimatedImageView:(UIImageView *)imageView
 {
-    if (self.animationType == JMAnimatedImageViewAnimationTypeManualSwipe) {
+    if (self.demoExemple & JMDemoPhotos) {
         return 11;
     }
     return 70;
@@ -150,7 +196,7 @@
 
 - (NSString *)imageNameAtIndex:(NSInteger)index forAnimatedImageView:(UIImageView *)imageView
 {
-    if (self.animationType == JMAnimatedImageViewAnimationTypeManualSwipe) {
+    if (self.demoExemple & JMDemoPhotos) {
         return [NSString stringWithFormat:@"%d_verge_super_wide.jpg",(int)index];
     }
     
@@ -159,7 +205,7 @@
 
 - (NSInteger)firstIndexForAnimatedImageView:(UIImageView *)imageView
 {
-    if (self.animationType == JMAnimatedImageViewAnimationTypeManualSwipe) {
+    if (self.demoExemple & JMDemoPhotos) {
         return 0;
     }
     

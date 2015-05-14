@@ -23,46 +23,46 @@
     // Do any additional setup after loading the view from its nib.
     
     self.title = @"3 GIF, 3 animations ...";
-    /*
-    JMDemoGIFAutomaticAnimationUsingImageViewImageAndSystemCache,
-    JMDemoGIFInteractiveAnimationUsingImageViewImageAndSystemCache,
-    JMDemoGIFMultipleAnimationUsingImageViewImageAndSystemCache
-    */
-    
-    if (self.demoExemple == JMDemoGIFAutomaticAnimationUsingImageViewImageAndSystemCache) {
-        NSURL *url = [[NSBundle mainBundle] URLForResource:@"rock" withExtension:@"gif"];
-        NSData *data = [NSData dataWithContentsOfURL:url];
-        [self.carImageView1 reloadAnimationImagesFromGifData:data];
-        self.carImageView1.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutTransition;
-        self.carImageView1.animationDuration = 3;
-        [self.carImageView1 startAnimating];
-        
-        url = [[NSBundle mainBundle] URLForResource:@"Rotating_earth" withExtension:@"gif"];
-        data = [NSData dataWithContentsOfURL:url];
-        [self.carImageView2 reloadAnimationImagesFromGifData:data];
-        self.carImageView2.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutTransition;
-        self.carImageView2.animationDuration = 3;
-        [self.carImageView2 startAnimating];
-        
-        url = [[NSBundle mainBundle] URLForResource:@"nyan" withExtension:@"gif"];
-        data = [NSData dataWithContentsOfURL:url];
-        [self.carImageView3 reloadAnimationImagesFromGifData:data];
-        self.carImageView3.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutTransition;
-        [self.carImageView3 startAnimating];
-        
-    } else if (self.demoExemple == JMDemoGIFInteractiveAnimationUsingImageViewImageAndSystemCache) {
-    
-        [self.carImageView1 reloadAnimationImagesFromGifNamed:@"rock"];
+
+    NSURL *url = [[NSBundle mainBundle] URLForResource:@"rock" withExtension:@"gif"];
+    NSData *data = [NSData dataWithContentsOfURL:url];
+    [self.carImageView1 reloadAnimationImagesFromGifData:data];
+    self.carImageView1.memoryManagementOption = JMAnimatedImageViewMemoryLoadImageLowMemoryUsage;
+    self.carImageView1.animationDuration = 3;
+    [self.carImageView1 reloadAnimationImagesFromGifNamed:@"rock"];
+
+    url = [[NSBundle mainBundle] URLForResource:@"Rotating_earth" withExtension:@"gif"];
+    data = [NSData dataWithContentsOfURL:url];
+    [self.carImageView2 reloadAnimationImagesFromGifData:data];
+    self.carImageView2.memoryManagementOption = JMAnimatedImageViewMemoryLoadImageLowMemoryUsage;
+    self.carImageView2.animationDuration = 3;
+    [self.carImageView2 reloadAnimationImagesFromGifNamed:@"Rotating_earth"];
+
+    url = [[NSBundle mainBundle] URLForResource:@"nyan" withExtension:@"gif"];
+    data = [NSData dataWithContentsOfURL:url];
+    [self.carImageView3 reloadAnimationImagesFromGifData:data];
+    self.carImageView3.memoryManagementOption = JMAnimatedImageViewMemoryLoadImageLowMemoryUsage;
+    [self.carImageView3 reloadAnimationImagesFromGifNamed:@"nyan"];
+
+    if (self.demoExemple & JMDemoInteractive) {
+
         self.carImageView1.animationType = JMAnimatedImageViewAnimationTypeInteractive;
-        [self.carImageView1 setInteractiveAnimation:YES];
-
-        [self.carImageView2 reloadAnimationImagesFromGifNamed:@"Rotating_earth"];
         self.carImageView2.animationType = JMAnimatedImageViewAnimationTypeInteractive;
-        [self.carImageView2 setInteractiveAnimation:YES];
-
-        [self.carImageView3 reloadAnimationImagesFromGifNamed:@"nyan"];
         self.carImageView3.animationType = JMAnimatedImageViewAnimationTypeInteractive;
+        [self.carImageView1 setInteractiveAnimation:YES];
+        [self.carImageView2 setInteractiveAnimation:YES];
         [self.carImageView3 setInteractiveAnimation:YES];
+        
+    } else {
+        self.carImageView1.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutTransition;
+        self.carImageView2.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutTransition;
+        self.carImageView3.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutTransition;
+        [self.carImageView1 setInteractiveAnimation:NO];
+        [self.carImageView2 setInteractiveAnimation:NO];
+        [self.carImageView3 setInteractiveAnimation:NO];
+        [self.carImageView1 startAnimating];
+        [self.carImageView2 startAnimating];
+        [self.carImageView3 startAnimating];
     }
 }
 
