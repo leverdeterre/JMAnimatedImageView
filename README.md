@@ -14,7 +14,7 @@ JMAnimatedImageView is a performant subclass of UIImageView:
 
 - Improve documentation
 - Fix retain cycle (Thanks Instruments!)
-- JMGif allocation for a better integration with your favorites network libraries (initWithData:(NSData *)data fromURL:(NSURL *)url;)
+- JMGif allocation for a better integration with your favorites network libraries.
 
 
 ## Installation 
@@ -28,11 +28,11 @@ $ pod try JMAnimatedImageView
 ```
 
 ## Usage
-### For a local animation from files into bundle
+### For a local animation using file from a bundle
 
 In your code, `#import "JMAnimatedImageView.h"` and `#import "JMAnimatedImageView.h"` 
 
-```objective-c
+```
 //GIF example
 @property (weak, nonatomic) IBOutlet JMAnimatedImageView *jmImageView;
 
@@ -41,7 +41,7 @@ self.jmImageView.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinear
 [self.jmImageView startAnimating];
 ```
 
-```objective-c
+```
 //PNG example with manual animation
 @property (weak, nonatomic) IBOutlet JMAnimatedImageView *jmImageView;
 
@@ -50,6 +50,7 @@ self.jmImageView.animationDatasource = self;
 [self.jmImageView reloadAnimationImages]; //<JMOImageViewAnimationDatasource>
 self.jmImageView.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutAnimation;
 self.jmImageView.memoryManagementOption = JMAnimatedImageViewMemoryLoadImageLowMemoryUsage;
+[self.jmImageView startAnimating];
 ```
 
 ### For a remote Gif
@@ -64,11 +65,31 @@ self.jmImageView.memoryManagementOption = JMAnimatedImageViewMemoryLoadImageLowM
      [self.animatedImageView startAnimating];
 }];	
 ```
+### For a remote Gif using AFNetworking
 
-Some parameters : 
+```objective-c
+    NSURLRequest *req = [NSURLRequest requestWithURL:url];
+	
+    AFHTTPRequestOperation *postOperation = [[AFHTTPRequestOperation alloc] initWithRequest:req];
+    [postOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+		self.animatedImageView.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutTransition;
+    	self.animatedImageView.memoryManagementOption = JMAnimatedImageViewMemoryLoadImageLowMemoryUsage;
+   		[self.animatedImageView reloadAnimationImagesFromGifData:responseObject fromUrl:url];
+     	[self.animatedImageView startAnimating];
+
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Image error: %@", error);
+        block(NO, nil);
+    }];
+    
+	[postOperation start];
+```
+
+### Customizations 
 
 * AnimationType
-```objc
+
+```objective-c
 typedef NS_ENUM(NSUInteger, JMAnimatedImageViewAnimationType) {
     //Animation is done by a gesture
     JMAnimatedImageViewAnimationTypeInteractive = 0,
@@ -84,24 +105,19 @@ typedef NS_ENUM(NSUInteger, JMAnimatedImageViewAnimationType) {
 ```
 
 * MemoryOption
-```objc
+
+```objective-c
 typedef NS_ENUM(NSUInteger, JMAnimatedImageViewMemoryOption) {
-    //images memory will be retain by system
-    JMAnimatedImageViewMemoryLoadImageSystemCache = 0, 
-    
-    //image are loaded in live
-    JMAnimatedImageViewMemoryLoadImageLowMemoryUsage,
-    
-    //you load your images has you want
-    JMAnimatedImageViewMemoryLoadImageCustom
+    JMAnimatedImageViewMemoryLoadImageSystemCache = 0,  //images memory will be retain by system
+    JMAnimatedImageViewMemoryLoadImageLowMemoryUsage,   //images loaded but not retained by the system
+    JMAnimatedImageViewMemoryLoadImageCustom            //images loaded by you (JMOImageViewAnimationDatasource)
 };
 ```
 
 * ImageViewOrder
 
-```objc
+```objective-c
 typedef NS_ENUM(NSUInteger, JMAnimatedImageViewOrder) {
-    JMAnimatedImageViewOrderNone = 0,
     JMAnimatedImageViewOrderNormal = 1,
     JMAnimatedImageViewOrderReverse = -1
 };
