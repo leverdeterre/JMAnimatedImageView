@@ -50,7 +50,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 8;
+    return 7;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -58,55 +58,44 @@
     JMTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"JMTableViewCell" forIndexPath:indexPath];
     
     switch (indexPath.row) {
-        case JMDemoAutomaticAnimationUsingImageViewImageAndSystemCache:
-            cell.jmLabel.text = @"AUTOMATIC ANIMATION : using UIImageView";
+        case 0:
+            cell.jmLabel.text = @"PNG + Automatic Transition + system cache";
             cell.jmDetailsLabel.text = @"All images are loaded in one time in memory (so ... it's take a lot of time to run the 1st time).";
             break;
             
-        case JMDemoAutomaticAnimationUsingJMAnimatedImageViewImageAndSystemCache:
-            cell.jmLabel.text = @"AUTOMATIC ANIMATION : using JMAnimatedImageView (using Sytem cache)";
+        case 1:
+            cell.jmLabel.text = @"PNG + Automatic Transition + system cache";
             cell.jmDetailsLabel.text = @"Images are loaded during the animation.";
             break;
             
-        case JMDemoAutomaticAnimationUsingJMAnimatedImageViewImageAndWithoutCache:
-            cell.jmLabel.text = @"AUTOMATIC ANIMATION : using JMAnimatedImageView (Low memory usage)";
+        case 2:
+            cell.jmLabel.text = @"PNG + Automatic Transition + JMAnimatedImageView cache";
             cell.jmDetailsLabel.text = @"More CPU time to load / reload images but less memory used.";
             break;
             
-        case JMDemoAutoSwipeAnimationUsingJMAnimatedImageViewImageAndWithoutCache:
-            cell.jmLabel.text = @"AUTOMATIC ANIMATION : using JMAnimatedImageView with transition";
-            cell.jmDetailsLabel.text = @"More CPU time to load / reload images but less memory used.";
-            break;
-            
-        case JMDemoInteractiveAnimationUsingJMAnimatedImageViewImageAndWithoutCache:
-            cell.jmLabel.text = @"INTERACTIVE ANIMATION : using JMAnimatedImageView (Low memory usage)";
+        case 3:
+            cell.jmLabel.text = @"PNG + Interactive Transition + JMAnimatedImageView cache";
             cell.jmDetailsLabel.text = @"Swipe left / Right to manage the animation.";
             break;
             
-        case JMDemoCarouselUsingJMAnimatedImageViewImageAndWithoutCache:
-            cell.jmLabel.text = @"SIMPLE CAROUSEL : using JMAnimatedImageView (Low memory usage)";
+        case 4:
+            cell.jmLabel.text = @"PNG + Carousel Transition + JMAnimatedImageView cache";
+            cell.jmDetailsLabel.text = @"Swipe left / Right to swipe";
+            break;
+
+        case 5:
+            cell.jmLabel.text = @"GIF + Automatic Transition + JMAnimatedImageView cache";
             cell.jmDetailsLabel.text = @"Swipe left / Right";
             break;
             
-        case JMDemoGIFAutomaticAnimationUsingImageViewImageLowMemoryPressure:
-            cell.jmLabel.text = @"GIF ANIMATION : using JMAnimatedImageView (Low memory usage)";
-            cell.jmDetailsLabel.text = @"Swipe left / Right";
-            break;
-            
-        case JMDemoGIFInteractiveAnimationUsingImageViewImageLowMemoryPressure:
-            cell.jmLabel.text = @"GIF INTERACTION : using JMAnimatedImageView (Low memory usage)";
+        case 6:
+            cell.jmLabel.text = @"GIF + Interactive Transition + JMAnimatedImageView cache";
             cell.jmDetailsLabel.text = @"Swipe left / Right";
             break;
             
         default:
             break;
     }
-    
-    /*
-        cell.jmLabel.text = @"MULTIPLE GIF ANIMATIONS : using JMAnimatedImageView (Low memory usage)";
-        cell.jmDetailsLabel.text = @"";
-    */
-    
     return cell;
 }
 
@@ -114,18 +103,50 @@
 {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     
-    if (indexPath.row == JMDemoGIFAutomaticAnimationUsingImageViewImageLowMemoryPressure ||
-        indexPath.row == JMDemoGIFInteractiveAnimationUsingImageViewImageLowMemoryPressure)
-    {
+    JMDemoType demoType = 0;
+    switch (indexPath.row) {
+        case 0:
+            demoType = ( JMDemoAutomatic | JMDemoMemoryBySystem | JMDemoChangeImageNoTransition);
+            break;
+            
+        case 1:
+            demoType = ( JMDemoAutomatic | JMDemoMemoryBySystem | JMDemoChangeImageNoTransition);
+            break;
+            
+        case 2:
+            demoType = ( JMDemoAutomatic | JMDemoMemoryByMyComponent | JMDemoChangeImageNoTransition);
+            break;
+            
+        case 3:
+            demoType = ( JMDemoInteractive | JMDemoMemoryByMyComponent | JMDemoChangeImageNoTransition | JMDemoReverseImage);
+            break;
+            
+        case 4:
+            demoType = ( JMDemoInteractive | JMDemoMemoryByMyComponent | JMDemoChangeImageSwipeTransition | JMDemoPhotos);
+            break;
+          
+        case 5:
+            demoType = ( JMDemoAutomatic | JMDemoMemoryByMyComponent | JMDemoChangeImageNoTransition);
+            break;
+           
+        case 6:
+            demoType = ( JMDemoInteractive | JMDemoMemoryByMyComponent | JMDemoChangeImageNoTransition);
+            break;
+            
+        default:
+            break;
+    }
+
+    if (indexPath.row > 4) {
         JMFLViewController *vc = [JMFLViewController new];
         UIViewController *vcToPush = vc;
-        vc.demoExemple = indexPath.row;
+        vc.demoExemple = demoType;
         [self.navigationController pushViewController:vcToPush animated:YES];
         
     } else {
         JMViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"JMViewController"];
         UIViewController *vcToPush = vc;
-        vc.demoExemple = indexPath.row;
+        vc.demoExemple = demoType;
         [self.navigationController pushViewController:vcToPush animated:YES];
     }
 }

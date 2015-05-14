@@ -19,18 +19,27 @@
 
 @implementation JMGif
 
-- (instancetype)initWithData:(NSData *)data gifName:(NSString *)gifName
+- (instancetype)initWithData:(NSData *)data gifName:(NSString *)gifName fromURL:(NSURL *)url
 {
     self = [super init];
     if (self) {
-        [self loadGifWithData:data gifName:gifName];
+        if (url.absoluteString.length && data) {
+            [self.class cacheGifData:data gifAbsoluteUrl:url.absoluteString];
+        }
+        
+        [self loadGifWithData:data gifName:gifName fromURL:url];
     }
     return self;
 }
 
 - (instancetype)initWithData:(NSData *)data
 {
-    return [self initWithData:data gifName:nil];
+    return [self initWithData:data gifName:nil fromURL:nil];
+}
+
+- (instancetype)initWithData:(NSData *)data fromURL:(NSURL *)url
+{
+    return [self initWithData:data gifName:nil fromURL:url];
 }
 
 + (instancetype)gifNamed:(NSString *)gifName
@@ -39,14 +48,54 @@
     NSURL *url = [[NSBundle mainBundle] URLForResource:gifName withExtension:@"gif"];
     NSData *data = [NSData dataWithContentsOfURL:url options:0 error:&error];
     if (nil == error) {
-        JMGif *gif = [[JMGif alloc] initWithData:data gifName:gifName];
+        JMGif *gif = [[JMGif alloc] initWithData:data gifName:gifName fromURL:nil];
         return gif;
     }
     
     return nil;
 }
 
-- (void)loadGifWithData:(NSData *)data gifName:(NSString *)gifName
++ (void)cacheGifData:(NSData *)data gifAbsoluteUrl:(NSString *)absoluteUrl
+{
+    CGImageSourceRef imageSource = CGImageSourceCreateWithData((__bridge CFDataRef)data, NULL);
+    
+    if (!imageSource) {
+        JMOLog(@"Error: Failed to `CGImageSourceCreateWithData` for animated GIF data %@", data);
+        return;
+    }
+    
+    // Early return if not GIF!
+    CFStringRef imageSourceContainerType = CGImageSourceGetType(imageSource);
+    if (!UTTypeConformsTo(imageSourceContainerType, kUTTypeGIF)) {
+        JMOLog(@"Error: Supplied data is of type %@ and doesn't seem to be GIF data %@", imageSourceContainerType, data);
+        CFRelease(imageSource);
+        return;
+    }
+    
+    // Iterate through frame images
+    size_t imageCount = CGImageSourceGetCount(imageSource);
+    for (size_t i = 0; i < imageCount; i++) {
+        CGImageRef frameImageRef = CGImageSourceCreateImageAtIndex(imageSource, i, NULL);
+        if (frameImageRef) {
+            //UIImage *frameImage = [UIImage imageWithCGImage:frameImageRef];
+            // Check for valid `frameImage` before parsing its properties as frames can be corrupted (and `frameImage` even `nil` when `frameImageRef` was valid).
+            if (YES) {
+                NSDictionary *frameProperties = (__bridge_transfer NSDictionary *)CGImageSourceCopyPropertiesAtIndex(imageSource, i, NULL);
+                NSDictionary *framePropertiesGIF = [frameProperties objectForKey:(id)kCGImagePropertyGIFDictionary];
+                if (absoluteUrl) {
+                    if ([self gifNamedAlreadyCached:absoluteUrl index:i] == NO) {
+                        [self cacheGifName:absoluteUrl image:[UIImage imageWithCGImage:frameImageRef] representingIndex:i];
+                    }
+                }
+            }
+            
+            CFRelease(frameImageRef);
+        }
+    }
+    CFRelease(imageSource);
+}
+
+- (void)loadGifWithData:(NSData *)data gifName:(NSString *)gifName fromURL:(NSURL *)url
 {
     CGImageSourceRef imageSource = CGImageSourceCreateWithData((__bridge CFDataRef)data, NULL);
     
@@ -92,7 +141,16 @@
                     if ([self.class gifNamedAlreadyCached:gifName index:i] == NO) {
                         [self.class cacheGifName:gifName image:[UIImage imageWithCGImage:frameImageRef] representingIndex:i];
                     }
+                    
+                } else if (url.absoluteString) {
+                    item = [[JMGifItem alloc] initWithImagePath:[self.class imagePathForeGifName:url.absoluteString index:i]
+                                                frameProperties:framePropertiesGIF];
+                    if ([self.class gifNamedAlreadyCached:url.absoluteString index:i] == NO) {
+                        [self.class cacheGifName:url.absoluteString image:[UIImage imageWithCGImage:frameImageRef] representingIndex:i];
+                    }
+                    
                 } else {
+                    JMOLog(@"Loading full UIImage ...");
                     item = [[JMGifItem alloc] initWithImage:[UIImage imageWithCGImage:frameImageRef] frameProperties:framePropertiesGIF];
                 }
       

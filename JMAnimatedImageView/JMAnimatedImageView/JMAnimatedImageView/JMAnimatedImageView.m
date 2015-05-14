@@ -11,6 +11,7 @@
 #import "UIImage+JM.h"
 #import "JMAnimatedImageView+Image.h"
 #import "JMAnimatedLog.h"
+#import "JMGif.h"
 
 @interface JMAnimatedImageView()
 @property (nonatomic, assign) NSInteger operationInQueue;
@@ -67,6 +68,28 @@
     }
 }
 
+- (void)reloadAnimationImagesFromGifData:(NSData *)data fromUrl:(NSURL *)url
+{
+    _gifObject = [[JMGif alloc] initWithData:data fromURL:url];
+    self.animationDuration = JMDefaultGifDuration;
+    [self setCurrentCardImageAtindex:0];
+}
+
+- (void)reloadAnimationImagesFromGifData:(NSData *)data
+{
+    _gifObject = [[JMGif alloc] initWithData:data];
+    self.animationDuration = JMDefaultGifDuration;
+    [self setCurrentCardImageAtindex:0];
+}
+
+- (void)reloadAnimationImagesFromGifNamed:(NSString *)gitName
+{
+    _gifObject = [JMGif gifNamed:gitName];
+    self.animationDuration = JMDefaultGifDuration;
+    [self setCurrentCardImageAtindex:0];
+    [self updateGestures];
+}
+
 - (BOOL)checkLifeCycleSanity
 {
     if (self.superview) {
@@ -117,6 +140,14 @@
 }
 
 #pragma mark - overided setter
+
+- (BOOL)isAGifImageView
+{
+    if (_gifObject) {
+        return YES;
+    }
+    return NO;
+}
 
 - (void)setInteractiveAnimation:(BOOL)interactiveAnimation
 {
@@ -271,7 +302,7 @@
     NSInteger pointUnity = self.frame.size.width / [self numberOfImages];
     
     //Compute inerty using velocity
-    NSInteger shift = abs(velocity.x) / (16 * [UIScreen mainScreen].scale * pointUnity);
+    NSInteger shift = fabs(velocity.x) / (16 * [UIScreen mainScreen].scale * pointUnity);
     
     if(velocity.x > 0) {
         [self setCurrentIndex:index+(_imageOrder) * shift];
@@ -311,6 +342,28 @@
 }
 
 #pragma mark - Load images
+
+- (void)setCurrentCardImageAtindex:(NSInteger)index
+{
+    NSInteger realIndex = [self realIndexForComputedIndex:index];
+    self.image = [self imageAtIndex:realIndex];
+    self.currentIndex = realIndex;
+    
+    if (self.animationType == JMAnimatedImageViewAnimationTypeManualSwipe) {
+        [self updatePageControl];
+    }
+}
+
+- (void)setCurrentImage:(UIImage *)img forIndex:(NSInteger)index
+{
+    JMLog(@"%s index:%d",__FUNCTION__,(int)index);
+    NSInteger realIndex = [self realIndexForComputedIndex:index];
+    self.image = img;
+    self.currentIndex = realIndex;
+    if (self.animationType == JMAnimatedImageViewAnimationTypeManualSwipe) {
+        [self updatePageControl];
+    }
+}
 
 - (NSInteger)realIndexForComputedIndex:(NSInteger)index
 {
@@ -371,27 +424,30 @@
             } else {
                 
                 NSInteger index = [self realIndexForComputedIndex:fromIndex+i*shiftUnit];
-                __weak JMAnimatedImageView *weaSelf = self;
-
+                if ([self isAGifImageView]) {
+                    JMGifItem *item = [[self.gifObject items] objectAtIndex:index];
+                    currentInterval = [item delayDuration];
+                }
+                
+                __weak JMAnimatedImageView *weakSelf = self;
                 JMAnimationOperation *operation = [JMAnimationOperation animationOperationWithDuration:currentInterval
                                                                                             completion:^(BOOL finished)
                 {
 
-                    if (weaSelf.animationType == JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutTransition) {
-                        if ([weaSelf operationQueueIsFinished] == YES) {
+                    if (weakSelf.animationType == JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutTransition) {
+                        if ([weakSelf operationQueueIsFinished] == YES) {
                             if (finishBlock) {
                                 finishBlock(YES);
                             }
                             
-                            if (weaSelf.animationRepeatCount == 0 &&
-                                weaSelf.animationState == UIImageViewAnimationStateInPgrogress) {
-                               [weaSelf continueAnimating];
+                            if (weakSelf.animationRepeatCount == 0 && weakSelf.animationState == UIImageViewAnimationStateInPgrogress) {
+                               [weakSelf continueAnimating];
                             }
                         }
                     }
                 }];
                 
-                operation.animatedImageView = self;
+                operation.animatedImageView = weakSelf;
                 operation.imageIndex = index;
                 
                 currentInterval = 0;

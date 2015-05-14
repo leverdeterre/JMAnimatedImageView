@@ -43,6 +43,7 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationState) {
 
 typedef void (^JMCompletionFinishBlock)(BOOL resul);
 
+@class JMGif;
 @interface JMAnimatedImageView : UIImageView
 
 @property (weak, nonatomic) IBOutlet id <JMOImageViewAnimationDatasource> animationDatasource;
@@ -85,6 +86,7 @@ typedef void (^JMCompletionFinishBlock)(BOOL resul);
  */
 - (void)animateToIndex:(NSInteger)index withDuration:(NSTimeInterval)duration;
 
+
 /**
  *  animateToIndex:withDuration:withCompletionBlock:, This method will animate the modification of images to access to the index in parameter.
  *
@@ -94,10 +96,29 @@ typedef void (^JMCompletionFinishBlock)(BOOL resul);
  */
 - (void)animateToIndex:(NSInteger)index withDuration:(NSTimeInterval)duration withCompletionBlock:(JMCompletionFinishBlock)finishBlock;
 
-- (void)updateGestures;
-- (void)changeImageToIndex:(NSInteger)index withTimeInterval:(NSTimeInterval)duration repeat:(BOOL)repeat;
-- (BOOL)operationQueueIsFinished;
-- (BOOL)checkLifeCycleSanity;
-- (NSInteger)realIndexForComputedIndex:(NSInteger)index;
+//Specific to GIF
+@property (strong, readonly, nonatomic) JMGif *gifObject;
+
+/**
+ *  isAGifImageView
+ *
+ *  @return BOOL
+ */
+- (BOOL)isAGifImageView;
+
+/**
+ *  reloadAnimationImagesFromGifData:, This method reload a GIF image from a GIF NSData
+ *
+ *  @param data NSData data
+ */
+- (void)reloadAnimationImagesFromGifData:(NSData *)data;
+- (void)reloadAnimationImagesFromGifData:(NSData *)data fromUrl:(NSURL *)url;
+
+/**
+ *  reloadAnimationImagesFromGifNamed:, This method reload a GIF image from a GIF named
+ *
+ *  @param gitName NSString gitName
+ */
+- (void)reloadAnimationImagesFromGifNamed:(NSString *)gitName;
 
 @end

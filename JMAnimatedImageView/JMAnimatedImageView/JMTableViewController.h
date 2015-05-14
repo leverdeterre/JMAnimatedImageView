@@ -8,15 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-typedef NS_ENUM(NSUInteger, JMDemoType) {
-    JMDemoAutomaticAnimationUsingImageViewImageAndSystemCache = 0,
-    JMDemoAutomaticAnimationUsingJMAnimatedImageViewImageAndSystemCache,
-    JMDemoAutomaticAnimationUsingJMAnimatedImageViewImageAndWithoutCache,
-    JMDemoAutoSwipeAnimationUsingJMAnimatedImageViewImageAndWithoutCache,
-    JMDemoInteractiveAnimationUsingJMAnimatedImageViewImageAndWithoutCache,
-    JMDemoCarouselUsingJMAnimatedImageViewImageAndWithoutCache,
-    JMDemoGIFAutomaticAnimationUsingImageViewImageLowMemoryPressure,
-    JMDemoGIFInteractiveAnimationUsingImageViewImageLowMemoryPressure
+typedef NS_OPTIONS(NSUInteger, JMDemoType) {
+    JMDemoAutomatic =                   1,
+    JMDemoInteractive =                 1 << 1,
+    JMDemoChangeImageSwipeTransition =  1 << 2,
+    JMDemoChangeImageNoTransition =     1 << 3,
+    JMDemoMemoryBySystem =              1 << 4,
+    JMDemoMemoryByMyComponent =         1 << 5,
+    JMDemoReverseImage        =         1 << 6,
+    JMDemoPhotos        =               1 << 8
 };
 
 @interface JMTableViewController : UITableViewController

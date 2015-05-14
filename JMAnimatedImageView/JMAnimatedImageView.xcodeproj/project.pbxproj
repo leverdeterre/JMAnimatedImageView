@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C2323BDD19DC94B000C62D22 /* JMAnimatedGifImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C2323BDC19DC94B000C62D22 /* JMAnimatedGifImageView.m */; };
-		C2323BDE19DC94B000C62D22 /* JMAnimatedGifImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C2323BDC19DC94B000C62D22 /* JMAnimatedGifImageView.m */; };
 		C24A92DC199F4C0800CFDBE0 /* 0_verge_super_wide.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C24A92D1199F4C0800CFDBE0 /* 0_verge_super_wide.jpg */; };
 		C24A92DD199F4C0800CFDBE0 /* 10_verge_super_wide.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C24A92D2199F4C0800CFDBE0 /* 10_verge_super_wide.jpg */; };
 		C24A92DE199F4C0800CFDBE0 /* 1_verge_super_wide.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C24A92D3199F4C0800CFDBE0 /* 1_verge_super_wide.jpg */; };
@@ -140,8 +138,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		C2323BDB19DC94B000C62D22 /* JMAnimatedGifImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JMAnimatedGifImageView.h; sourceTree = "<group>"; };
-		C2323BDC19DC94B000C62D22 /* JMAnimatedGifImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JMAnimatedGifImageView.m; sourceTree = "<group>"; };
 		C24A92D1199F4C0800CFDBE0 /* 0_verge_super_wide.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 0_verge_super_wide.jpg; sourceTree = "<group>"; };
 		C24A92D2199F4C0800CFDBE0 /* 10_verge_super_wide.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 10_verge_super_wide.jpg; sourceTree = "<group>"; };
 		C24A92D3199F4C0800CFDBE0 /* 1_verge_super_wide.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1_verge_super_wide.jpg; sourceTree = "<group>"; };
@@ -535,8 +531,6 @@
 				C2F4DB6B19BE5C4700F04261 /* JMAmimatedImageViewMacro.h */,
 				C2B753EF199E88A9004BB1C3 /* JMAnimatedImageView.h */,
 				C2B753F0199E88A9004BB1C3 /* JMAnimatedImageView.m */,
-				C2323BDB19DC94B000C62D22 /* JMAnimatedGifImageView.h */,
-				C2323BDC19DC94B000C62D22 /* JMAnimatedGifImageView.m */,
 				C2B03DFA19A52D000032B240 /* JMAnimatedImageView+Image.h */,
 				C2B03DFB19A52D000032B240 /* JMAnimatedImageView+Image.m */,
 				C2B753F1199E88A9004BB1C3 /* JMAnimationOperation.h */,
@@ -751,7 +745,6 @@
 				C2B753F9199E88A9004BB1C3 /* UIImage+JM.m in Sources */,
 				C2B753FC199E8AFE004BB1C3 /* JMTableViewController.m in Sources */,
 				C2954D1C19A72C7600494F41 /* UIDevice+iAppInfos.m in Sources */,
-				C2323BDD19DC94B000C62D22 /* JMAnimatedGifImageView.m in Sources */,
 				C2954D1B19A72C7600494F41 /* UIApplication+iAppInfos.m in Sources */,
 				C2B03DF919A474190032B240 /* JMGif.m in Sources */,
 				C2954D1919A72C7600494F41 /* JMOMobileProvisionning.m in Sources */,
@@ -766,7 +759,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C2B75352199E8802004BB1C3 /* JMAnimatedImageViewTests.m in Sources */,
-				C2323BDE19DC94B000C62D22 /* JMAnimatedGifImageView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,7 +8,16 @@ JMAnimatedImageView is a performant subclass of UIImageView:
 - Can use has a Carousel, 
 - GIF are supported to load your animations.
 
-## Installation & Usage
+## Change Log
+
+0.2.4 : 
+
+- Improve documentation
+- Fix retain cycle (Thanks Instruments!)
+- JMGif allocation for a better integration with your favorites network libraries.
+
+
+## Installation 
 
 Simply replace your `UIImageView` instances with instances of `JMAnimatedImageView`.
 
@@ -18,9 +27,12 @@ If using CocoaPods, the quickest way to try it out is to type this on the comman
 $ pod try JMAnimatedImageView
 ```
 
+## Usage
+### For a local animation using file from a bundle
+
 In your code, `#import "JMAnimatedImageView.h"` and `#import "JMAnimatedImageView.h"` 
 
-```objective-c
+```
 //GIF example
 @property (weak, nonatomic) IBOutlet JMAnimatedImageView *jmImageView;
 
@@ -29,7 +41,7 @@ self.jmImageView.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinear
 [self.jmImageView startAnimating];
 ```
 
-```objective-c
+```
 //PNG example with manual animation
 @property (weak, nonatomic) IBOutlet JMAnimatedImageView *jmImageView;
 
@@ -38,13 +50,46 @@ self.jmImageView.animationDatasource = self;
 [self.jmImageView reloadAnimationImages]; //<JMOImageViewAnimationDatasource>
 self.jmImageView.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutTransition;
 self.jmImageView.memoryManagementOption = JMAnimatedImageViewMemoryLoadImageLowMemoryUsage;
+[self.jmImageView startAnimating];
 ```
 
+### For a remote Gif
 
-Some parameters : 
+```objective-c
+@property (weak, nonatomic) IBOutlet JMAnimatedImageView *jmImageView;
+
+[[JMApi sharedApi] downloadYourGifFileHasData:^(NSData *gifData) {
+	self.animatedImageView.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutTransition;
+    self.animatedImageView.memoryManagementOption = JMAnimatedImageViewMemoryLoadImageLowMemoryUsage;
+   	[self.animatedImageView reloadAnimationImagesFromGifData:gifData fromUrl:url];
+     [self.animatedImageView startAnimating];
+}];	
+```
+### For a remote Gif using AFNetworking
+
+```objective-c
+    NSURLRequest *req = [NSURLRequest requestWithURL:url];
+	
+    AFHTTPRequestOperation *postOperation = [[AFHTTPRequestOperation alloc] initWithRequest:req];
+    [postOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+		self.animatedImageView.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutTransition;
+    	self.animatedImageView.memoryManagementOption = JMAnimatedImageViewMemoryLoadImageLowMemoryUsage;
+   		[self.animatedImageView reloadAnimationImagesFromGifData:responseObject fromUrl:url];
+     	[self.animatedImageView startAnimating];
+
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Image error: %@", error);
+        block(NO, nil);
+    }];
+    
+	[postOperation start];
+```
+
+### Customizations 
 
 * AnimationType
-```objc
+
+```objective-c
 typedef NS_ENUM(NSUInteger, JMAnimatedImageViewAnimationType) {
     JMAnimatedImageViewAnimationTypeInteractive = 0,
     
@@ -59,22 +104,18 @@ typedef NS_ENUM(NSUInteger, JMAnimatedImageViewAnimationType) {
 ```
 
 * MemoryOption
-```objc
+
+```objective-c
 typedef NS_ENUM(NSUInteger, JMAnimatedImageViewMemoryOption) {
-    //images memory will be retain by system
-    JMAnimatedImageViewMemoryLoadImageSystemCache = 0, 
-    
-    //image are loaded in live
-    JMAnimatedImageViewMemoryLoadImageLowMemoryUsage,
-    
-    //you load your images has you want
-    JMAnimatedImageViewMemoryLoadImageCustom
+    JMAnimatedImageViewMemoryLoadImageSystemCache = 0,  //images memory will be retain by system
+    JMAnimatedImageViewMemoryLoadImageLowMemoryUsage,   //images loaded but not retained by the system
+    JMAnimatedImageViewMemoryLoadImageCustom            //images loaded by you (JMOImageViewAnimationDatasource)
 };
 ```
 
 * ImageViewOrder
 
-```objc
+```objective-c
 typedef NS_ENUM(NSUInteger, JMAnimatedImageViewOrder) {
     JMAnimatedImageViewOrderNormal = 1,
     JMAnimatedImageViewOrderReverse = -1
