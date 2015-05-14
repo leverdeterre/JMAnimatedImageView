@@ -43,19 +43,67 @@ typedef void (^JMCompletionFinishBlock)(BOOL resul);
 @property (assign, nonatomic) JMAnimatedImageViewOrder imageOrder;
 @property (assign, nonatomic) BOOL interactiveAnimation;
 
+/**
+ * reloadAnimationImages, This method will call animationDatasource
+ */
 - (void)reloadAnimationImages;
 
+/**
+ *  setCurrentIndex, This method will animate the modification of image
+ *
+ *  @param index    destination index
+ *  @param animated BOOL animated
+ */
 - (void)setCurrentIndex:(NSInteger)index animated:(BOOL)animated;
+
+/**
+ *  setImage, This method will force the image to the index
+ *
+ *  @param img   UIImage
+ *  @param index NSInteger index
+ */
 - (void)setImage:(UIImage *)img forCurrentIndex:(NSInteger)index;
 
+/**
+ *  animateToIndex:withDuration:, This method will animate the modification of images to access to the index in parameter.
+ *
+ *  @param index    NSInteger destination index
+ *  @param duration NSTimeInterval duration
+ */
 - (void)animateToIndex:(NSInteger)index withDuration:(NSTimeInterval)duration;
+
+/**
+ *  animateToIndex:withDuration:withCompletionBlock:, This method will animate the modification of images to access to the index in parameter.
+ *
+ *  @param index    NSInteger destination index
+ *  @param duration NSTimeInterval duration
+ *  @param finishBlock JMCompletionFinishBlock CompletionBlock
+ */
 - (void)animateToIndex:(NSInteger)index withDuration:(NSTimeInterval)duration withCompletionBlock:(JMCompletionFinishBlock)finishBlock;
 
 //Specific to GIF
 @property (strong, readonly, nonatomic) JMGif *gifObject;
 
+/**
+ *  isAGifImageView
+ *
+ *  @return BOOL
+ */
 - (BOOL)isAGifImageView;
+
+/**
+ *  reloadAnimationImagesFromGifData:, This method reload a GIF image from a GIF NSData
+ *
+ *  @param data NSData data
+ */
 - (void)reloadAnimationImagesFromGifData:(NSData *)data;
+- (void)reloadAnimationImagesFromGifData:(NSData *)data fromUrl:(NSURL *)url;
+
+/**
+ *  reloadAnimationImagesFromGifNamed:, This method reload a GIF image from a GIF named
+ *
+ *  @param gitName NSString gitName
+ */
 - (void)reloadAnimationImagesFromGifNamed:(NSString *)gitName;
 
 @end

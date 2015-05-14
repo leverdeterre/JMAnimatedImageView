@@ -8,7 +8,16 @@ JMAnimatedImageView is a performant subclass of UIImageView:
 - Can use has a Carousel, 
 - GIF are supported to load your animations.
 
-## Installation & Usage
+## Change Log
+
+0.2.4 : 
+
+- Improve documentation
+- Fix retain cycle (Thanks Instruments!)
+- JMGif allocation for a better integration with your favorites network libraries (initWithData:(NSData *)data fromURL:(NSURL *)url;)
+
+
+## Installation 
 
 Simply replace your `UIImageView` instances with instances of `JMAnimatedImageView`.
 
@@ -17,6 +26,9 @@ If using CocoaPods, the quickest way to try it out is to type this on the comman
 ```shell
 $ pod try JMAnimatedImageView
 ```
+
+## Usage
+### For a local animation from files into bundle
 
 In your code, `#import "JMAnimatedImageView.h"` and `#import "JMAnimatedImageView.h"` 
 
@@ -40,6 +52,18 @@ self.jmImageView.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinear
 self.jmImageView.memoryManagementOption = JMAnimatedImageViewMemoryLoadImageLowMemoryUsage;
 ```
 
+### For a remote Gif
+
+```objective-c
+@property (weak, nonatomic) IBOutlet JMAnimatedImageView *jmImageView;
+
+[[JMApi sharedApi] downloadYourGifFileHasData:^(NSData *gifData) {
+	self.animatedImageView.animationType = JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutTransition;
+    self.animatedImageView.memoryManagementOption = JMAnimatedImageViewMemoryLoadImageLowMemoryUsage;
+   	[self.animatedImageView reloadAnimationImagesFromGifData:gifData fromUrl:url];
+     [self.animatedImageView startAnimating];
+}];	
+```
 
 Some parameters : 
 

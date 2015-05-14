@@ -81,6 +81,13 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationState) {
     }
 }
 
+- (void)reloadAnimationImagesFromGifData:(NSData *)data fromUrl:(NSURL *)url
+{
+    _gifObject = [[JMGif alloc] initWithData:data fromURL:url];
+    self.animationDuration = JMDefaultGifDuration;
+    [self setCurrentCardImageAtindex:0];
+}
+
 - (void)reloadAnimationImagesFromGifData:(NSData *)data
 {
     _gifObject = [[JMGif alloc] initWithData:data];
@@ -301,7 +308,7 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationState) {
     NSInteger pointUnity = self.frame.size.width / [self numberOfImages];
     
     //Compute inerty using velocity
-    NSInteger shift = abs(velocity.x) / (16 * [UIScreen mainScreen].scale * pointUnity);
+    NSInteger shift = fabs(velocity.x) / (16 * [UIScreen mainScreen].scale * pointUnity);
     
     if(velocity.x > 0) {
         [self setCurrentCardImageAtindex:index+(_imageOrder) * shift];
@@ -390,16 +397,16 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationState) {
 {
     dispatch_async(self.animationManagementQueue, ^{
         NSTimeInterval unitDuration;
-        NSInteger shiftUnit = shift / abs(shift); // 1 ou -1
+        NSInteger shiftUnit = shift / abs((int)shift); // 1 ou -1
         
         if (duration == JMDefaultGifDuration) {
             unitDuration = duration;
 
         } else {
             if (option == UIImageViewAnimationOptionLinear) {
-                unitDuration = duration / abs(shift);
+                unitDuration = duration / abs((int)shift);
             } else {
-                unitDuration = duration / abs(shift * shift);
+                unitDuration = duration / abs((int)(shift * shift));
             }
         }
         
@@ -424,28 +431,28 @@ typedef NS_ENUM(NSUInteger, UIImageViewAnimationState) {
 
                 if ([self isAGifImageView]) {
                     JMGifItem *item = [[self.gifObject items] objectAtIndex:index];
-                    NSNumber *delay = [item.delay objectForKey:JMGifItemDelayTimeKey];
-                    currentInterval = [delay doubleValue];
+                    currentInterval = [item delayDuration];
                 }
                 
+                __weak JMAnimatedImageView *weakSelf = self;
                 JMAnimationOperation *operation = [JMAnimationOperation animationOperationWithDuration:currentInterval
                                                                                             completion:^(BOOL finished)
                 {
 
-                    if (self.animationType == JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutTransition) {
-                        if ([self operationQueueIsFinished] == YES) {
+                    if (weakSelf.animationType == JMAnimatedImageViewAnimationTypeAutomaticLinearWithoutTransition) {
+                        if ([weakSelf operationQueueIsFinished] == YES) {
                             if (finishBlock) {
                                 finishBlock(YES);
                             }
                             
-                            if (self.animationRepeatCount == 0 && self.animationState == UIImageViewAnimationStateInPgrogress) {
-                               [self continueAnimating];
+                            if (weakSelf.animationRepeatCount == 0 && weakSelf.animationState == UIImageViewAnimationStateInPgrogress) {
+                               [weakSelf continueAnimating];
                             }
                         }
                     }
                 }];
                 
-                operation.animatedImageView = self;
+                operation.animatedImageView = weakSelf;
                 operation.imageIndex = index;
                 
                 currentInterval = 0;

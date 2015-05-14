@@ -19,7 +19,15 @@ typedef void (^JMAnimationBlock)(void);
 @property (assign, nonatomic) NSInteger imageIndex;
 @property (weak, nonatomic) JMAnimatedImageView *animatedImageView;
 
+/**
+ *  animationOperationWithDuration:completion: create an animated operation, JMAnimationOperation
+ *
+ *  @param duration   NSTimeInterval duration
+ *  @param completion JMCompletionBlock completionBlock
+ *
+ *  @return JMAnimationOperation
+ */
 + (instancetype)animationOperationWithDuration:(NSTimeInterval)duration
-                                    completion:(void (^)(BOOL finished))completion;
+                                    completion:(JMCompletionBlock)completion;
 
 @end

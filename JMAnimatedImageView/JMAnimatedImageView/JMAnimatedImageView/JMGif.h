@@ -8,9 +8,12 @@
 
 #import <Foundation/Foundation.h>
 @interface JMGif : NSObject
+
 @property (readonly, nonatomic) NSArray *items;  //images + infos
+@property (readonly, nonatomic) NSURL *url;
 
 - (instancetype)initWithData:(NSData *)data;
+- (instancetype)initWithData:(NSData *)data fromURL:(NSURL *)url;
 + (instancetype)gifNamed:(NSString *)gifName;
 
 - (UIImage *)imageAtIndex:(NSInteger)index;
@@ -19,6 +22,7 @@
 + (BOOL)cleanGifCacheError:(NSError **)error;
 + (BOOL)cleanGifCacheForGifNamed:(NSString *)gifName;
 + (BOOL)cleanGifCacheForGifNamed:(NSString *)gifName error:(NSError **)error;
++ (void)cacheGifData:(NSData *)data gifAbsoluteUrl:(NSString *)absoluteUrl;
 
 @end
 
@@ -31,7 +35,7 @@
 
 @property (readonly, nonatomic) UIImage *image;
 @property (readonly, nonatomic) NSString *imagePath;
-@property (readonly, nonatomic) NSDictionary *delay;
+@property (readonly, nonatomic) NSTimeInterval delayDuration;
 
 - (instancetype)initWithImage:(UIImage *)image frameProperties:(NSDictionary *)frameProperties;
 - (instancetype)initWithImagePath:(NSString *)imagePath frameProperties:(NSDictionary *)frameProperties;

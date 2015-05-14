@@ -10,7 +10,20 @@
 
 @interface JMAnimatedImageView (Image)
 
+/**
+ *  imageAtIndex: This method help to get the image for an index
+ *
+ *  @param index NSInteger
+ *
+ *  @return UIImage image
+ */
 - (UIImage *)imageAtIndex:(NSInteger)index;
+
+/**
+ *  numberOfImages. This method return the number of images
+ *
+ *  @return NSUInteger numberOfImages
+ */
 - (NSUInteger)numberOfImages;
 
 @end
