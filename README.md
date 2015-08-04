@@ -1,3 +1,7 @@
+## My other works
+
+[http://leverdeterre.github.io] (http://leverdeterre.github.io)
+
 JMAnimatedImageView 
 ==================
 
@@ -7,10 +11,6 @@ JMAnimatedImageView is a performant subclass of UIImageView:
 - Allows manual interactions with imageView to drive manualy animations,
 - Can use has a Carousel, 
 - GIF are supported to load your animations.
-
-## My other librairies
-
-[Have a look to my other librairies] (http://leverdeterre.github.io)
 
 ## Change Log
 
